@@ -1,3 +1,5 @@
+// di pa maayos -> backend/redux connect
+
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../../components/ui/form'
 import { useForm } from 'react-hook-form'
 import { Input } from '../../components/ui/input'

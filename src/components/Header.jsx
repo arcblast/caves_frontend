@@ -1,15 +1,16 @@
 import Logo from '../assets/caves.svg'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
-import { ArrowRightIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid'
 import { useState } from 'react';
 import { Button } from './ui/button';
 import { Separator } from './ui/separator';
+import { ArrowRight, MenuIcon, X } from 'lucide-react';
+import { useSelector } from 'react-redux';
 
 const navigation = [
   { id: 1, name: 'Home', href: '/', value: 'home' },
   { id: 2, name: 'Taxonomy', href: '/login', value: 'taxonomy' },
   { id: 3, name: 'Isolation source', href: '/isolation-source', value: 'isolation' },
-  { id: 4, name: 'About', href: '/signup', value: 'about' },
+  { id: 4, name: 'About', href: '/data-table', value: 'about' },
 ]
 
 // const activeClassName = 'text-primary font-bold';
@@ -17,29 +18,30 @@ const navigation = [
 
 
 const Header = () => {
+	const { user } = useSelector( (state) => state.auth )
 	const navigate = useNavigate()
 	const [ navMenuOpen, setNavMenuOpen ] = useState(false);
 	const activeStyleCallback = ({ isActive }) =>
-  isActive ? 'text-primary font-bold' : 'text-secondary font-normal';
-	const user = false
+  	isActive ? 'text-primary font-bold' : 'text-secondary font-normal';
+	
 
   return (
-    <header className='sticky top-0 left-0 right-0 z-50 bg-background/25 lg:backdrop-blur-lg' >
+	<header className='sticky top-0 left-0 right-0 z-50 bg-background/25 lg:backdrop-blur-lg' >
 			<div className='flex container py-2 justify-between items-center'>
 				<Link to="/" className='flex lg:flex-1 items-center'>
-          <img className="h-12" src={Logo} alt='Logo' />
+		  <img className="h-12" src={Logo} alt='Logo' />
 					<h1 className='lg:font-bold lg:text-3xl lg:text-primary lg:ml-1 sm:hidden'>caves</h1>
-        </Link>
+		</Link>
 
 				{/* Mobile and Tablet View */}
 				<div className='flex lg:hidden'>
 					{ navMenuOpen ? (
 						<Button variant='ghost' size='icon' onClick={() => setNavMenuOpen(false)}>
-							<XMarkIcon  />
+							<X/>
 						</Button>
 					) : (
 						<Button variant='ghost' size='icon' onClick={() => setNavMenuOpen(true)}>
-							<Bars3Icon  />
+							<MenuIcon/>
 						</Button>
 					)}
 
@@ -57,16 +59,30 @@ const Header = () => {
 								// onClick={() => navigate(item.href)}
 								onClick={() => {
 									setActiveTab(item.value)
-									console.log(item.value)
 								}}
 								className='text-background text-lg font-bold px-3 focus:text-secondary focus:font-bold flex justify-between mx-2 hover:bg-background'
 							>
 								<h2 className=' '>{item.name}</h2>
-								<ArrowRightIcon className='h-4' />
+								<ArrowRight className='h-4' />
 							</Link>
 							<Separator className='mx-2' />
 							</>
-            ))}
+			))}
+						{ user?.user_level === 'ADMIN' ? (
+							<Link
+								key={'strain-collection'}
+								type='button'
+								to={'/strain-collection'}
+								// onClick={() => navigate(item.href)}
+								onClick={() => {
+									setActiveTab('/strain-collection')
+								}}
+								className='text-background text-lg font-bold px-3 focus:text-secondary focus:font-bold flex justify-between mx-2 hover:bg-background'
+							>
+								<h2 className=' '>Collection</h2>
+								<ArrowRight className='h-4' />
+							</Link>
+						) : null }
 						<div>
 							{ user ? (
 								<div className='flex justify-center m-4'>
@@ -80,7 +96,8 @@ const Header = () => {
 										Sign up
 									</Button>
 									<Button className='text-base w-full' onClick={() => navigate('/login')} >
-										Log in  <span className='font-semibold text-xl ml-2'> &rarr;</span>
+										{/* Log in  <span className='font-semibold text-xl ml-2'> &rarr;</span> */}
+										Log in <ArrowRight className='h-4' />
 									</Button>
 								</div>
 							)}
@@ -90,7 +107,7 @@ const Header = () => {
 
 				{/* Desktop */}
 				<div className='hidden lg:flex lg:flex-row lg:gap-x-12'>
-          { navigation.map( (item) => (
+		  { navigation.map( (item) => (
 						<NavLink
 							key={item.id}
 							to={item.href}
@@ -98,8 +115,17 @@ const Header = () => {
 						>
 							{item.name}
 						</NavLink>
-          ))}
-        </div>
+		  ))}
+					{ user?.user_level === 'ADMIN' ? (
+						<NavLink
+							key={'strain-collection'}
+							to={'/strain-collection'}
+							className={activeStyleCallback}
+						>
+							Collection
+						</NavLink>
+					) : null }
+		</div>
 			
 				<div className='hidden lg:flex lg:flex-1 lg:justify-end gap-x-2'>
 					{ user ? (
@@ -111,15 +137,16 @@ const Header = () => {
 							<Button variant='link' className='text-base' onClick={() => navigate('/signup')} >
 								Sign up
 							</Button>
-							<Button className='text-base' onClick={() => navigate('/login')} >
-								Log in  <span className='font-semibold text-xl ml-2'> &rarr;</span>
+							<Button className='text-base pr-1.5' onClick={() => navigate('/login')} >
+								{/* Log in  <span className='font-semibold text-xl ml-2'> &rarr;</span> */}
+								Log in <ArrowRight className='h-4' />
 							</Button>
 						</div>
 					)}
 				</div>
 			
 			</div>
-    </header>
+	</header>
   )
 }
 

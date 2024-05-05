@@ -4,6 +4,9 @@ import Login from './pages/login/Login';
 import Signup from './pages/login/Signup';
 import IsolationSourcePage from './pages/isolation/IsolationSourcePage';
 import StrainCollectionPage from './pages/strain/StrainCollectionPage';
+import { Toaster } from './components/ui/toaster';
+import Skeleton from './components/LoadingSkeleton';
+import UpdateStrain from './pages/strain/UpdateStrain';
 
 
 function App() {
@@ -21,11 +24,13 @@ function App() {
             <Route path='/isolation-source' element={<IsolationSourcePage />} />
             
             {/* Admin/Collection/Profile */}
-            <Route path='strain-collection' element={<StrainCollectionPage />} />
+            <Route path='/strain-collection' element={<StrainCollectionPage />} />
+            <Route path='/skeleton' element={<Skeleton />} />
+            <Route path='/strain-collection/update-strain/' element={<UpdateStrain />} />
           </Routes>
         </div>
       </Router>
-
+      <Toaster />
       {/* Background */}
       <div
         className='fixed inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-2xl sm:-top-80'

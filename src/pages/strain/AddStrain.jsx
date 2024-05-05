@@ -3,6 +3,7 @@ import StrainForm from './StrainForm'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
+import { PlusIcon } from 'lucide-react'
 
 const AddStrain = () => {
 	const [ open, setOpen ] = useState(false)
@@ -12,7 +13,7 @@ const AddStrain = () => {
     <>
 			<Dialog open={open} onOpenChange={setOpen}>
 				<DialogTrigger asChild>
-					<Button>Add strain</Button>
+					<Button className='pl-2'><PlusIcon className='h-4' /> Add strain</Button>
 				</DialogTrigger>
 				<DialogContent className='mx-auto max-w-screen-md h-3/4'>
 					<DialogHeader>
