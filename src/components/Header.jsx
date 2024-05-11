@@ -4,26 +4,40 @@ import { useState } from 'react';
 import { Button } from './ui/button';
 import { Separator } from './ui/separator';
 import { ArrowRight, MenuIcon, X } from 'lucide-react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '@/features/auth/authSlice';
+import { useToast } from './ui/use-toast';
 
 const navigation = [
   { id: 1, name: 'Home', href: '/', value: 'home' },
-  { id: 2, name: 'Taxonomy', href: '/login', value: 'taxonomy' },
+  { id: 2, name: 'Taxonomy', href: '/', value: 'taxonomy' },
   { id: 3, name: 'Isolation source', href: '/isolation-source', value: 'isolation' },
-  { id: 4, name: 'About', href: '/data-table', value: 'about' },
+  { id: 4, name: 'About', href: '/', value: 'about' },
 ]
-
-// const activeClassName = 'text-primary font-bold';
-
-
 
 const Header = () => {
 	const { user } = useSelector( (state) => state.auth )
 	const navigate = useNavigate()
+	const dispatch = useDispatch()
 	const [ navMenuOpen, setNavMenuOpen ] = useState(false);
 	const activeStyleCallback = ({ isActive }) =>
   	isActive ? 'text-primary font-bold' : 'text-secondary font-normal';
-	
+	const { toast } = useToast()
+
+	const onLogout = async (e) => {
+    e.preventDefault()
+
+    try {
+      dispatch(logout());
+      navigate('/');
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: error,
+      })
+    }
+  }
 
   return (
 	<header className='sticky top-0 left-0 right-0 z-50 bg-background/25 lg:backdrop-blur-lg' >
@@ -86,7 +100,7 @@ const Header = () => {
 						<div>
 							{ user ? (
 								<div className='flex justify-center m-4'>
-									<Button className='text-base w-1/2' onClick={() => navigate('/')} >
+									<Button className='text-base w-1/2' onClick={onLogout} >
 										Logout
 									</Button>
 								</div>
@@ -129,7 +143,7 @@ const Header = () => {
 			
 				<div className='hidden lg:flex lg:flex-1 lg:justify-end gap-x-2'>
 					{ user ? (
-						<Button className='text-base' onClick={() => navigate('/')} >
+						<Button className='text-base' onClick={onLogout} >
 							Logout
 						</Button>
 					) : (

@@ -9,7 +9,7 @@ import { Label } from '@/components/ui/label'
 import { useToast } from '@/components/ui/use-toast'
 import { useDispatch, useSelector } from 'react-redux'
 import { login, reset } from '@/features/auth/authSlice'
-import Skeleton from '@/components/LoadingSkeleton'
+import LoadingSkeleton from '@/components/LoadingSkeleton'
 
 const Login = () => {
   const { user, loading, error } = useSelector( (state) => state.auth )
@@ -23,6 +23,7 @@ const Login = () => {
       navigate('/')
       toast({
         title: "Welcome back!",
+        description: 'Enjoy browsing.'
       })
     }
 
@@ -33,13 +34,12 @@ const Login = () => {
         description: error,
       })
     }
-
-    if(loading) {
-      <Skeleton />
-    }
     // dispatch(reset())
   }, [ navigate, user, error ])
   
+  if(loading) {
+    return <LoadingSkeleton />
+  }
 
   const onSubmit = (data) => {
     try {

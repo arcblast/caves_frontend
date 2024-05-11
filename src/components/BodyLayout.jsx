@@ -4,7 +4,8 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 const BodyLayout = ({header, title, description, content, footer}) => {
   return (
     <>
-      <Card className='!bg-background/20 lg:m-4' >
+    <div className='flex justify-center'>
+      <Card className='!bg-background/20 lg:m-4 w-3/4' >
         <CardHeader>
           <CardTitle>
             { title? title : null }
@@ -20,6 +21,7 @@ const BodyLayout = ({header, title, description, content, footer}) => {
           { footer ? footer : null }
         </CardFooter>
       </Card>
+      </div>
     </>
   )
 }

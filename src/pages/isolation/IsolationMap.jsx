@@ -5,9 +5,8 @@ import 'leaflet/dist/leaflet.css'
 
 const IsolationMap = () => {
   return (
-    <div className='relative w-full h-full z-10'>
+    <div className='w-full h-full'>
 			<Card className="bg-background/25 m-4">
-				{/* <CardContent> */}
 					<MapContainer center={[14.1651, 121.2402]} zoom={15} zoomControl className='rounded-sm'>
 						<TileLayer
 							attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -15,7 +14,6 @@ const IsolationMap = () => {
 						/>
 
 					</MapContainer>
-				{/* </CardContent> */}
 			</Card>
 			
     </div>

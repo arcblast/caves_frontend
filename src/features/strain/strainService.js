@@ -22,9 +22,10 @@ const getAllStrains = async () => {
 	const response = await axios.get(STRAIN_URL)
 
 	if(response.data && (response.data.error == null) ) {
-		localStorage.setItem( 'strain', JSON.stringify(response.data) )
+		localStorage.setItem( 'strains', JSON.stringify(response.data) )
 		return response.data
 	} else {
+		console.log(response.data.error)
 		throw new Error(response.data.error)
 	}
 }
@@ -38,7 +39,7 @@ const getStrainByUser = async (token) => {
 	const response = await axios.get(STRAIN_URL + '/collection', headerAuth)
 
 	if(response.data && (response.data.error == null) ) {
-		localStorage.setItem( 'strain', JSON.stringify(response.data) )
+		localStorage.setItem( 'collection', JSON.stringify(response.data) )
 		return response.data
 	} else {
 		throw new Error(response.data.error)

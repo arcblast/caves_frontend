@@ -1,37 +1,25 @@
 import React, { useState } from 'react'
 import StrainForm from './StrainForm'
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
-import { Separator } from '@/components/ui/separator'
-import { PlusIcon } from 'lucide-react'
+import { ArrowLeftCircle, PlusIcon } from 'lucide-react'
+import BodyLayout from '@/components/BodyLayout'
+import { NavLink } from 'react-router-dom'
 
 const AddStrain = () => {
-	const [ open, setOpen ] = useState(false)
-	const handleOpen = () => setOpen(!open)
 
   return (
     <>
-			<Dialog open={open} onOpenChange={setOpen}>
-				<DialogTrigger asChild>
-					<Button className='pl-2'><PlusIcon className='h-4' /> Add strain</Button>
-				</DialogTrigger>
-				<DialogContent className='mx-auto max-w-screen-md h-3/4'>
-					<DialogHeader>
-						<DialogTitle className='text-xl'>Add strain</DialogTitle>
-						<DialogDescription>
-							Provide the strain information below.
-						</DialogDescription>
-						<Separator />
-					</DialogHeader>
-					<div className='m-2 p-2 overflow-y-auto'>
-						<StrainForm />
-					</div>
-					<DialogFooter>
-						<Button variant='secondary' onClick={handleOpen} >Cancel</Button>
-						<Button>Add Strain</Button>
-					</DialogFooter>
-				</DialogContent>
-			</Dialog>
+			<div className='flex mt-10 mx-5 justify-end'>
+        <h1 className='lg:text-3xl text-lg font-bold flex-1'>Strain Collection</h1>
+        <NavLink
+          key={'strain-collection-add'}
+          to={'/strain-collection'}
+        >
+          <Button className='pl-2'><ArrowLeftCircle className='h-4' />Cancel</Button>
+        </NavLink>
+      </div>
+
+			<BodyLayout title={'Add Strain'} content={<StrainForm />} description={'Provide the strain information below.'} />
 		</>
   )
 }

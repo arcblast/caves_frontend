@@ -3,9 +3,9 @@ import { ToggleGroup, ToggleGroupItem } from './ui/toggle-group'
 import { GitGraphIcon, MapIcon, PanelRightIcon, PanelRightOpenIcon, PieChartIcon, SheetIcon } from 'lucide-react'
 import { Button } from './ui/button'
 
-const IsolationNav = () => {
+const IsolationNav = ({toggleOpenSidebar}) => {
   return (
-    <div className='w-full mt-4'>
+    <div className='mt-4'>
 			<ToggleGroup type='multiple' className='justify-end'>
 				<ToggleGroupItem value='table' className='text-base'>
 					<SheetIcon className='mr-1 h-4' /> Table
@@ -16,7 +16,7 @@ const IsolationNav = () => {
 				<ToggleGroupItem value='metrics' className='text-base'>
 					<PieChartIcon className='mr-1 h-4' /> Metrics
 				</ToggleGroupItem>
-				<ToggleGroupItem>
+				<ToggleGroupItem value='filter' onClick={toggleOpenSidebar} className='text-base' defaultPressed >
 					<PanelRightOpenIcon className='mr-1 h-4' /> Filter
 				</ToggleGroupItem>
 			</ToggleGroup>

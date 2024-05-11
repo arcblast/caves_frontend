@@ -10,6 +10,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
+import { useNavigate } from "react-router-dom"
+import UpdateStrain from './UpdateStrain'
 
 export const strain_columns = [
   {
@@ -120,7 +122,8 @@ export const strain_columns = [
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const payment = row.original
+      const strain = row.original
+      const navigate = useNavigate()
 
       return (
         <DropdownMenu>
@@ -133,13 +136,20 @@ export const strain_columns = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              // onClick={() => navigator.clipboard.writeText(payment.id)}
+              onClick={() => navigator.clipboard.writeText(strain._id)}
             >
               View
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Update</DropdownMenuItem>
-            <DropdownMenuItem>Delete</DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={ () => navigate(`/strain-collection/update/${strain._id}`)}
+            >
+              Update
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className='text-destructive'
+            >
+              Delete
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )

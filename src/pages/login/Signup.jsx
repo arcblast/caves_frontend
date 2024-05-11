@@ -11,6 +11,11 @@ import { Label } from '../../components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../components/ui/select'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { signup } from '@/features/auth/authSlice'
+import { useToast } from '@/components/ui/use-toast'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import LoadingSkeleton from '@/components/LoadingSkeleton'
 
 const UserSchema = z.object({
   name: z.string({ required_error: 'Name is required.' }),
@@ -18,9 +23,12 @@ const UserSchema = z.object({
   address: z.string(),
   email: z.string().email({required_error: 'Email is required.'}),
   password: z.string().min(8, { message: 'Password must be at least 8 characters.' }),
+  confirm_password: z.string().min(8, { message: 'Password must be at least 8 characters.' }),
   user_level: z.string({ required_error: 'Please select a user level.'})
-
-})
+}).refine( (data) => data.password === data.confirm_password, {
+  message: 'Passwords do not match',
+  path: ['confirm_password']
+});
 
 const Signup = () => {
   const form = useForm({
@@ -32,11 +40,58 @@ const Signup = () => {
       institution: '',
       address: '',
       // user_level: ''
-    }
+    },
+    mode: 'onChange',
   })
-  const navigate = useNavigate()
 
-  const onSubmit = (data) => { console.log(data)}
+  const { user, loading, error } = useSelector( (state) => state.auth )
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { toast } = useToast()
+
+  useEffect(() => {
+    if(user) {
+      navigate('/')
+      toast({
+        title: "Welcome to Caves!",
+        description: "Enjoy browsing.",
+      })
+    }
+
+    if(error) {
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: error,
+      })
+    }
+    // dispatch(reset())
+  }, [ navigate, user, error ])
+
+  if(loading) {
+    return <LoadingSkeleton />
+  }
+
+  function onSubmit(data) {
+    try {
+      // const userData = {
+      //   name: data.name,
+      //   email: data.email,
+      //   password: data.password,
+      //   institution: data.institution,
+      //   address: data.address,
+      //   user_level: data.user_level,
+      // }
+
+      dispatch(signup(data))   
+    } catch(error) {
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: {error},
+      })
+    }
+  }
   
   return (
     <>
@@ -57,77 +112,84 @@ const Signup = () => {
             <form onSubmit={form.handleSubmit(onSubmit)} className='grid gap-4'>
             {/* <div className=''> */}
             <FormField 
+              control={form.control}
                 name='name'
                 render={ ({field}) => (
                   <FormItem>
                     <FormLabel>Full name</FormLabel>
                     <FormControl>
-                      <Input placeholder='Enter your full name' />
+                      <Input placeholder='Enter your full name' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
               <FormField 
+                control={form.control}
                 name='institution'
                 render={ ({field}) => (
                   <FormItem>
                     <FormLabel>Institution</FormLabel>
                     <FormControl>
-                      <Input placeholder='Enter your institution' />
+                      <Input placeholder='Enter your institution' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
               <FormField 
+                control={form.control}
                 name='address'
                 render={ ({field}) => (
                   <FormItem>
                     <FormLabel>Address</FormLabel>
                     <FormControl>
-                      <Input placeholder='Enter your city/province' />
+                      <Input placeholder='Enter your city/province' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
               <FormField 
+                control={form.control}
                 name='email'
                 render={ ({field}) => (
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input placeholder='your_email@gmail.com' />
+                      <Input placeholder='your_email@gmail.com' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
               <FormField 
+                control={form.control}
                 name='password'
                 render={ ({field}) => (
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input type='password' placeholder='At least 8 characters' />
+                      <Input type='password' placeholder='At least 8 characters' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              {/* <FormField 
+              <FormField 
                 name='confirm_password'
                 render={ ({field}) => (
                   <FormItem>
                     <FormLabel>Confirm password</FormLabel>
                     <FormControl>
-                      <Input type='password' placeholder='Confirm your password' />
+                      <Input type='password' placeholder='Confirm your password' {...field}  />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
-              /> */}
+              />
               <FormField
+                control={form.control}
                 name="user_level"
                 render={({ field }) => (
                   <FormItem>

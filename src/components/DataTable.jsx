@@ -54,7 +54,7 @@ export function DataTable({data, columns, visible_columns}) {
 
   return (
     <>
-    <div className="w-full mx-5">
+    <div className="mx-5">
       <div className="flex items-center py-4">
         <Input
           placeholder="Filter strains..."

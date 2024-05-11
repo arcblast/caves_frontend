@@ -8,7 +8,10 @@ import { Separator } from './ui/separator'
 const Sidebar = () => {
   return (
     <>
-			<Card className='w-1/4 justify-end p-2'>
+			{/* <div className='bg-black z-10 h-screen w-1/4'>
+
+			</div> */}
+			<Card className= ' justify-end p-2'>
 				<CardHeader className='font-semibold'>Filter Occurences</CardHeader>
 				<CardContent className='grid gap-y-4'>
 					<Input placeholder='Species' className='placeholder:text-zinc-950 bg-transparent' />

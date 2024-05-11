@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, createBrowserRouter, RouterProvider } from 'react-router-dom';
 import HomePage from './pages/home/HomePage';
 import Login from './pages/login/Login';
 import Signup from './pages/login/Signup';
@@ -7,29 +7,50 @@ import StrainCollectionPage from './pages/strain/StrainCollectionPage';
 import { Toaster } from './components/ui/toaster';
 import Skeleton from './components/LoadingSkeleton';
 import UpdateStrain from './pages/strain/UpdateStrain';
+import AddStrain from './pages/strain/AddStrain';
+import StrainCollectionList from './pages/strain/StrainCollectionList';
 
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <HomePage />,
+  },
+  {
+    path: '/login',
+    element: <Login />,
+  },
+  {
+    path: '/signup',
+    element: <Signup />,
+  },
+  {
+    path: '/strain-collection',
+    element: <StrainCollectionPage />,
+    children: [
+      {
+        index: true,
+        element: <StrainCollectionList />,
+      },
+      {
+        path: '/strain-collection/add/',
+        element: <AddStrain />,
+      },
+      {
+        path: '/strain-collection/update/:id',
+        element: <UpdateStrain />,
+      }
+    ]
+  },
+  {
+    path: '/isolation-source',
+    element: <IsolationSourcePage />,
+  },
+]);
 
 function App() {
   return (
     <>
-      <Router>
-        <div>
-          <Routes>
-            <Route exact path='/' element={<HomePage />} />
-
-            {/* pages */}
-            <Route path='/login' element={<Login />} />
-            <Route path='/signup' element={<Signup />} />
-
-            <Route path='/isolation-source' element={<IsolationSourcePage />} />
-            
-            {/* Admin/Collection/Profile */}
-            <Route path='/strain-collection' element={<StrainCollectionPage />} />
-            <Route path='/skeleton' element={<Skeleton />} />
-            <Route path='/strain-collection/update-strain/' element={<UpdateStrain />} />
-          </Routes>
-        </div>
-      </Router>
+      <RouterProvider router={router} />
       <Toaster />
       {/* Background */}
       <div
