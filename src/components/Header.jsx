@@ -21,7 +21,7 @@ const Header = () => {
 	const dispatch = useDispatch()
 	const [ navMenuOpen, setNavMenuOpen ] = useState(false);
 	const activeStyleCallback = ({ isActive }) =>
-  	isActive ? 'text-primary font-bold' : 'text-secondary font-normal';
+  	isActive ? 'text-primary font-bold' : 'text-foreground font-normal';
 	const { toast } = useToast()
 
 	const onLogout = async (e) => {

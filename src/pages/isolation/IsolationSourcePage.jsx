@@ -78,7 +78,7 @@ const IsolationSourcePage = () => {
                 onOpenChange={setOpenMap}
               >
                 <CollapsibleContent>
-                  <IsolationMap />
+                  <IsolationMap data={data} />
                 </CollapsibleContent>
               </Collapsible>
              
