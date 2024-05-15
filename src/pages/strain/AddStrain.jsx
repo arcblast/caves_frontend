@@ -4,8 +4,20 @@ import { Button } from '@/components/ui/button'
 import { ArrowLeftCircle, PlusIcon } from 'lucide-react'
 import BodyLayout from '@/components/BodyLayout'
 import { NavLink } from 'react-router-dom'
+import { Separator } from '@/components/ui/separator'
 
 const AddStrain = () => {
+
+  const AddAction = () => {
+    return (
+      <div className='flex items-center justify-end space-x-4 mt-5'>
+      {/* // <> */}
+        <Button>Add Strain</Button>
+        <Button variant='secondary'>Cancel</Button>
+      {/* </> */}
+      </div>
+    )
+  }
 
   return (
     <>
@@ -19,7 +31,7 @@ const AddStrain = () => {
         </NavLink>
       </div>
 
-			<BodyLayout title={'Add Strain'} content={<StrainForm />} description={'Provide the strain information below.'} />
+			<BodyLayout title={'Add Strain'} content={<StrainForm />} description={'Provide the strain information below.'} footer={<AddAction />}/>
 		</>
   )
 }

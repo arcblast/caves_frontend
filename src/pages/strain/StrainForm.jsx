@@ -1,3 +1,4 @@
+import SelectMISO from '@/components/SelectMISO'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
@@ -5,7 +6,7 @@ import React from 'react'
 
 const StrainForm = () => {
   return (
-    <div className='grid grid-cols-6 w-full items-center gap-x-4 gap-y-2'>
+    <div className='grid lg:grid-cols-6 sm:grid-cols-1 w-full items-center gap-x-4 gap-y-2'>
 
       <h4 className='text-primary font-semibold col-span-full'>Strain Identifiers</h4>
 
@@ -143,9 +144,15 @@ const StrainForm = () => {
       </div>
 
       <div className="col-span-full">
-      	<Label htmlFor="location_information">Other location information</Label>
-        <Input name='location_information' id="location_information" />
+      	<Label htmlFor="location_information">Other isolation source information</Label>
+        <Input name='other_information' id="other_information" />
       </div>
+
+      {/* <div className='col-span-full'> */}
+        <Label htmlFor="miso_categories" className='col-span-full mt-2'>MISO categories</Label>
+        <SelectMISO />
+      {/* </div> */}
+      {/* <SelectMISO /> */}
 
     </div>
   )

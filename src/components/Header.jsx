@@ -40,7 +40,7 @@ const Header = () => {
   }
 
   return (
-	<header className='sticky top-0 left-0 right-0 z-50 bg-background/25 lg:backdrop-blur-lg' >
+	<header className='sticky top-0 left-0 right-0 z-50 bg-background/25 lg:backdrop-blur-lg shadow shadow-lime-300' >
 			<div className='flex container py-2 justify-between items-center'>
 				<Link to="/" className='flex lg:flex-1 items-center'>
 		  <img className="h-12" src={Logo} alt='Logo' />

@@ -5,7 +5,7 @@ const BodyLayout = ({header, title, description, content, footer}) => {
   return (
     <>
     <div className='flex justify-center'>
-      <Card className='!bg-background/20 lg:m-4 w-3/4' >
+      <Card className='!bg-background/20 lg:m-4 lg:w-3/4 sm:w-full' >
         <CardHeader>
           <CardTitle>
             { title? title : null }

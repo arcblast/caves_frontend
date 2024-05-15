@@ -1,23 +1,28 @@
 export const sample_type = [
 	{
-		name: 'BAT GUANO',
-		value: 'BAT GUANO'
-	},
-	{
 		name: 'BAT RINSE',
-		value: 'BAT RINSE'
+		value: 'BAT RINSE',
+		code: 'BAT_RINSE'
 	},
 	{
 		name: 'CAVE WATER',
-		value: 'CAVE WATER'
+		value: 'CAVE WATER',
+		code: 'CAVE_WATER'
+	},
+	{
+		name: 'FRESH GUANO',
+		value: 'FRESH GUANO',
+		code: 'FRESH_GUANO'
 	},
 	{
 		name: 'GUANO',
-		value: 'GUANO'
+		value: 'GUANO',
+		code: 'GUANO'
 	},
 	{
 		name: 'GUT',
-		value: 'GUT'	
+		value: 'GUT',
+		code: 'GUT'	
 	}
 ];
 

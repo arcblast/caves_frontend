@@ -1,4 +1,6 @@
+import SelectMISO from '@/components/SelectMISO'
 import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Separator } from '@/components/ui/separator'
 import { sample_type } from '@/constants'
@@ -33,7 +35,7 @@ const IsolationFilterSidebar = () => {
               
               <Separator />
 
-              <Select>
+              {/* <Select>
                 <SelectTrigger>
                   <SelectValue placeholder="Category 1" />
                 </SelectTrigger>
@@ -47,7 +49,10 @@ const IsolationFilterSidebar = () => {
                 <SelectTrigger>
                   <SelectValue placeholder="Category 3" />
                 </SelectTrigger>
-              </Select>
+              </Select> */}
+              <Label>MISO Categories</Label>
+              <SelectMISO />
+              
 
             </div>
           </div>
