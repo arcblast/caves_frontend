@@ -14,7 +14,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { signup } from '@/features/auth/authSlice'
 import { useToast } from '@/components/ui/use-toast'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import LoadingSkeleton from '@/components/LoadingSkeleton'
 
 const UserSchema = z.object({
@@ -24,7 +24,7 @@ const UserSchema = z.object({
   email: z.string().email({required_error: 'Email is required.'}),
   password: z.string().min(8, { message: 'Password must be at least 8 characters.' }),
   confirm_password: z.string().min(8, { message: 'Password must be at least 8 characters.' }),
-  user_level: z.string({ required_error: 'Please select a user level.'})
+  user_level: z.string({ required_error: 'Please select a user level.'}),
 }).refine( (data) => data.password === data.confirm_password, {
   message: 'Passwords do not match',
   path: ['confirm_password']
@@ -43,6 +43,7 @@ const Signup = () => {
     },
     mode: 'onChange',
   })
+
 
   const { user, loading, error } = useSelector( (state) => state.auth )
   const navigate = useNavigate()
@@ -81,6 +82,7 @@ const Signup = () => {
       //   institution: data.institution,
       //   address: data.address,
       //   user_level: data.user_level,
+      //   miso_categories: miso_categories
       // }
 
       dispatch(signup(data))   
@@ -110,9 +112,8 @@ const Signup = () => {
         <CardContent>
           <Form {...form} >
             <form onSubmit={form.handleSubmit(onSubmit)} className='grid gap-4'>
-            {/* <div className=''> */}
-            <FormField 
-              control={form.control}
+              <FormField 
+                control={form.control}
                 name='name'
                 render={ ({field}) => (
                   <FormItem>
@@ -209,8 +210,8 @@ const Signup = () => {
                   </FormItem>
                 )}
               />
+
               <Button type='submit' className='mt-4'>Sign up</Button>
-            {/* </div> */}
             </form>
           </Form>
         </CardContent>

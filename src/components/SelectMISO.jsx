@@ -3,11 +3,12 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover"
 import { Button } from "./ui/button"
 import { category_1, category_2, category_3 } from "@/constants/miso"
+import { ArrowBigUp, PlusCircleIcon } from "lucide-react"
 
 
-export function ComboboxPopover({data, title, handleCategoryChange}) {
+export function ComboboxPopover({data, title, handleCategoryChange, selectedValue, setSelectedValue}) {
   const [open, setOpen] = useState(false)
-  const [selectedValue, setSelectedValue] = useState('')
+  // const [selectedValue, setSelectedValue] = useState('')
 
   return (
     <div className="flex items-center space-x-4">
@@ -30,13 +31,13 @@ export function ComboboxPopover({data, title, handleCategoryChange}) {
         </PopoverTrigger>
         <PopoverContent className="p-0" align="start">
           <Command>
-            <CommandInput placeholder="Change value..." />
+            <CommandInput placeholder="Set a category..." />
             <CommandList>
-              <CommandEmpty>No results found.</CommandEmpty>
+              <CommandEmpty value={''}>No results found.</CommandEmpty>
               <CommandGroup>
                 {data.map(item => (
                   <CommandItem
-                    key={item.name+item.id}
+                    key={'miso'+item.name+item.id}
                     value={item.name}
                     onSelect={name => {
                       setSelectedValue(name
@@ -60,34 +61,64 @@ export function ComboboxPopover({data, title, handleCategoryChange}) {
   )
 }
 
-const SelectMISO = () => {
+const SelectMISO = ({handleMISOChange}) => {
+  const [category1, setCategory1] = useState('')
+	const [category2, setCategory2] = useState('')
+	const [category3, setCategory3] = useState('')
   const [category2List, setCategory2List] = useState(category_2)
   const [category3List, setCategory3List] = useState(category_3)
 
   const handleCategory1Change = (category) => {
+    setCategory1(category.name)
+    setCategory2('')
+    setCategory3('')
     setCategory2List(category_2.filter((item) => { return item.cat1_code === category.cat1_code }))
     setCategory3List(category_3.filter((item) => { return item.cat1_code === category.cat1_code }))
   }
 
   const handleCategory2Change = (category) => {
+    setCategory2(category.name)
+    setCategory3('')
     // setCategory2List(category_2.filter((item) => { return item.cat1_code === category.cat1_code }))
     setCategory3List(category_3.filter((item) => { return item.cat2_code === category.cat2_code }))
   }
 
+  const handleCategory3Change = (category) => {
+    setCategory3(category.name)
+  }
+
   return (
-    // <div className="grid lg:grid-cols-6 gap-x-4 gap-y-2 sm:grid-cols-1">
     <>
-      <div className="lg:col-span-2 sm:col-span-full">
-        <ComboboxPopover data={category_1} title={'Set Category 1'} handleCategoryChange={handleCategory1Change} />
+      <div className="lg:col-span-3 sm:col-span-full">
+        <ComboboxPopover data={category_1} title={'Category 1'} handleCategoryChange={handleCategory1Change} selectedValue={category1} setSelectedValue={setCategory1} />
       </div>
-      <div className="lg:col-span-2 sm:col-span-full">
-        <ComboboxPopover data={category2List} title={'Set Category 2'} handleCategoryChange={handleCategory2Change} />
+      <div className="lg:col-span-3 sm:col-span-full">
+        <ComboboxPopover data={category2List} title={'Category 2'} handleCategoryChange={handleCategory2Change} selectedValue={category2} setSelectedValue={setCategory2} />
       </div>
-      <div className="lg:col-span-2 sm:col-span-full">
-        <ComboboxPopover data={category3List} title={'Set Category 3'} />
+      <div className="lg:col-span-3 sm:col-span-full">
+        <ComboboxPopover data={category3List} title={'Category 3'} handleCategoryChange={handleCategory3Change} selectedValue={category3} setSelectedValue={setCategory3} />
+      </div>
+      <div className="lg:col-span-1 grid justify-items-end">
+        <Button
+          type='button'
+          variant='ghost'
+          className=' underline mr-1'
+          disabled={category1 == '' && category2 == '' && category3 == ''}
+          onClick={ () => {
+            // if( category1 != '' && category2 != '' && category3 != '' ) {
+              handleMISOChange([category1,category2,category3])
+              setCategory1('')
+              setCategory2('')
+              setCategory3('')
+              setCategory2List(category_2)
+              setCategory3List(category_3)
+            // }
+          }}
+        >
+          Add/Save
+        </Button>
       </div>
     </>  
-    // </div>
   )
 }
 

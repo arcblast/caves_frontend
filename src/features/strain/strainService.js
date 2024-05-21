@@ -46,6 +46,22 @@ const getStrainByUser = async (token) => {
 	}
 }
 
+const getStrain = async (id, token) => {
+	const headerAuth = {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	}
+	const response = await axios.get(STRAIN_URL + id, headerAuth)
+
+	if(response.data && (response.data.error == null) ) {
+		localStorage.setItem( `strain/${id}`, JSON.stringify(response.data) )
+		return response.data
+	} else {
+		throw new Error(response.data.error)
+	}
+}
+
 const updateStrain = async (strainData, id, token) => {
 	const headerAuth = {
 		headers: {
@@ -83,6 +99,7 @@ const strainService = {
 	addStrain,
 	getAllStrains,
 	getStrainByUser,
+	getStrain,
 	updateStrain,
 	deleteStrain
 }

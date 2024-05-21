@@ -13,6 +13,8 @@ import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
@@ -25,12 +27,15 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { useState } from "react"
+import { ScrollArea, ScrollBar } from "./ui/scroll-area"
 
-export function DataTable({data, columns, visible_columns}) {
+export function DataTable({data, columns, visible_columns, column_filter}) {
+
   const [sorting, setSorting] = useState([])
-  const [columnFilters, setColumnFilters] = useState([])
+  const [columnFilters, setColumnFilters] = useState(column_filter)
   const [columnVisibility, setColumnVisibility] = useState(visible_columns)
   const [rowSelection, setRowSelection] = useState({})
+  const [globalFilter, setGlobalFilter] = useState('')
 
 
   const table = useReactTable({
@@ -44,30 +49,39 @@ export function DataTable({data, columns, visible_columns}) {
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
+    onGlobalFilterChange: setGlobalFilter,
     state: {
       sorting,
       columnFilters,
       columnVisibility,
-      rowSelection
+      rowSelection,
+      globalFilter
     }
   })
 
+  const [ columnName, setColumnName] = useState('')
+  // const tableChange = (name, value) => {
+  //   table.getColumn(name)?.setFilterValue(value) 
+  // }
+ 
   return (
     <>
-    <div className="mx-5">
+    <ScrollArea className="mx-5 w-full">
       <div className="flex items-center py-4">
         <Input
           placeholder="Search strains..."
-          value={table.getColumn("strain_name")?.getFilterValue() ?? ""}
+          // value={table.getColumn("strain_name")?.getFilterValue() ?? ""}
+          value={globalFilter ?? ''}
           onChange={event =>
-            table.getColumn("strain_name")?.setFilterValue(event.target.value)
+            // table.getColumn("strain_name")?.setFilterValue(event.target.value)
+            setGlobalFilter(event.target.value)
           }
           className="max-w-sm"
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
-              Columns <ChevronDown className="ml-2 h-4 w-4" />
+              Column <ChevronDown className="ml-2 h-4 w-4 bg-background/50" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
@@ -89,8 +103,8 @@ export function DataTable({data, columns, visible_columns}) {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="rounded-md border">
-        <Table className='bg-background/50'>
+      <div className="rounded-md border ">
+        <Table className='bg-background/50 '>
           <TableHeader >
             {table.getHeaderGroups().map(headerGroup => (
               <TableRow key={headerGroup.id}>
@@ -115,6 +129,7 @@ export function DataTable({data, columns, visible_columns}) {
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  className='hover:bg-white'
                 >
                   {row.getVisibleCells().map(cell => (
                     <TableCell key={cell.id}>
@@ -138,7 +153,7 @@ export function DataTable({data, columns, visible_columns}) {
             )}
           </TableBody>
         </Table>
-          </div>
+      </div>
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
           {table.getFilteredSelectedRowModel().rows.length} of{" "}
@@ -167,7 +182,8 @@ export function DataTable({data, columns, visible_columns}) {
           </Button>
         </div>
       </div>
-    </div>
+      <ScrollBar orientation="horizontal" />
+    </ScrollArea>
     </>
   )
 }

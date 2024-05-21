@@ -8,19 +8,22 @@ import { useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import LoadingSkeleton from '@/components/LoadingSkeleton'
 import strainService from '@/features/strain/strainService'
+import { useSelector } from 'react-redux'
 
 function getStrains() {
+  const { user } = useSelector( (state) => state.auth )
   const {toast} = useToast()
 
-  const { data, isLoading, isFetching, isError } = useQuery({
-    queryFn: () => strainService.getAllStrains(),
-    queryKey: ["strains"],
+  const { data, isFetching, isPending, isError } = useQuery({
+    queryFn: () => strainService.getStrainByUser(user.token),
+    queryKey: ['collection'],
     onError: (error) => {
       console.log(error)
     },
+    refetchInterval: 600000
   });
 
-  if( isLoading || isFetching ) {
+  if( isPending || isFetching ) {
     return <LoadingSkeleton />
   }
 
@@ -37,12 +40,12 @@ function getStrains() {
 const StrainCollectionList = () => {
   const strains = getStrains()
   const data = useMemo( () => strains ?? [], [strains])
-  console.log(data)
+  // console.log(data)
 
   return (
     <>
       <div className='flex mt-10 mx-5 justify-end'>
-        <h1 className='lg:text-3xl text-lg font-bold flex-1 text-primary'>Strain Collection</h1>
+        <h1 className='lg:text-3xl text-lg font-bold flex-1 text-primary tracking-tight'>Strain Collection</h1>
         {/* <AddStrain /> */}
         <Link
           key={'strain-collection-add'}

@@ -27,7 +27,7 @@ export const category_1 = [
 		id: 5,
   	name: 'Host Body Product',
 		cat1_code: '5',
-		color_code: 'bg-teal-300'
+		color_code: 'bg-teal-200'
   },
 	{
 		id: 6,

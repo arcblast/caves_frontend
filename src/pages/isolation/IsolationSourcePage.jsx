@@ -1,7 +1,7 @@
 import Header from '@/components/Header'
 import IsolationMap from './IsolationMap'
 import { DataTable } from '@/components/DataTable'
-import { isolation_columns, visible_isolation_columns } from './isolation_columns'
+import { isolation_columns, visible_isolation_columns, column_filter } from './isolation_columns'
 import { useToast } from '@/components/ui/use-toast'
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useMemo, useState } from 'react'
@@ -10,6 +10,7 @@ import LoadingSkeleton from '@/components/LoadingSkeleton'
 import IsolationFilterSidebar from './IsolationFilterSidebar'
 import strainService from '@/features/strain/strainService'
 import IsolationNavigation from './IsolationNavigation'
+import { useBlocker } from 'react-router-dom'
 
 function getStrains() {
   const {toast} = useToast()
@@ -51,15 +52,21 @@ const IsolationSourcePage = () => {
   const [openMetrics, setOpenMetrics] = useState(false)
   const toggleOpenMetrics = () => setOpenMetrics((cur) => !cur);
 
+  
+
   return (
     <>
       <Header />
       
       <div className='container relative'>
         <div className="overflow-hidden rounded-[0.5rem] border bg-background/25 shadow mt-5">
-          <div className='grid lg:grid-cols-4'>
-            <IsolationFilterSidebar />
-            <div className='col-span-3 lg:border-l flex flex-col space-y-1 z-0'>
+          {/* <div className='grid lg:grid-cols-4'> */}
+          <div className='flex'>
+            {/* <div className=' col-span-1 hidden'>
+              <IsolationFilterSidebar />
+            </div> */}
+            
+            <div className='col-span-3 lg:border-l flex flex-col flex-grow space-y-1 z-0 min-h-screen'>
               {/* <IsolationMap /> */}
               {/* <div className='h-screen'></div> */}
               <IsolationNavigation toggleOpenTable={toggleOpenTable} toggleOpenMap={toggleOpenMap} toggleOpenMetrics={toggleOpenMetrics} />
@@ -69,7 +76,8 @@ const IsolationSourcePage = () => {
                 onOpenChange={setOpenTable}
               >
                 <CollapsibleContent>
-                  <DataTable data={data} columns={isolation_columns} visible_columns={visible_isolation_columns} />
+                  <DataTable data={data} columns={isolation_columns} visible_columns={visible_isolation_columns} column_filter={column_filter} />
+                  {/* <DataTable table={table} columns={isolation_columns} visible_columns={visible_isolation_columns}/> */}
                 </CollapsibleContent>
               </Collapsible>
 

@@ -10,7 +10,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
-import { sample_type } from "@/constants"
+import { Badge } from "@/components/ui/badge"
+import { category_1 } from "@/constants/miso"
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
+}
 
 export const isolation_columns = [
   {
@@ -38,8 +43,11 @@ export const isolation_columns = [
   {
     accessorKey: "custom_id",
     header: "CustomID",
+    meta: {
+      name: "Custom ID",
+    },
     cell: ({ row }) => (
-      <div className="capitalize">000</div>
+      <div>000</div>
     )
   },
 	{
@@ -55,7 +63,11 @@ export const isolation_columns = [
         </Button>
       )
     },
-    cell: ({ row }) => <div className="">{row.getValue("strain_name")}</div>,
+    meta: {
+      name: "Strain name",
+    },
+    cell: ({ row }) => <div className="text-xs">{row.getValue("strain_name")}</div>,
+    enableHiding: false
 	},
   {
     accessorKey: "sampling_site",
@@ -70,7 +82,10 @@ export const isolation_columns = [
         </Button>
       )
     },
-    cell: ({ row }) => <div className="">{row.getValue("sampling_site")}</div>
+    meta: {
+      name: "Sampling site",
+    },
+    cell: ({ row }) => <div className="text-xs">{row.getValue("sampling_site")}</div>
   },
   {
     accessorKey: "sampling_point",
@@ -85,7 +100,10 @@ export const isolation_columns = [
         </Button>
       )
     },
-    cell: ({ row }) => <div className=""></div>
+    meta: {
+      name: "Sampling point",
+    },
+    cell: ({ row }) => <div className="text-xs">{row.getValue("sampling_point")}</div>
   },
 	{
     accessorKey: "sample_type",
@@ -94,13 +112,17 @@ export const isolation_columns = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          // onClick={() => column.getToggleSortingHandler()}
         >
           Sampling type
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
     },
-    cell: ({ row }) => <div className="">{row.getValue("sample_type")}</div>
+    meta: {
+      name: "Sample type",
+    },
+    cell: ({ row }) => <div className="text-xs">{row.getValue("sample_type")}</div>
   },
 	{
     accessorKey: "city_province",
@@ -115,25 +137,95 @@ export const isolation_columns = [
         </Button>
       )
     },
-    cell: ({ row }) => <div className="">{row.getValue("city_province")}</div>
+    meta:{
+      name: "City/Province",
+    },
+    cell: ({ row }) => <div className="text-xs">{row.getValue("city_province")}</div>
+  },
+  {
+    accessorKey: "miso_categories",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          // onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          MISO
+        </Button>
+      )
+    },
+    meta: {
+      name: "MISO categories",
+    },
+    cell: ({ row }) =>
+      <div className="space-y-1 space-x-0.5 flex flex-col">
+        {
+          // row.getValue("miso_categories").length != 0 ? (
+          //   row.getValue("miso_categories")?.map( miso => {
+              <p>{row.getValue("miso_categories")?.toString()}</p>
+              // <div className=" flex flex-row space-x-0.5">
+              //   <Badge
+              //     className={classNames(
+              //       miso[0] ? category_1.find( item => { return item.name === miso[0] })?.color_code : null, 'hover:bg-disable justify-center text-foreground font-normal'
+              //     )}
+              //   >
+              //     {miso[0]}
+              //   </Badge>
+              //   <Badge
+              //     className={classNames(
+              //       miso[0] ? category_1.find( item => { return item.name === miso[0] })?.color_code : null, 'hover:bg-disable justify-center text-foreground font-normal'
+              //     )}
+              //   >
+              //     {miso[1]}
+              //   </Badge>
+              //   <Badge
+              //     className={classNames(
+              //       miso[0] ? category_1.find( item => { return item.name === miso[0] })?.color_code : null, 'hover:bg-disable justify-center text-foreground font-normal'
+              //     )}
+              //   >
+              //     {miso[2]}
+              //   </Badge>
+              // </div>
+          //   })
+          // ) : <p>{row.getValue("miso_categories").toString()}</p>
+        }
+        
+      </div>
   },
   // {
-  //   accessorKey: "amount",
-  //   header: () => <div className="text-right">Amount</div>,
-  //   cell: ({ row }) => {
-  //     const amount = parseFloat(row.getValue("amount"))
-
-  //     // Format the amount as a dollar amount
-  //     const formatted = new Intl.NumberFormat("en-US", {
-  //       style: "currency",
-  //       currency: "USD"
-  //     }).format(amount)
-
-  //     return <div className="text-right font-medium">{formatted}</div>
-  //   }
+  //   header: 'MISO categories',
+  //   accessorKey: 'miso_categories',
+  //   meta: {
+  //     name: "MISO",
+  //   },
+  //   columns: [
+  //     {
+  //       id: 'level_1',
+  //       cell: ({ row }) =>
+  //         <Badge
+  //           className={classNames(
+  //             row.getValue("miso_categories")[0] ? category_1.find( item => { return item.name === row.getValue("miso_categories")[0] })?.color_code : null, 'hover:bg-disable items-center text-foreground'
+  //           )}
+  //         >
+  //           {row.getValue("miso_categories")[0]}
+  //         </Badge>
+  //     },
+  //     {
+  //       id: 'level_2',
+  //       cell: ({ row }) =>
+  //         <Badge
+  //           className={classNames(
+  //             row.getValue("miso_categories")[0] ? category_1.find( item => { return item.name === row.getValue("miso_categories")[0] })?.color_code : null, 'hover:bg-disable items-center text-foreground'
+  //           )}
+  //         >
+  //           {row.getValue("miso_categories")[1]}
+  //         </Badge>
+  //     }
+  //   ]
   // },
   {
     id: "actions",
+    name: "Actions",
     enableHiding: false,
     cell: ({ row }) => {
       const payment = row.original
@@ -170,3 +262,14 @@ export const visible_isolation_columns = {
   sample_type: true,
   city_province: true,
 }
+
+export const column_filter = [
+  // {
+  //   id: 'strain_name',
+  //   value: 'Ent'
+  // },
+  // {
+  //   id: 'sample_type',
+  //   value: 'gut'
+  // },
+]
