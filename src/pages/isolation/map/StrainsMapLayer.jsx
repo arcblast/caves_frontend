@@ -10,6 +10,7 @@ import { divIcon, point } from "leaflet"
 // }
 
 export default function StrainsMapLayer({strains}) {
+	console.log(strains)
 
   const createClusterCustomIcon = (cluster) => {
 
@@ -34,12 +35,12 @@ export default function StrainsMapLayer({strains}) {
 				strains?.map( (strain) => (
 					// I add random number so the strain don't overlap with each other
 					<CircleMarker
-						center={[strain.location_latitude + (Math.random() * (0.00009 - 0.000001) + 0.000001), strain.location_longitude + (Math.random() * (0.00009 - 0.000001) + 0.000001)]}
+						center={[strain?.location_latitude + (Math.random() * (0.00009 - 0.000001) + 0.000001), strain?.location_longitude + (Math.random() * (0.00009 - 0.000001) + 0.000001)]}
 						radius={1.5}
 						pathOptions={{ color: 'yellow', fillColor: 'yellow' }}
 					>
 						<Popup>
-							{strain.strain_name}
+							{strain?.strain_name}
 						</Popup>
 					</CircleMarker>
 				))

@@ -76,7 +76,7 @@ const StrainActions = ({strain}) => {
             </AlertDialogTrigger> */}
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Are you sure you wnat to delete {strain.strain_name}?</AlertDialogTitle>
+            <AlertDialogTitle>Are you sure you wnat to delete {strain.scientific_name}?</AlertDialogTitle>
             <AlertDialogDescription>
               This action cannot be undone. This will permanently delete your
               strain information and remove your data from our servers.

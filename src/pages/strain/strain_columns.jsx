@@ -28,6 +28,24 @@ export const strain_columns = [
     enableHiding: false
   },
   {
+    accessorKey: "status",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Status
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    meta: {
+      name: 'Status',
+    },
+    cell: ({ row }) => <div className="">{row.getValue("status")}</div>,
+  },
+  {
     accessorKey: "accession_id",
     header: ({ column }) => {
       return (
@@ -43,26 +61,26 @@ export const strain_columns = [
     meta: {
       name: 'Accession ID',
     },
-    cell: ({ row }) => <div className=""></div>,
+    cell: ({ row }) => <div className="">{row.getValue("accession_number")}</div>,
   },
-  {
-    accessorKey: "custom_id",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Custom ID
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      )
-    },
-    meta: {
-      name: 'Custom ID',
-    },
-    cell: ({ row }) => <div className=""></div>,
-  },
+  // {
+  //   accessorKey: "custom_code",
+  //   header: ({ column }) => {
+  //     return (
+  //       <Button
+  //         variant="ghost"
+  //         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+  //       >
+  //         Custom ID
+  //         <ArrowUpDown className="ml-2 h-4 w-4" />
+  //       </Button>
+  //     )
+  //   },
+  //   meta: {
+  //     name: 'Custom ID',
+  //   },
+  //   cell: ({ row }) => <div className=""></div>,
+  // },
   {
     accessorKey: "isolate_id",
     header: ({ column }) => {
@@ -82,7 +100,7 @@ export const strain_columns = [
     cell: ({ row }) => <div className=""></div>,
   },
   {
-    accessorKey: "collection",
+    accessorKey: "collection_name",
     header: ({ column }) => {
       return (
         <Button
@@ -97,7 +115,7 @@ export const strain_columns = [
     meta: {
       name: 'Collection',
     },
-    cell: ({ row }) => <div className=""></div>,
+    cell: ({ row }) => <div className="">{row.getValue("collection_name")}</div>,
   },
   {
     accessorKey: "institution",
@@ -115,10 +133,28 @@ export const strain_columns = [
     meta: {
       name: 'Institution',
     },
-    cell: ({ row }) => <div className=""></div>,
+    cell: ({ row }) => <div className="">{row.getValue("institution")}</div>,
   },
   {
-    accessorKey: "strain_name",
+    accessorKey: "project_name",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Institution
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    meta: {
+      name: 'Project name',
+    },
+    cell: ({ row }) => <div className="">{row.getValue("project_name")}</div>,
+  },
+  {
+    accessorKey: "scientific_name",
     header: ({ column }) => {
       return (
         <Button
@@ -131,9 +167,9 @@ export const strain_columns = [
       )
     },
     meta: {
-      name: 'Strain name',
+      name: 'Scientific name',
     },
-    cell: ({ row }) => <div className="">{row.getValue("strain_name")}</div>,
+    cell: ({ row }) => <div className="">{row.getValue("scientific_name")}</div>,
   },
   {
     accessorKey: "species",
@@ -154,6 +190,24 @@ export const strain_columns = [
     cell: ({ row }) => <div className="">{row.getValue("species")}</div>,
   },
   {
+    accessorKey: "type_description",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Type description
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    meta: {
+      name: 'Type description',
+    },
+    cell: ({ row }) => <div className="">{row.getValue("type_description")}</div>
+  },
+  {
     accessorKey: "sample_type",
     header: ({ column }) => {
       return (
@@ -171,24 +225,24 @@ export const strain_columns = [
     },
     cell: ({ row }) => <div className="">{row.getValue("sample_type")}</div>
   },
-  {
-    accessorKey: "host_type",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Host type
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      )
-    },
-    meta: {
-      name: 'Host type',
-    },
-    cell: ({ row }) => <div className="">{row.getValue("host_type")}</div>
-  },
+  // {
+  //   accessorKey: "host_type",
+  //   header: ({ column }) => {
+  //     return (
+  //       <Button
+  //         variant="ghost"
+  //         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+  //       >
+  //         Host type
+  //         <ArrowUpDown className="ml-2 h-4 w-4" />
+  //       </Button>
+  //     )
+  //   },
+  //   meta: {
+  //     name: 'Host type',
+  //   },
+  //   cell: ({ row }) => <div className="">{row.getValue("host_type")}</div>
+  // },
   {
     accessorKey: "host_species",
     header: ({ column }) => {
@@ -197,15 +251,19 @@ export const strain_columns = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Host species
+          Host
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
     },
     meta: {
-      name: 'Host species',
+      name: 'Host',
     },
-    cell: ({ row }) => <div className="">{row.getValue("host_species")}</div>
+    cell: ({ row }) =>
+    <div className="">
+      <span>{row.original.host_type}</span>
+      <span>{row.getValue("host_species")}</span>
+    </div>
   },
   {
     accessorKey: "sampling_site",
@@ -258,23 +316,26 @@ export const strain_columns = [
     },
     cell: ({ row }) => <div className=""></div>
   },
-  // {
-  //   accessorKey: "city_province",
-  //   header: ({ column }) => {
-  //     return (
-  //       <Button
-  //         variant="ghost"
-  //         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-  //       >
-  //         Location
-  //         <ArrowUpDown className="ml-2 h-4 w-4" />
-  //       </Button>
-  //     )
-  //   },
-  //   cell: ({ row }) => <div className="">{row.getValue("city_province")}</div>
-  // },
   {
-    accessorKey: "city_province",
+    accessorKey: "municity",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Municipality/City
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    meta: {
+      name: 'Municipality/City',
+    },
+    cell: ({ row }) => <div className="">{row.getValue("municity")}</div>
+  },
+  {
+    accessorKey: "province",
     header: ({ column }) => {
       return (
         <Button
@@ -291,9 +352,45 @@ export const strain_columns = [
     },
     cell: ({ row }) =>
       <div className="flex flex-col">
-        <span className="capitalize">{row.getValue("city_province")}</span>
+        <span className="capitalize">{row.original.municity} {row.getValue("province")}</span>
         <span className="text-xs text-muted-foreground">[{row.original.location_latitude?.toFixed(4)} , {row.original.location_longitude?.toFixed(4)}]</span>
       </div>
+  },
+  {
+    accessorKey: "storage_information",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Storage information
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    meta: {
+      name: 'Storage information',
+    },
+    cell: ({ row }) => <div className="">{row.getValue("storage_information")}</div>
+  },
+  {
+    accessorKey: "location_information",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Location information
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    meta: {
+      name: 'Location information',
+    },
+    cell: ({ row }) => <div className="">{row.getValue("location_information")}</div>
   },
   {
     id: "actions",
@@ -311,19 +408,24 @@ export const strain_columns = [
 ];
 
 export const visible_strain_columns = {
-  accesion_id: true,
-  custom_id: false,
-  isolate_id: false,
-  collection: false,
+  status: true,
+  accesion_id: false,
+  isolate_id: true,
+  collection_name: false,
   institution: false,
+  project_name: false,
 
-  strain_name : true,
+  scientific_name : true,
   species: false,
+  type_description: true,
   sample_type: true,
   host_type: false,
   host_species: false,
   sampling_site: true,
   sampling_point: false,
   sampling_date: false,
-  city_province: true,
+  municity: false,
+  province: true,
+  storage_information: false,
+  location_information: false
 }

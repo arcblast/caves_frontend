@@ -1,7 +1,7 @@
 import Header from '@/components/Header'
 import IsolationMap from './IsolationMap'
 import { DataTable } from '@/components/DataTable'
-import { isolation_columns, visible_isolation_columns, column_filter } from './isolation_columns'
+import { isolation_columns, visible_isolation_columns } from './isolation_columns'
 import { useToast } from '@/components/ui/use-toast'
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useMemo, useState } from 'react'

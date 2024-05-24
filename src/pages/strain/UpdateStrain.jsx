@@ -45,14 +45,14 @@ const UpdateStrain = () => {
   }
 
   const defaultValue = {
-		custom_id: '',
-    isolate_id: '',
-    collection: '',
-    institution: '',
-    project_name: '',
-    project_code: '',
+		custom_code: data.custom_code ?? '',
+    isolate_id: data.isolate_id ?? '',
+    collection_name: data.collection_name ?? '',
+    institution: data.institution ?? '',
+    project_name: data.project_name ?? '',
+    project_code: data.project_code ?? '',
 
-    strain_name: data.strain_name ?? '',
+    scientific_name: data.scientific_name ?? '',
 		domain: data.domain ?? '',
 		phylum: data.phylum ?? '',
 		class_name: data.class_name ?? '',
@@ -67,7 +67,7 @@ const UpdateStrain = () => {
     sampling_site: data.sampling_site ?? '',
 		sampling_point: data.sampling_point ?? '',
 		// sampling_date: new Date().toISOString().substring(0, 10),
-    city_province: data.city_province ?? '',
+    // city_province: data.city_province ?? '',
 		location_latitude: data.location_latitude ?? 0,
 		location_longitude: data.location_longitude ?? 0,
 		location_information: data.location_information ?? '',

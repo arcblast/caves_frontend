@@ -40,15 +40,16 @@ const AddStrain = () => {
     })
   }
 
-  const defaultValue = {
-		custom_id: '',
+  const defaultValue = { 
+		custom_code: '',
     isolate_id: '',
-    collection: '',
-    institution: '',
+    collection_name: 'MCC',
+    institution: 'MNH',
     project_name: '',
     project_code: '',
 
     // strain_name: '', // commented; does not work if required field
+    // scientific_name: '',
 		domain: '',
 		phylum: '',
 		class_name: '',
@@ -57,16 +58,25 @@ const AddStrain = () => {
 		genus: '',
 		// species: '',
 
+    type_description: '',
+    type_description_code: '',
     sample_type: '',
+    sample_type_code: '',
     host_type: '',
 		host_species: '',
     sampling_site: '',
 		sampling_point: '',
-		// sampling_date: new Date().toISOString().substring(0, 10),
-    city_province: '',
+		sampling_date: new Date().toISOString().substring(0, 10),
+    municity: '',
+    province: '',
+    location_abbr: '',
 		location_latitude: 0,
 		location_longitude: 0,
+    storage_information: '',
 		location_information: '',
+
+    status: '',
+    hide: false
 	}
 
 

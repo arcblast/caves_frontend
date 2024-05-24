@@ -22,7 +22,7 @@ const StrainSchema = z.object({
   // project_name: z.string(),
   // project_code: z.string(),
 
-  strain_name: z.string({ required_error: 'This field is required.' }),
+  scientific_name: z.string({ required_error: 'This field is required.' }),
 	domain: z.string(),
 	phylum: z.string(),
 	class_name: z.string(),
@@ -37,7 +37,7 @@ const StrainSchema = z.object({
 	sampling_site: z.string(),
 	sampling_point: z.string(),
   // sampling_date: z.coerce.date(),
-  city_province: z.string(),
+  // city_province: z.string(),
   location_latitude: z.coerce.number(),
 	location_longitude: z.coerce.number(),
   location_information: z.string()
@@ -453,7 +453,7 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
             />
           </div> */}
 
-        <div className='col-span-full'>
+        {/* <div className='col-span-full'>
           <FormField
             control={form.control}
             name="city_province"
@@ -467,7 +467,7 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
             </FormItem>
             )}
           />
-        </div>
+        </div> */}
 
         <div className='col-span-3'>
           <FormField
