@@ -2,7 +2,7 @@ import { provinces } from '@/constants/4AProvincesGeoJSON';
 import { Polygon } from 'react-leaflet';
 import { getColor } from '@/lib/utils';
 
-export default function ProvinceMapLayer({strains}) {
+export default function ProvinceMapLayer({strains, handleSetFilter, setSelectedLocation}) {
   return (
 		<>
 		{
@@ -35,7 +35,7 @@ export default function ProvinceMapLayer({strains}) {
 								opacity: 1,
 								color: 'black',
 							})
-							// setSelected(province.properties.ADM2_EN)
+							setSelectedLocation(province.properties.ADM2_EN)
 						},
 						mouseout: (e) => {
 							const layer = e.target;
@@ -46,11 +46,10 @@ export default function ProvinceMapLayer({strains}) {
 							});
 						},
 						click: (e) => {
-							// handleFilterData(strains?.filter( (strain) => {
-							// 	return (
-							// 		strain.city_province?.toLowerCase().includes(province.properties.ADM2_EN.toLowerCase())
-							// 	)
-							// }))
+							handleSetFilter({
+								id: 'city_province',
+								value: province.properties.ADM2_EN.toLowerCase()
+							})
 						}
 					}}
 					key={province.properties.ADM2_EN}

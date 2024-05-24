@@ -6,17 +6,35 @@ import { LayerGroup, LayersControl, MapContainer, Marker, Popup, TileLayer,  } f
 import MunicitiesMapLayer from './map/MunicitiesMapLayer';
 import ProvinceMapLayer from './map/ProvinceMapLayer';
 import StrainsMapLayer from './map/StrainsMapLayer';
+import { useState } from 'react';
 
-const IsolationMap = ({data}) => {
+const IsolationMap = ({data, handleSetFilter}) => {
+
+	const [ selectedLocation, setSelectedLocation ] = useState('')
 
   return (
     <div className='w-full h-full'>
-			<Card className="bg-background/25 m-4">
-				<CardHeader>
-					<CardTitle>Map View</CardTitle>
-					<CardDescription>Search and view strains by location.</CardDescription>
+			<Card className="bg-background/25 relative z-40">
+				<CardHeader className='flex flex-row justify-between pb-4'>
+					<div>
+						<CardTitle>Map View</CardTitle>
+						<CardDescription>Click and view strains by location.</CardDescription>
+					</div>
+					<div className=' items-center bg- rounded-sm justify-center'>
+						{
+							selectedLocation ? 
+								<>
+									<span className='text-base font-semibold text-foreground'>{selectedLocation}</span>
+									<span className='text-base text-foreground ml-2'> {data?.filter( (item) => item.city_province?.toLowerCase().includes(selectedLocation.toLowerCase())).length} strain/s</span>
+								</>
+							:
+							<span className='text-base font-semibold text-foreground'>Hover over an area</span>
+							// <span className='text-base font-semibold text-dimBlack'>{selected}</span>
+						}
+					</div>
 				</CardHeader>
-					<MapContainer center={[14.1651, 121.2402]} zoom={19} zoomControl className='rounded-sm'>
+				<CardContent>
+					<MapContainer center={[14.1651, 121.2402]} zoom={8} zoomControl className='rounded-sm'>
 						<TileLayer
 							attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 							url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -30,14 +48,14 @@ const IsolationMap = ({data}) => {
 									</Popup>
 								</Marker>
 							</LayersControl.Overlay>
-							<LayersControl.Overlay name='Province Heat Map'>
+							<LayersControl.Overlay checked name='Province Heat Map'>
 								<LayerGroup>
-									<ProvinceMapLayer strains={data} />
+									<ProvinceMapLayer strains={data} handleSetFilter={handleSetFilter} setSelectedLocation={setSelectedLocation} />
 								</LayerGroup>	
 							</LayersControl.Overlay>
 							<LayersControl.Overlay name='Muncities Heat Map'>
 								<LayerGroup>
-									<MunicitiesMapLayer strains={data} />
+									<MunicitiesMapLayer strains={data} handleSetFilter={handleSetFilter} setSelectedLocation={setSelectedLocation}  />
 								</LayerGroup>	
 							</LayersControl.Overlay>
 							<LayersControl.Overlay checked name='Strains'>
@@ -47,6 +65,7 @@ const IsolationMap = ({data}) => {
 							</LayersControl.Overlay>
 						</LayersControl>
 					</MapContainer>
+				</CardContent>
 			</Card>
 			
     </div>

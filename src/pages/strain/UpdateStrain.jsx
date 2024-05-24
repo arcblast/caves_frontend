@@ -7,33 +7,7 @@ import { useSelector } from "react-redux"
 import strainService from "@/features/strain/strainService"
 import { useToast } from "@/components/ui/use-toast"
 import LoadingSkeleton from "@/components/LoadingSkeleton"
-import { miso_categories } from "@/constants/MISO_categories"
-import SForm from "./SForm"
-
-// function getStrain(id) {
-//   const { user } = useSelector( (state) => state.auth )
-//   const queryClient = useQueryClient()
-//   const { toast } = useToast()
-
-//   const { data, isFetching, isPending, isError } = useQuery({
-//     queryKey: ['strain', id],
-//     queryFn: () => strainService.getStrain(id, user.token),
-//     initialData: () => queryClient.getQueryData(['collection'])?.find( item => item.id == id)
-//   })
-
-//   if( isPending || isFetching ) {
-//     return <LoadingSkeleton />
-//   }
-
-//   if(isError) {
-//     return toast({
-//       variant: "destructive",
-//       title: "Uh oh! Something went wrong.",
-//     })
-//   }
-
-//   return data
-// }
+import StrainForm from "./StrainForm"
 
 const UpdateStrain = () => {
   const { user } = useSelector( (state) => state.auth )
@@ -123,7 +97,7 @@ const UpdateStrain = () => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <SForm
+            <StrainForm
               title={'Update Strain'}
               defaultValue={defaultValue}
               handleAction={handleUpdateSubmit}
@@ -131,9 +105,6 @@ const UpdateStrain = () => {
             />
             {/* <p>{data?.strain_name}</p> */}
           </CardContent>
-          <CardFooter>
-            {/* {<AddAction />} */}
-          </CardFooter>
         </Card>
       </div>
     </>

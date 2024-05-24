@@ -66,7 +66,7 @@ export const isolation_columns = [
     meta: {
       name: "Strain name",
     },
-    cell: ({ row }) => <div className="text-xs">{row.getValue("strain_name")}</div>,
+    cell: ({ row }) => <div className="">{row.getValue("strain_name")}</div>,
     enableHiding: false
 	},
   {
@@ -85,7 +85,7 @@ export const isolation_columns = [
     meta: {
       name: "Sampling site",
     },
-    cell: ({ row }) => <div className="text-xs">{row.getValue("sampling_site")}</div>
+    cell: ({ row }) => <div className="">{row.getValue("sampling_site")}</div>
   },
   {
     accessorKey: "sampling_point",
@@ -103,7 +103,7 @@ export const isolation_columns = [
     meta: {
       name: "Sampling point",
     },
-    cell: ({ row }) => <div className="text-xs">{row.getValue("sampling_point")}</div>
+    cell: ({ row }) => <div className="">{row.getValue("sampling_point")}</div>
   },
 	{
     accessorKey: "sample_type",
@@ -122,7 +122,7 @@ export const isolation_columns = [
     meta: {
       name: "Sample type",
     },
-    cell: ({ row }) => <div className="text-xs">{row.getValue("sample_type")}</div>
+    cell: ({ row }) => <div className="">{row.getValue("sample_type")}</div>
   },
 	{
     accessorKey: "city_province",
@@ -140,7 +140,7 @@ export const isolation_columns = [
     meta:{
       name: "City/Province",
     },
-    cell: ({ row }) => <div className="text-xs">{row.getValue("city_province")}</div>
+    cell: ({ row }) => <div className="">{row.getValue("city_province")}</div>
   },
   {
     accessorKey: "miso_categories",

@@ -2,7 +2,7 @@ import { municities } from '@/constants/4AMunicitiesGeoJSON';
 import { Polygon } from 'react-leaflet';
 import { getColor } from '@/lib/utils';
 
-export default function MunicitiesMapLayer({strains}) {
+export default function MunicitiesMapLayer({strains, handleSetFilter, setSelectedLocation}) {
   return (
 		<>
 		{
@@ -35,7 +35,7 @@ export default function MunicitiesMapLayer({strains}) {
 								opacity: 1,
 								color: 'black',
 							})
-							// setSelected(muncity.properties.ADM3_EN)
+							setSelectedLocation(muncity.properties.ADM3_EN)
 						},
 						mouseout: (e) => {
 							const layer = e.target;
@@ -46,14 +46,13 @@ export default function MunicitiesMapLayer({strains}) {
 							});
 						},
 						click: (e) => {
-							// handleFilterData(strains?.filter( (strain) => {
-							// 	return (
-							// 		strain.city_province?.toLowerCase().includes(province.properties.ADM2_EN.toLowerCase())
-							// 	)
-							// }))
+							handleSetFilter({
+								id: 'city_province',
+								value: province.properties.ADM3_EN.toLowerCase()
+							})
 						}
 					}}
-					key={muncity.properties.ADM2_EN}
+					key={muncity.properties.ADM2_EN + muncity.properties.ADM3_EN}
 				/>)
 			})
 		}

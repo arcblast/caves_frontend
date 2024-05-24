@@ -13,9 +13,9 @@ import IsolationNavigation from './IsolationNavigation'
 import { useBlocker } from 'react-router-dom'
 
 function getStrains() {
-  const {toast} = useToast()
+  const { toast } = useToast()
 
-  const { data, isLoading, isFetching, isError } = useQuery({
+  const { data, isPending, isFetching, isError } = useQuery({
     queryFn: () => strainService.getAllStrains(),
     queryKey: ["strains"],
     onError: (error) => {
@@ -23,18 +23,16 @@ function getStrains() {
     },
   });
 
-  useEffect(() => {
-    if(isLoading|| isFetching) {
-      <LoadingSkeleton />
-    }
+  if( isPending || isFetching ) {
+    return <LoadingSkeleton />
+  }
 
-    if(isError) {
-      toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
-      })
-    }
-  }, [ isLoading, isFetching ])
+  if(isError) {
+    return toast({
+      variant: "destructive",
+      title: "Uh oh! Something went wrong.",
+    })
+  }
 
   return data
 }
@@ -52,6 +50,12 @@ const IsolationSourcePage = () => {
   const [openMetrics, setOpenMetrics] = useState(false)
   const toggleOpenMetrics = () => setOpenMetrics((cur) => !cur);
 
+  const [ filter, setFilter ] = useState([])
+  const handleSetFilter = (f) => {
+    setFilter([f])
+    console.log(f)
+  }
+
   
 
   return (
@@ -59,7 +63,7 @@ const IsolationSourcePage = () => {
       <Header />
       
       <div className='container relative'>
-        <div className="overflow-hidden rounded-[0.5rem] border bg-background/25 shadow mt-5">
+        <div className="rounded-[0.5rem] border bg-background/25 shadow mt-5">
           {/* <div className='grid lg:grid-cols-4'> */}
           <div className='flex'>
             {/* <div className=' col-span-1 hidden'>
@@ -72,21 +76,23 @@ const IsolationSourcePage = () => {
               <IsolationNavigation toggleOpenTable={toggleOpenTable} toggleOpenMap={toggleOpenMap} toggleOpenMetrics={toggleOpenMetrics} />
 
               <Collapsible
-                open={openTable}
-                onOpenChange={setOpenTable}
-              >
-                <CollapsibleContent>
-                  <DataTable data={data} columns={isolation_columns} visible_columns={visible_isolation_columns} column_filter={column_filter} />
-                  {/* <DataTable table={table} columns={isolation_columns} visible_columns={visible_isolation_columns}/> */}
-                </CollapsibleContent>
-              </Collapsible>
-
-              <Collapsible
                 open={openMap}
                 onOpenChange={setOpenMap}
               >
                 <CollapsibleContent>
-                  <IsolationMap data={data} />
+                  <IsolationMap data={data} handleSetFilter={handleSetFilter} />
+                </CollapsibleContent>
+              </Collapsible>
+
+              <Collapsible
+                open={openTable}
+                onOpenChange={setOpenTable}
+              >
+                <CollapsibleContent>
+                  <div className='mx-5'>
+                    <DataTable data={data} columns={isolation_columns} visible_columns={visible_isolation_columns} column_filter={filter} />
+                  </div>
+                  {/* <DataTable table={table} columns={isolation_columns} visible_columns={visible_isolation_columns}/> */}
                 </CollapsibleContent>
               </Collapsible>
              
@@ -96,6 +102,7 @@ const IsolationSourcePage = () => {
               >
                 <CollapsibleContent>
                   Hello
+                  <div className='h-screen' />
                 </CollapsibleContent>
               </Collapsible>
 

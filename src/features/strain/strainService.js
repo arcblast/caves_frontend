@@ -86,7 +86,7 @@ const deleteStrain = async (id, token) => {
 		},
 	}
 	const response = await axios.delete(STRAIN_URL + id, headerAuth)
-
+	console.log('delete ' + id)
 	if(response.data && (response.data.error == null) ) {
 		localStorage.setItem( 'strain', JSON.stringify(response.data) )
 		return response.data

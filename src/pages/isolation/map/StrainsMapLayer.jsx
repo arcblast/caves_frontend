@@ -10,10 +10,8 @@ import { divIcon, point } from "leaflet"
 // }
 
 export default function StrainsMapLayer({strains}) {
-  // console.log(strains)
 
   const createClusterCustomIcon = (cluster) => {
-    console.log(cluster.getAllChildMarkers().popup)
 
 		return new divIcon({
 			html: `<span class='cluster-icon'>${cluster.getChildCount()}</span>`,
@@ -22,9 +20,6 @@ export default function StrainsMapLayer({strains}) {
 		})
 	}
 
-  const getChildren = (element) => {
-    // console.log(element)
-  }
 
   return (
 		<>

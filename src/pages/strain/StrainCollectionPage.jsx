@@ -6,9 +6,9 @@ const StrainCollectionPage = () => {
   return (
     <>
       <Header />
-      {/* <div className='container relative'> */}
+      <div className='container relative'>
         <Outlet />
-      {/* </div> */}
+      </div>
     </>
     
   )
