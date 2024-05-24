@@ -1,6 +1,8 @@
 import SelectMISO from '@/components/SelectMISO'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command'
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -13,14 +15,19 @@ import React, { useState } from 'react'
 import { Separator } from '@/components/ui/separator'
 import { Badge } from '@/components/ui/badge'
 import { useNavigate } from 'react-router-dom'
+import { Textarea } from '@/components/ui/textarea'
+import { Switch } from '@/components/ui/switch'
+import { muncities, provinces } from '@/constants/municity_province'
+import { Check, ChevronsUpDown } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 const StrainSchema = z.object({
-  // custom_id: z.string(),
-  // isolate_id: z.string(),
-  // collection: z.string(),
-  // institution: z.string(),
-  // project_name: z.string(),
-  // project_code: z.string(),
+  custom_code: z.string(),
+  isolate_id: z.string(),
+  collection_name: z.string(),
+  institution: z.string(),
+  project_name: z.string(),
+  project_code: z.string(),
 
   scientific_name: z.string({ required_error: 'This field is required.' }),
 	domain: z.string(),
@@ -29,18 +36,25 @@ const StrainSchema = z.object({
 	order: z.string(),
 	family: z.string(),
 	genus: z.string(),
-	species: z.string({ required_error: 'This field is required.' }),
+	species: z.string(),
 
+  type_description: z.string(),
   sample_type: z.string(),
   host_type: z.string(),
 	host_species: z.string(),
 	sampling_site: z.string(),
 	sampling_point: z.string(),
-  // sampling_date: z.coerce.date(),
   // city_province: z.string(),
+  municity: z.string(),
+  province: z.string(),
   location_latitude: z.coerce.number(),
 	location_longitude: z.coerce.number(),
-  location_information: z.string()
+  sampling_date: z.coerce.date(),
+  storage_information: z.string(),
+  location_information: z.string(),
+
+  status: z.string(),
+  hide: z.boolean()
 })
 
 const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
@@ -51,6 +65,7 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
 
   const { toast } = useToast()
   const navigate = useNavigate()
+
 
   const [ miso_categories, setMisoCategory] = useState(misocategories)
 	const handleMISOChange = (misoData) => {
@@ -78,25 +93,9 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='grid grid-cols-6 gap-x-4 gap-y-2'>
+      <form onSubmit={form.handleSubmit(onSubmit)} className='grid grid-cols-6 gap-x-4 gap-y-2 font-inter'>
 
         <h4 className='text-primary font-bold text-base col-span-full'>Strain Identifiers</h4>
-
-        {/* <div className='col-span-3'>
-          <FormField
-            control={form.control}
-            name="custom_id"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Custom ID/code</FormLabel>
-                <FormControl>
-                  <Input placeholder="" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
 
         <div className='col-span-3'>
           <FormField
@@ -117,7 +116,23 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
         <div className='col-span-3'>
           <FormField
             control={form.control}
-            name="collection"
+            name="custom_code"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Custom code/ID</FormLabel>
+                <FormControl>
+                  <Input placeholder="" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className='col-span-3'>
+          <FormField
+            control={form.control}
+            name="collection_name"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Collection</FormLabel>
@@ -154,7 +169,7 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
               <FormItem>
                 <FormLabel>Project name</FormLabel>
                 <FormControl>
-                  <Input placeholder="" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -170,13 +185,13 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
               <FormItem>
                 <FormLabel>Project code</FormLabel>
                 <FormControl>
-                  <Input placeholder="" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-        </div> */}
+        </div>
 
         <Separator className='col-span-full my-4' />
 
@@ -185,7 +200,7 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
         <div className='col-span-full'>
           <FormField
             control={form.control}
-            name="strain_name"
+            name="scientific_name"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Full Scientific name/Strain name</FormLabel>
@@ -317,6 +332,22 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
         <div className='col-span-3'>
           <FormField
             control={form.control}
+            name="type_description"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Type description</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className='col-span-3'>
+          <FormField
+            control={form.control}
             name="sample_type"
             render={({ field }) => (
               <FormItem>
@@ -405,23 +436,61 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
           />
         </div>
 
+        <div className='col-span-3'>
+          <FormField
+            control={form.control}
+            name="province"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Province</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger className='bg-background'>
+                      <SelectValue placeholder='Select province' />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectGroup>
+                      { provinces.map( ({province, index}) => (
+                        <SelectItem key={'strain-form'+province+index} value={province}>{province}</SelectItem>
+                      ))} 
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
         {/* <div className='col-span-3'>
           <FormField
             control={form.control}
-            name="sampling_date"
+            name="municity"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Sampling date</FormLabel>
-                <FormControl>
-                  <Input type="date" {...field} />
-                </FormControl>
+                <FormLabel>Municipality/City</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value} >
+                  <FormControl>
+                    <SelectTrigger className='bg-background'>
+                      <SelectValue placeholder='Select municipality' />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectGroup>
+                      { muncities.filter(item => item.province == form.province).map( ({muncity, index}) => (
+                        <SelectItem key={'strain-form'+muncity+index} value={muncity}>{muncity}</SelectItem>
+                      ))} 
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
                 <FormMessage />
               </FormItem>
             )}
           />
         </div> */}
 
-        {/* <div className='col-span-3'>
+        <div className='col-span-3'>
             <FormField
               control={form.control}
               name="municity"
@@ -429,7 +498,7 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
                 <FormItem>
                 <FormLabel>Municity</FormLabel>
                 <FormControl>
-                  <Input placeholder="" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
                 </FormItem>
@@ -437,7 +506,7 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
             />
           </div>
 
-          <div className='col-span-3'>
+          {/* <div className='col-span-3'>
             <FormField
               control={form.control}
               name="province"
@@ -445,7 +514,7 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
                 <FormItem>
                 <FormLabel>Province</FormLabel>
                 <FormControl>
-                  <Input placeholder="" {...field} />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
                 </FormItem>
@@ -453,23 +522,7 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
             />
           </div> */}
 
-        {/* <div className='col-span-full'>
-          <FormField
-            control={form.control}
-            name="city_province"
-            render={({ field }) => (
-            <FormItem>
-              <FormLabel>City/Province</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-            )}
-          />
-        </div> */}
-
-        <div className='col-span-3'>
+        <div className='col-span-2'>
           <FormField
             control={form.control}
             name="location_latitude"
@@ -485,7 +538,7 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
           />
         </div>
 
-        <div className='col-span-3'>
+        <div className='col-span-2'>
           <FormField
             control={form.control}
             name="location_longitude"
@@ -501,6 +554,21 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
           />
         </div>
 
+         <div className='col-span-2'>
+          <FormField
+            control={form.control}
+            name="sampling_date"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Sampling date</FormLabel>
+                <FormControl>
+                  <Input type="date" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
 
         <div className='col-span-full'>
           <Label className='col-span-full mt-1'>MISO categories</Label>
@@ -525,7 +593,23 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
           </div>
         </div>
 
-        <div className='col-span-full'>
+        <div className='col-span-3'>
+          <FormField
+            control={form.control}
+            name="storage_information"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Storage information</FormLabel>
+                <FormControl>
+                  <Textarea {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className='col-span-3'>
           <FormField
             control={form.control}
             name="location_information"
@@ -533,7 +617,7 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
               <FormItem>
                 <FormLabel>Other isolation source information and history</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Textarea {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -541,6 +625,60 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
           />
         </div>
         
+        <Separator className='col-span-full my-4' />
+
+        <h4 className='text-primary font-bold text-base col-span-full'>Others</h4>
+
+        <div className='col-span-2'>
+          <FormField
+            control={form.control}
+            name="status"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Status</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value} >
+                  <FormControl>
+                    <SelectTrigger className='bg-background'>
+                      <SelectValue />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent className='font-inter'>
+                    <SelectGroup>
+                      <SelectItem key='completed-status' value='Completed'>Completed</SelectItem>
+                      <SelectItem key='inprogress-status' value='In progress'>In progress</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className='col-span-2'>
+          <FormField
+            control={form.control}
+            name="hide"
+            render={({ field }) => (
+                <FormItem className="flex flex-row items-center justify-between px-4">
+                  <div className="space-y-0.5">
+                    <FormLabel className="text-sm">
+                      Privacy
+                    </FormLabel>
+                    <FormDescription>
+                      Hide these information from public.
+                    </FormDescription>
+                  </div>
+                  <FormControl>
+                    <Switch
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+        </div>
 
         <div className='col-span-full space-x-4 mt-5'>
           <Button type='submit' >{title}</Button>

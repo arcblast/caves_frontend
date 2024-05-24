@@ -45,8 +45,8 @@ const AddStrain = () => {
     isolate_id: '',
     collection_name: 'MCC',
     institution: 'MNH',
-    project_name: '',
-    project_code: '',
+    project_name: 'DOST NICER CAVES',
+    project_code: 'CAVES',
 
     // strain_name: '', // commented; does not work if required field
     // scientific_name: '',
@@ -56,7 +56,7 @@ const AddStrain = () => {
 		order: '',
 		family: '',
 		genus: '',
-		// species: '',
+		species: '',
 
     type_description: '',
     type_description_code: '',

@@ -25,7 +25,7 @@ const IsolationMap = ({data, handleSetFilter}) => {
 							selectedLocation ? 
 								<>
 									<span className='text-base font-semibold text-foreground'>{selectedLocation}</span>
-									<span className='text-base text-foreground ml-2'> {data?.filter( (item) => item.city_province?.toLowerCase().includes(selectedLocation.toLowerCase())).length} strains</span>
+									<span className='text-base text-foreground ml-2'> {data?.filter( (item) => item.municity?.toLowerCase().includes(selectedLocation?.toLowerCase())).length} strains</span>
 								</>
 							:
 							<span className='text-base font-semibold text-foreground'>Hover over an area</span>

@@ -22,6 +22,14 @@ function getStrains() {
       console.log(error)
     },
   });
+  
+  if( data == [] ) {
+    return toast({
+      variant: "destructive",
+      title: "Uh oh! Something went wrong.",
+      description: "No strain found."
+    })
+  }
 
   if( isPending || isFetching ) {
     return <LoadingSkeleton />
@@ -32,13 +40,15 @@ function getStrains() {
       variant: "destructive",
       title: "Uh oh! Something went wrong.",
     })
+
+    // return []
   }
 
   return data
 }
 
 const IsolationSourcePage = () => {
-  const strains = getStrains()
+  const strains = getStrains() ?? []
   const data = useMemo( () => strains ?? [], [strains])
 
   const [openTable, setOpenTable] = useState(true)

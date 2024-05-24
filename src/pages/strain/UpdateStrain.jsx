@@ -61,17 +61,23 @@ const UpdateStrain = () => {
 		genus: data.genus ?? '',
 		species: data.species ?? '',
 
+    type_description: data.type_description ?? '',
     sample_type: data.sample_type ?? '',
-    host_type:data.host_type ?? '',
+    host_type: data.host_type ?? '',
 		host_species: data.host_species ?? '',
     sampling_site: data.sampling_site ?? '',
 		sampling_point: data.sampling_point ?? '',
-		// sampling_date: new Date().toISOString().substring(0, 10),
+		sampling_date: data.sampling_date ?? new Date().toISOString().substring(0, 10),
+    municity: data.municity ?? '',
+    province: data.province ?? '',
     // city_province: data.city_province ?? '',
 		location_latitude: data.location_latitude ?? 0,
 		location_longitude: data.location_longitude ?? 0,
+    storage_information: data.storage_information ?? '',
 		location_information: data.location_information ?? '',
     // miso_categories: data.miso_categories ?? [],
+    status: data.status ?? '',
+    hide: data.hide ?? false
 	}
 
   const handleUpdateSubmit = (strainData) => {

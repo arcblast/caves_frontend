@@ -22,6 +22,7 @@ const getAllStrains = async () => {
 	const response = await axios.get(STRAIN_URL)
 
 	if(response.data && (response.data.error == null) ) {
+		if(response.data == []) throw new Error('No strain found.')
 		localStorage.setItem( 'strains', JSON.stringify(response.data) )
 		return response.data
 	} else {

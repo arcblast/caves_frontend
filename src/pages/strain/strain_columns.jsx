@@ -46,7 +46,7 @@ export const strain_columns = [
     cell: ({ row }) => <div className="">{row.getValue("status")}</div>,
   },
   {
-    accessorKey: "accession_id",
+    accessorKey: "accession_number",
     header: ({ column }) => {
       return (
         <Button
@@ -97,7 +97,7 @@ export const strain_columns = [
     meta: {
       name: 'Isolate ID',
     },
-    cell: ({ row }) => <div className=""></div>,
+    cell: ({ row }) => <div className="">{row.getValue("isolate_id")}</div>,
   },
   {
     accessorKey: "collection_name",
@@ -409,7 +409,7 @@ export const strain_columns = [
 
 export const visible_strain_columns = {
   status: true,
-  accesion_id: false,
+  accession_number: false,
   isolate_id: true,
   collection_name: false,
   institution: false,
