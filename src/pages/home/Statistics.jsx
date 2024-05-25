@@ -4,7 +4,7 @@ import { MapPinned, Network, Orbit, Users2 } from "lucide-react"
 const Statistics = () => {
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-      <Card>
+      <Card className='bg-gradient-to-tr from-green-200 to-yellow-200 shadow-md'>
         <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
           <CardTitle className="text-base font-medium">
             Total strains
@@ -18,7 +18,7 @@ const Statistics = () => {
           </p>
         </CardContent>
       </Card>
-      <Card>
+      <Card className='bg-primary text-background'>
         <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
           <CardTitle className="text-base font-medium">
             Total species
@@ -32,7 +32,7 @@ const Statistics = () => {
           </p>
         </CardContent>
       </Card>
-      <Card>
+      <Card className='bg-primary text-background shadow'>
         <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
           <CardTitle className="text-base font-medium">
             Sampling sites
@@ -46,7 +46,7 @@ const Statistics = () => {
           </p>
         </CardContent>
       </Card>
-      <Card>
+      <Card className='bg-gradient-to-tr from-primary to-yellow-300 text-background'>
         <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
           <CardTitle className="text-base font-medium">
             Collaborators

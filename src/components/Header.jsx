@@ -40,12 +40,12 @@ const Header = () => {
   }
 
   return (
-	<header className='sticky top-0 left-0 right-0 z-50 bg-background/25 lg:backdrop-blur-lg shadow shadow-lime-300' >
+		<header className='sticky top-0 left-0 right-0 z-50 bg-background/25 lg:backdrop-blur-lg shadow shadow-lime-300' >
 			<div className='flex container py-2 justify-between items-center'>
 				<Link to="/" className='flex lg:flex-1 items-center'>
-		  <img className="h-12" src={Logo} alt='Logo' />
-					<h1 className='lg:font-bold lg:text-3xl lg:text-primary lg:ml-1 sm:hidden'>caves</h1>
-		</Link>
+					<img className="h-12" src={Logo} alt='Logo' />
+					{/* <h1 className='lg:font-bold lg:text-3xl lg:text-primary lg:ml-1 sm:hidden'>caves</h1> */}
+				</Link>
 
 				{/* Mobile and Tablet View */}
 				<div className='flex lg:hidden'>
@@ -64,10 +64,10 @@ const Header = () => {
 							navMenuOpen ? 'right-0' : "-right-full"
 						} lg:hidden transition-all duration-300 mt-[64px] z-50 flex flex-col w-full sm:w-full md:w-1/2 fixed top-0 bottom-0 gap-y-4 gap-x-9 justify-start bg-primary pt-10`}
 					>
-					 { navigation.map( (item) => (
+						{ navigation.map( (item) => (
 							<>
 							<Link
-								key={item.id}
+								key={'mobileview:'+item.id}
 								type='button'
 								to={item.href}
 								// onClick={() => navigate(item.href)}
@@ -81,7 +81,7 @@ const Header = () => {
 							</Link>
 							<Separator className='mx-2' />
 							</>
-			))}
+						))}
 						{ user?.user_level === 'ADMIN' ? (
 							<Link
 								key={'strain-collection'}
@@ -121,15 +121,15 @@ const Header = () => {
 
 				{/* Desktop */}
 				<div className='hidden lg:flex lg:flex-row lg:gap-x-12'>
-		  { navigation.map( (item) => (
+		  		{ navigation.map( (item) => (
 						<NavLink
-							key={item.id}
+							key={'desktop:' + item.id}
 							to={item.href}
 							className={activeStyleCallback}
 						>
 							{item.name}
 						</NavLink>
-		  ))}
+		  		))}
 					{ user?.user_level === 'ADMIN' ? (
 						<NavLink
 							key={'strain-collection'}
@@ -139,7 +139,7 @@ const Header = () => {
 							Collection
 						</NavLink>
 					) : null }
-		</div>
+				</div>
 			
 				<div className='hidden lg:flex lg:flex-1 lg:justify-end gap-x-2'>
 					{ user ? (
@@ -158,9 +158,8 @@ const Header = () => {
 						</div>
 					)}
 				</div>
-			
 			</div>
-	</header>
+		</header>
   )
 }
 
