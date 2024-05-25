@@ -109,7 +109,7 @@ export function DataTable({data, columns, visible_columns, column_filter}) {
       </div>
       <ScrollArea className=" w-auto">
         <div className="rounded-md border">
-          <Table className='bg-background/50 '>
+          <Table className='bg-background/50 font-inter'>
             <TableHeader>
               {table.getHeaderGroups().map(headerGroup => (
                 <TableRow key={headerGroup.id}>

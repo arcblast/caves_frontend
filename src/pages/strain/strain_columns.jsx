@@ -3,6 +3,13 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowUpDown } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import StrainActions from "./StrainActions";
+import { category_1 } from "@/constants/miso";
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
+}
 
 export const strain_columns = [
   {
@@ -391,6 +398,69 @@ export const strain_columns = [
       name: 'Location information',
     },
     cell: ({ row }) => <div className="">{row.getValue("location_information")}</div>
+  },
+  {
+    accessorKey: "miso_categories",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          // onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          MISO
+        </Button>
+      )
+    },
+    meta: {
+      name: "MISO categories",
+    },
+    cell: ({ row }) => {
+      const miso3 = row.getValue('miso_categories')
+      // console.log(miso3)
+
+      const displayMISO = (data) => {
+        const color = category_1.find( item => { return item.name === data[0] })?.color_code
+        return (
+          <div className="grid grid-flow-col min-w-max gap-1 m-1">
+            <Badge
+              className={cn(
+                data[0] ? color : null, 'hover:bg-disable justify-center text-foreground font-inter font-normal'
+              )}
+            >{data[0]}</Badge>
+            <Badge
+              className={cn(
+                data[0] ? color : null, 'hover:bg-disable justify-center text-foreground font-inter font-normal'
+              )}
+            >{data[1]}</Badge>
+            <Badge
+              className={cn(
+                data[0] ? color : null, 'hover:bg-disable justify-center text-foreground font-inter font-normal'
+              )}
+            >{data[2]}</Badge>
+          </div>
+        )
+      }
+
+      return (
+        <div>
+          {
+            miso3?.length != 0 ? (
+              miso3?.length == 1 ? (
+                <>
+                  {displayMISO(miso3[0])}
+                </>
+              ) : (
+                <>
+                  {
+                    miso3.map( item => displayMISO(item))
+                  }
+                </>
+              )
+            ) : null
+          }
+        </div>
+      )
+    }
   },
   {
     id: "actions",

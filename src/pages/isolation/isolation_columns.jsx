@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Badge } from "@/components/ui/badge"
 import { category_1 } from "@/constants/miso"
-import { miso_categories } from "@/constants/MISO_categories"
+import { cn } from "@/lib/utils"
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -148,9 +148,9 @@ export const isolation_columns = [
       name: 'Host',
     },
     cell: ({ row }) =>
-    <div className="">
-      <span>{row.original.host_type}</span>
-      <span>{row.getValue("host_species")}</span>
+    <div className="flex flex-col">
+      <span className="capitalize">{row.original.host_type.toLowerCase()}</span>
+      <span className=" italic">{row.getValue("host_species")}</span>
     </div>
   },
   {
@@ -295,72 +295,59 @@ export const isolation_columns = [
     meta: {
       name: "MISO categories",
     },
-    cell: ({ row }) =>
-      <div className="space-y-1 space-x-0.5 flex flex-col">
-        {
-          // row.getValue("miso_categories").length != 0 ? (
-          //   row.getValue("miso_categories")?.map( miso => {
-              <p>{row.getValue("miso_categories")?.toString()}</p>
-              // <div className=" flex flex-row space-x-0.5">
-              //   <Badge
-              //     className={classNames(
-              //       miso[0] ? category_1.find( item => { return item.name === miso[0] })?.color_code : null, 'hover:bg-disable justify-center text-foreground font-normal'
-              //     )}
-              //   >
-              //     {miso[0]}
-              //   </Badge>
-              //   <Badge
-              //     className={classNames(
-              //       miso[0] ? category_1.find( item => { return item.name === miso[0] })?.color_code : null, 'hover:bg-disable justify-center text-foreground font-normal'
-              //     )}
-              //   >
-              //     {miso[1]}
-              //   </Badge>
-              //   <Badge
-              //     className={classNames(
-              //       miso[0] ? category_1.find( item => { return item.name === miso[0] })?.color_code : null, 'hover:bg-disable justify-center text-foreground font-normal'
-              //     )}
-              //   >
-              //     {miso[2]}
-              //   </Badge>
-              // </div>
-          //   })
-          // ) : <p>{row.getValue("miso_categories").toString()}</p>
-        }
-        
-      </div>
+    cell: ({ row }) => {
+      const array = []
+      const miso = row.getValue('miso_categories').map( item => array.push(Object.values(item)) )
+      const miso2 = Object.values(row.getValue('miso_categories'))
+      const miso3 = row.getValue('miso_categories')
+      // console.log(miso3)
+      const arraylength = row.getValue('miso_categories').length
+      console.log(arraylength)
+
+      const displayMISO = (data) => {
+        const color = category_1.find( item => { return item.name === data[0] })?.color_code
+        return (
+          <div className="grid grid-flow-col min-w-max gap-1 m-1">
+            <Badge
+              className={cn(
+                data[0] ? color : null, 'hover:bg-disable justify-center text-foreground font-inter font-normal'
+              )}
+            >{data[0]}</Badge>
+            <Badge
+              className={cn(
+                data[0] ? color : null, 'hover:bg-disable justify-center text-foreground font-inter font-normal'
+              )}
+            >{data[1]}</Badge>
+            <Badge
+              className={cn(
+                data[0] ? color : null, 'hover:bg-disable justify-center text-foreground font-inter font-normal'
+              )}
+            >{data[2]}</Badge>
+          </div>
+        )
+      }
+
+      return (
+        <div>
+          {
+            miso3?.length != 0 ? (
+              miso3?.length == 1 ? (
+                <>
+                  {displayMISO(miso3[0])}
+                </>
+              ) : (
+                <>
+                  {
+                    miso3.map( item => displayMISO(item))
+                  }
+                </>
+              )
+            ) : null
+          }
+        </div>
+      )
+    }
   },
-  // {
-  //   header: 'MISO categories',
-  //   accessorKey: 'miso_categories',
-  //   meta: {
-  //     name: "MISO",
-  //   },
-  //   columns: [
-  //     {
-  //       id: 'level_1',
-  //       cell: ({ row }) =>
-  //         <Badge
-  //           className={classNames(
-  //             row.getValue("miso_categories")[0] ? category_1.find( item => { return item.name === row.getValue("miso_categories")[0] })?.color_code : null, 'hover:bg-disable items-center text-foreground'
-  //           )}
-  //         >
-  //           {row.getValue("miso_categories")[0]}
-  //         </Badge>
-  //     },
-  //     {
-  //       id: 'level_2',
-  //       cell: ({ row }) =>
-  //         <Badge
-  //           className={classNames(
-  //             row.getValue("miso_categories")[0] ? category_1.find( item => { return item.name === row.getValue("miso_categories")[0] })?.color_code : null, 'hover:bg-disable items-center text-foreground'
-  //           )}
-  //         >
-  //           {row.getValue("miso_categories")[1]}
-  //         </Badge>
-  //     }
-  //   ]
-  // },
   {
     id: "actions",
     name: "Actions",
