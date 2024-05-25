@@ -75,14 +75,13 @@ const IsolationSourcePage = () => {
       <div className='container relative'>
         <div className="rounded-[0.5rem] border bg-background/25 shadow mt-5">
           {/* <div className='grid lg:grid-cols-4'> */}
-          <div className='flex'>
+          {/* <div className='flex'> */}
             {/* <div className=' col-span-1 hidden'>
               <IsolationFilterSidebar />
             </div> */}
             
-            <div className='col-span-3 lg:border-l flex flex-col flex-grow space-y-1 z-0 min-h-screen'>
-              {/* <IsolationMap /> */}
-              {/* <div className='h-screen'></div> */}
+            <div className='col-span-3 lg:border-l flex flex-col space-y-1'>
+             
               <IsolationNavigation toggleOpenTable={toggleOpenTable} toggleOpenMap={toggleOpenMap} toggleOpenMetrics={toggleOpenMetrics} />
 
               <Collapsible
@@ -102,7 +101,6 @@ const IsolationSourcePage = () => {
                   <div className='mx-5'>
                     <DataTable data={data} columns={isolation_columns} visible_columns={visible_isolation_columns} column_filter={filter} />
                   </div>
-                  {/* <DataTable table={table} columns={isolation_columns} visible_columns={visible_isolation_columns}/> */}
                 </CollapsibleContent>
               </Collapsible>
              
@@ -118,12 +116,11 @@ const IsolationSourcePage = () => {
 
               {
                 (openTable || openMap || openMetrics) === false ?
-                // (<></>) :
                 (<div className='flex items-center justify-center text-muted-foreground'>No selected tab</div>)
                 : null
               }
             </div>
-          </div>
+          {/* </div> */}
         </div>
       </div>
     </>

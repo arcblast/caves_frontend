@@ -2,7 +2,7 @@ import { provinces } from '@/constants/4AProvincesGeoJSON';
 import { Polygon } from 'react-leaflet';
 import { getColor } from '@/lib/utils';
 
-export default function ProvinceMapLayer({strains, handleSetFilter, setSelectedLocation}) {
+export default function ProvinceMapLayer({strains, handleSetFilter, setSelectedLocation, setSelectedLocStrainCount}) {
   return (
 		<>
 		{
@@ -13,7 +13,7 @@ export default function ProvinceMapLayer({strains, handleSetFilter, setSelectedL
 				// Multipolygon
 				else coordinates = province.geometry.coordinates.map( (coor) => coor[0].map((item) => [item[1], item[0]]))
 
-				const strainCount = strains?.filter( (item) => item.city_province?.toLowerCase().includes(province.properties.ADM2_EN.toLowerCase())).length
+				const strainCount = strains?.filter( (item) => item.province?.toLowerCase().includes(province.properties.ADM2_EN.toLowerCase())).length
 				
 				return (<Polygon
 					pathOptions={{
@@ -36,6 +36,7 @@ export default function ProvinceMapLayer({strains, handleSetFilter, setSelectedL
 								color: 'black',
 							})
 							setSelectedLocation(province.properties.ADM2_EN)
+							setSelectedLocStrainCount(strainCount)
 						},
 						mouseout: (e) => {
 							const layer = e.target;

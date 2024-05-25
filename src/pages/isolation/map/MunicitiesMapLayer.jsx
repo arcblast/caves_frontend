@@ -2,7 +2,7 @@ import { municities } from '@/constants/4AMunicitiesGeoJSON';
 import { Polygon } from 'react-leaflet';
 import { getColor } from '@/lib/utils';
 
-export default function MunicitiesMapLayer({strains, handleSetFilter, setSelectedLocation}) {
+export default function MunicitiesMapLayer({strains, handleSetFilter, setSelectedLocation, setSelectedLocStrainCount}) {
   return (
 		<>
 		{
@@ -13,7 +13,7 @@ export default function MunicitiesMapLayer({strains, handleSetFilter, setSelecte
 				// Multipolygon
 				else coordinates = muncity.geometry.coordinates.map( (coor) => coor[0].map((item) => [item[1], item[0]]))
 
-				const strainCount = strains?.filter( (item) => item.city_province?.toLowerCase().includes(muncity.properties.ADM3_EN.toLowerCase()) && item.city_province?.toLowerCase().includes(muncity.properties.ADM2_EN.toLowerCase())).length
+				const strainCount = strains?.filter( (item) => item.municity?.toLowerCase().includes(muncity.properties.ADM3_EN.toLowerCase()) && item.province?.toLowerCase().includes(muncity.properties.ADM2_EN.toLowerCase())).length
 				
 				return (<Polygon
 					pathOptions={{
@@ -36,6 +36,7 @@ export default function MunicitiesMapLayer({strains, handleSetFilter, setSelecte
 								color: 'black',
 							})
 							setSelectedLocation(muncity.properties.ADM3_EN)
+							setSelectedLocStrainCount(strainCount)
 						},
 						mouseout: (e) => {
 							const layer = e.target;

@@ -11,6 +11,7 @@ import { useState } from 'react';
 const IsolationMap = ({data, handleSetFilter}) => {
 
 	const [ selectedLocation, setSelectedLocation ] = useState('')
+	const [ selectedLocStrainCount, setSelectedLocStrainCount ] = useState(0)
 
   return (
     <div className='w-full h-full'>
@@ -25,7 +26,7 @@ const IsolationMap = ({data, handleSetFilter}) => {
 							selectedLocation ? 
 								<>
 									<span className='text-base font-semibold text-foreground'>{selectedLocation}</span>
-									<span className='text-base text-foreground ml-2'> {data?.filter( (item) => item.municity?.toLowerCase().includes(selectedLocation?.toLowerCase())).length} strains</span>
+									<span className='text-base text-foreground ml-2'> {selectedLocStrainCount} strains</span>
 								</>
 							:
 							<span className='text-base font-semibold text-foreground'>Hover over an area</span>
@@ -50,12 +51,12 @@ const IsolationMap = ({data, handleSetFilter}) => {
 							</LayersControl.Overlay>
 							<LayersControl.Overlay checked name='Province Heat Map'>
 								<LayerGroup>
-									<ProvinceMapLayer strains={data} handleSetFilter={handleSetFilter} setSelectedLocation={setSelectedLocation} />
+									<ProvinceMapLayer strains={data} handleSetFilter={handleSetFilter} setSelectedLocation={setSelectedLocation} setSelectedLocStrainCount={setSelectedLocStrainCount} />
 								</LayerGroup>	
 							</LayersControl.Overlay>
 							<LayersControl.Overlay name='Muncities Heat Map'>
 								<LayerGroup>
-									<MunicitiesMapLayer strains={data} handleSetFilter={handleSetFilter} setSelectedLocation={setSelectedLocation}  />
+									<MunicitiesMapLayer strains={data} handleSetFilter={handleSetFilter} setSelectedLocation={setSelectedLocation} setSelectedLocStrainCount={setSelectedLocStrainCount} />
 								</LayerGroup>	
 							</LayersControl.Overlay>
 							<LayersControl.Overlay checked name='Strains'>
