@@ -7,13 +7,8 @@ import { ArrowRight, MenuIcon, X } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '@/features/auth/authSlice';
 import { useToast } from './ui/use-toast';
+import { navigation } from '@/constants';
 
-const navigation = [
-  { id: 1, name: 'Home', href: '/', value: 'home' },
-  { id: 2, name: 'Taxonomy', href: '/', value: 'taxonomy' },
-  { id: 3, name: 'Isolation source', href: '/isolation-source', value: 'isolation' },
-  { id: 4, name: 'About', href: '/', value: 'about' },
-]
 
 const Header = () => {
 	const { user } = useSelector( (state) => state.auth )
@@ -40,7 +35,7 @@ const Header = () => {
   }
 
   return (
-		<header className='sticky top-0 left-0 right-0 z-50 bg-background/25 lg:backdrop-blur-lg shadow shadow-lime-300' >
+		<header className='sticky top-0 left-0 right-0 z-50 bg-background/25 lg:backdrop-blur-lg shadow shadow-lime-300 font-inter' >
 			<div className='flex container py-2 justify-between items-center'>
 				<Link to="/" className='flex lg:flex-1 items-center'>
 					<img className="h-12" src={Logo} alt='Logo' />
@@ -66,7 +61,7 @@ const Header = () => {
 					>
 						{ navigation.map( (item) => (
 							<>
-							<Link
+							<NavLink
 								key={'mobileview:'+item.id}
 								type='button'
 								to={item.href}
@@ -78,12 +73,12 @@ const Header = () => {
 							>
 								<h2 className=' '>{item.name}</h2>
 								<ArrowRight className='h-4' />
-							</Link>
+							</NavLink>
 							<Separator className='mx-2' />
 							</>
 						))}
 						{ user?.user_level === 'ADMIN' ? (
-							<Link
+							<NavLink
 								key={'strain-collection'}
 								type='button'
 								to={'/strain-collection'}
@@ -95,7 +90,7 @@ const Header = () => {
 							>
 								<h2 className=' '>Collection</h2>
 								<ArrowRight className='h-4' />
-							</Link>
+							</NavLink>
 						) : null }
 						<div>
 							{ user ? (

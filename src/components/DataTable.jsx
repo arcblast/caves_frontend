@@ -67,7 +67,7 @@ export function DataTable({data, columns, visible_columns, column_filter}) {
  
   return (
     <>
-      <div className="flex items-center py-4">
+      <div className="flex items-center py-4 font-inter">
         <Input
           placeholder="Search strains..."
           // value={table.getColumn("strain_name")?.getFilterValue() ?? ""}
@@ -84,7 +84,7 @@ export function DataTable({data, columns, visible_columns, column_filter}) {
               View Columns <ChevronDown className="ml-2 h-4 w-4 bg-background/50" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent align="end" className='font-inter'>
             <ScrollArea className='h-72'>
             {table
               .getAllColumns()

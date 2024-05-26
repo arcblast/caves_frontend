@@ -1,3 +1,10 @@
+export const navigation = [
+  { id: 1, name: 'Home', href: '/', value: 'home' },
+  { id: 2, name: 'Taxonomy', href: '/', value: 'taxonomy' },
+  { id: 3, name: 'Isolation source', href: '/isolation-source', value: 'isolation' },
+  { id: 4, name: 'Statistics', href: '/', value: 'statistics' },
+];
+
 export const sample_type = [
 	{
 		name: 'BAT RINSE',

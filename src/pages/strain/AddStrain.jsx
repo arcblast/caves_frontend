@@ -86,8 +86,8 @@ const AddStrain = () => {
 
   return (
     <>
-			<div className='flex mt-10 mx-5 justify-end'>
-        <h1 className='lg:text-3xl text-lg font-bold flex-1'>Strain Collection</h1>
+			<div className='flex mt-10 container justify-end font-inter'>
+        <h1 className='lg:text-3xl text-lg font-bold flex-1 text-primary'>Strain Collection</h1>
           <Button variant='outline' className='pl-2' onClick={() => navigate('/strain-collection')} >
             <ArrowLeftCircle className='h-4' />
             Cancel

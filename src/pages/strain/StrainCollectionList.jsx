@@ -46,7 +46,7 @@ const StrainCollectionList = () => {
 
   return (
     <>
-      <div className='flex mt-10 justify-end'>
+      <div className='flex mt-10 justify-end font-inter'>
         <h1 className='lg:text-3xl text-lg font-bold flex-1 text-primary tracking-tight'>Strain Collection</h1>
         {/* <AddStrain /> */}
         <Link

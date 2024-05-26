@@ -443,13 +443,13 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Province</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select onValueChange={field.onChange} defaultValue={field.value} className='font-inter'>
                   <FormControl>
                     <SelectTrigger className='bg-background'>
                       <SelectValue placeholder='Select province' />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
+                  <SelectContent className='font-inter'>
                     <SelectGroup>
                       { provinces.map( ({province, index}) => (
                         <SelectItem key={'strain-form'+province+index} value={province}>{province}</SelectItem>

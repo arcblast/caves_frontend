@@ -4,7 +4,7 @@ import { BarChartBig, Map, TableProperties } from 'lucide-react'
 const IsolationNavigation = ({toggleOpenTable, toggleOpenMap, toggleOpenMetrics}) => {
   return (
     <>
-      <div className='w-full py-3 px-4 flex justify-start border-b'>
+      <div className='w-full py-3 px-4 flex justify-start border-b font-inter'>
         <ToggleGroup type='multiple' defaultValue={['table']} >
           <ToggleGroupItem value='table' onClick={toggleOpenTable} className='h-8 pr-4 pl-3 data-[state=on]:bg-primary data-[state=on]:text-background data-[state=on]:font-semibold'>
             <TableProperties className='h-4 mr-1'/>Table

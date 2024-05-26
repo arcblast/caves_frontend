@@ -11,7 +11,7 @@ export function ComboboxPopover({data, title, handleCategoryChange, selectedValu
   // const [selectedValue, setSelectedValue] = useState('')
 
   return (
-    <div className="flex items-center space-x-4">
+    <div className="flex items-center space-x-4 font-inter">
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
@@ -29,7 +29,7 @@ export function ComboboxPopover({data, title, handleCategoryChange, selectedValu
           </Button>
           {/* <Input placeholder='Set status' /> */}
         </PopoverTrigger>
-        <PopoverContent className="p-0" align="start">
+        <PopoverContent className="p-0 font-inter" align="start">
           <Command>
             <CommandInput placeholder="Set a category..." />
             <CommandList>
