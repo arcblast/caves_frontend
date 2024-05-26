@@ -5,10 +5,10 @@ import Signup from './pages/login/Signup';
 import IsolationSourcePage from './pages/isolation/IsolationSourcePage';
 import StrainCollectionPage from './pages/strain/StrainCollectionPage';
 import { Toaster } from './components/ui/toaster';
-import Skeleton from './components/LoadingSkeleton';
 import UpdateStrain from './pages/strain/UpdateStrain';
 import AddStrain from './pages/strain/AddStrain';
 import StrainCollectionList from './pages/strain/StrainCollectionList';
+import StatisticsPage from './pages/statistics/StatisticsPage';
 
 const router = createBrowserRouter([
   {
@@ -44,6 +44,10 @@ const router = createBrowserRouter([
   {
     path: '/isolation-source',
     element: <IsolationSourcePage />,
+  },
+  {
+    path: '/statistics',
+    element: <StatisticsPage />,
   },
 ]);
 
