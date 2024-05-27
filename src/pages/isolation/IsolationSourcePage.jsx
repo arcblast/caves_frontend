@@ -15,12 +15,13 @@ import { useBlocker } from 'react-router-dom'
 function getStrains() {
   const { toast } = useToast()
 
-  const { data, isPending, isFetching, isError } = useQuery({
+  const { data, pending, fetching, isError, isLoading } = useQuery({
     queryFn: () => strainService.getAllStrains(),
     queryKey: ["strains"],
     onError: (error) => {
       console.log(error)
     },
+
   });
   
   if( data == [] ) {
@@ -31,7 +32,7 @@ function getStrains() {
     })
   }
 
-  if( isPending || isFetching ) {
+  if( pending || fetching || isLoading ) {
     return <LoadingSkeleton />
   }
 

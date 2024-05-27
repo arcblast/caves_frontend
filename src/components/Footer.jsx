@@ -1,25 +1,17 @@
 import { Copyright } from 'lucide-react'
 import Logo from '../assets/logo.svg'
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
   return (
     <>
-    {/* <div className='w-full bg-primary h-2' />
-    <div className='w-full bg-gradient-to-r from-green-200 to-yellow-200  h-20'>
-
-    </div> */}
-
-    {/* <div className='w-full bg-foreground h-2' />
-    <div className='w-full bg-primary h-2' /> */}
-    {/* <div className='w-full bg-gradient-to-r from-primary to-yellow-300  h-20'> */}
-    {/* <div className='w-full bg-gradient-to-r from-yellow-300 to-primary h-2' /> */}
-    <div className='w-full bg-background/30 flex flex-col justify-center items-center'>
+    <div className='w-full bg-background/30 flex flex-col justify-center items-center mt-10 py-3'>
       <div className='flex flex-row justify-center items-center w-full text-sm font-poppins text-muted-foreground gap-x-4'>
-        <p>Home</p>
+        <Link>Home</Link>
         <p>|</p>
-        <p>Taxonomy</p>
+        <Link>Taxonomy</Link>
         <p>|</p>
-        <p>Isolation source</p>
+        <Link>Isolation source</Link>
       </div>
 
       <p className='text-sm text-muted-foreground font-poppins'>University of the Philippines Los Banos, Laguna, 4030</p>   

@@ -30,6 +30,7 @@ const UpdateStrain = () => {
       })
 
       queryClient.invalidateQueries({ queryKey: ['strain', id]})
+      queryClient.invalidateQueries({ queryKey: ['collection']})
     }
   })
 
@@ -52,6 +53,7 @@ const UpdateStrain = () => {
     project_name: data.project_name ?? '',
     project_code: data.project_code ?? '',
 
+    strain_name: data.strain_name ?? '',
     scientific_name: data.scientific_name ?? '',
 		domain: data.domain ?? '',
 		phylum: data.phylum ?? '',
@@ -70,6 +72,7 @@ const UpdateStrain = () => {
 		sampling_date: data.sampling_date ?? new Date().toISOString().substring(0, 10),
     municity: data.municity ?? '',
     province: data.province ?? '',
+    location_abbr: data.location_abbr ?? '',
     // city_province: data.city_province ?? '',
 		location_latitude: data.location_latitude ?? 0,
 		location_longitude: data.location_longitude ?? 0,

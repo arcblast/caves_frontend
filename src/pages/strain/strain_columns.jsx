@@ -53,6 +53,24 @@ export const strain_columns = [
     cell: ({ row }) => <div className="">{row.getValue("status")}</div>,
   },
   {
+    accessorKey: "full_accession_code",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Full Accession Code
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    meta: {
+      name: 'Full accession code',
+    },
+    cell: ({ row }) => <div className="">{row.getValue("full_accession_code")}</div>,
+  },
+  {
     accessorKey: "accession_number",
     header: ({ column }) => {
       return (
@@ -70,24 +88,24 @@ export const strain_columns = [
     },
     cell: ({ row }) => <div className="">{row.getValue("accession_number")}</div>,
   },
-  // {
-  //   accessorKey: "custom_code",
-  //   header: ({ column }) => {
-  //     return (
-  //       <Button
-  //         variant="ghost"
-  //         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-  //       >
-  //         Custom ID
-  //         <ArrowUpDown className="ml-2 h-4 w-4" />
-  //       </Button>
-  //     )
-  //   },
-  //   meta: {
-  //     name: 'Custom ID',
-  //   },
-  //   cell: ({ row }) => <div className=""></div>,
-  // },
+  {
+    accessorKey: "custom_code",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Custom ID
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    meta: {
+      name: 'Custom code',
+    },
+    cell: ({ row }) => <div className="">{row.getValue("custom_code")}</div>,
+  },
   {
     accessorKey: "isolate_id",
     header: ({ column }) => {
@@ -161,7 +179,7 @@ export const strain_columns = [
     cell: ({ row }) => <div className="">{row.getValue("project_name")}</div>,
   },
   {
-    accessorKey: "scientific_name",
+    accessorKey: "strain_name",
     header: ({ column }) => {
       return (
         <Button
@@ -169,6 +187,24 @@ export const strain_columns = [
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Strain name
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    meta: {
+      name: 'Strain name',
+    },
+    cell: ({ row }) => <div className="">{row.getValue("strain_name")}</div>,
+  },
+  {
+    accessorKey: "scientific_name",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Scientific name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
@@ -480,12 +516,14 @@ export const strain_columns = [
 export const visible_strain_columns = {
   status: true,
   accession_number: false,
-  isolate_id: true,
+  custom_code: false,
+  isolate_id: false,
   collection_name: false,
   institution: false,
   project_name: false,
 
-  scientific_name : true,
+  strain_name: true,
+  scientific_name : false,
   species: false,
   type_description: true,
   sample_type: true,

@@ -44,12 +44,12 @@ const AddStrain = () => {
 		custom_code: '',
     isolate_id: '',
     collection_name: 'MCC',
-    institution: 'MNH',
-    project_name: 'DOST NICER CAVES',
+    institution: 'UPLB MNH',
+    project_name: 'NICER CAVES',
     project_code: 'CAVES',
 
     // strain_name: '', // commented; does not work if required field
-    // scientific_name: '',
+    scientific_name: '',
 		domain: '',
 		phylum: '',
 		class_name: '',

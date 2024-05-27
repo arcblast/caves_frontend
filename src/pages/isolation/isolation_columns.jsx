@@ -57,10 +57,10 @@ export const isolation_columns = [
     meta: {
       name: 'Isolate ID',
     },
-    cell: ({ row }) => <div className=""></div>,
+    cell: ({ row }) => <div className="">{row.getValue("isolate_id")}</div>,
   },
   {
-    accessorKey: "scientific_name",
+    accessorKey: "strain_name",
     header: ({ column }) => {
       return (
         <Button
@@ -73,9 +73,9 @@ export const isolation_columns = [
       )
     },
     meta: {
-      name: 'Scientific name',
+      name: 'Strain name',
     },
-    cell: ({ row }) => <div className="">{row.getValue("scientific_name")}</div>,
+    cell: ({ row }) => <div className="">{row.getValue("strain_name")}</div>,
   },
   {
     accessorKey: "species",
@@ -296,13 +296,10 @@ export const isolation_columns = [
       name: "MISO categories",
     },
     cell: ({ row }) => {
-      const array = []
-      const miso = row.getValue('miso_categories').map( item => array.push(Object.values(item)) )
-      const miso2 = Object.values(row.getValue('miso_categories'))
+      // const array = []
+      // const miso = row.getValue('miso_categories').map( item => array.push(Object.values(item)) )
+      // const miso2 = Object.values(row.getValue('miso_categories'))
       const miso3 = row.getValue('miso_categories')
-      // console.log(miso3)
-      const arraylength = row.getValue('miso_categories').length
-      console.log(arraylength)
 
       const displayMISO = (data) => {
         const color = category_1.find( item => { return item.name === data[0] })?.color_code
@@ -348,36 +345,36 @@ export const isolation_columns = [
       )
     }
   },
-  {
-    id: "actions",
-    name: "Actions",
-    enableHiding: false,
-    cell: ({ row }) => {
-      const payment = row.original
+  // {
+  //   id: "actions",
+  //   name: "Actions",
+  //   enableHiding: false,
+  //   cell: ({ row }) => {
+  //     const payment = row.original
 
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              // onClick={() => navigator.clipboard.writeText(payment.id)}
-            >
-              View
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Update</DropdownMenuItem>
-            <DropdownMenuItem>Delete</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )
-    }
-  }
+  //     return (
+  //       <DropdownMenu>
+  //         <DropdownMenuTrigger asChild>
+  //           <Button variant="ghost" className="h-8 w-8 p-0">
+  //             <span className="sr-only">Open menu</span>
+  //             <MoreHorizontal className="h-4 w-4" />
+  //           </Button>
+  //         </DropdownMenuTrigger>
+  //         <DropdownMenuContent align="end">
+  //           <DropdownMenuLabel>Actions</DropdownMenuLabel>
+  //           <DropdownMenuItem
+  //             // onClick={() => navigator.clipboard.writeText(payment.id)}
+  //           >
+  //             View
+  //           </DropdownMenuItem>
+  //           <DropdownMenuSeparator />
+  //           <DropdownMenuItem>Update</DropdownMenuItem>
+  //           <DropdownMenuItem>Delete</DropdownMenuItem>
+  //         </DropdownMenuContent>
+  //       </DropdownMenu>
+  //     )
+  //   }
+  // }
 ]
 
 export const visible_isolation_columns = {

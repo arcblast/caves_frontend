@@ -1,36 +1,42 @@
 export const navigation = [
   { id: 1, name: 'Home', href: '/', value: 'home' },
-  { id: 2, name: 'Taxonomy', href: '/', value: 'taxonomy' },
+  // { id: 2, name: 'Taxonomy', href: '/', value: 'taxonomy' },
   { id: 3, name: 'Isolation source', href: '/isolation-source', value: 'isolation' },
-  { id: 4, name: 'Statistics', href: '/', value: 'statistics' },
+  { id: 4, name: 'Statistics', href: '/statistics', value: 'statistics' },
 ];
 
 export const sample_type = [
 	{
-		name: 'BAT RINSE',
-		value: 'BAT RINSE',
-		code: 'BAT_RINSE'
+		name: 'Bat Fecal Pellet',
+		value: 'FECAL PELLET',
+		code: 'FECAL_PELLET'
 	},
 	{
-		name: 'CAVE WATER',
+		name: 'Bat Gut',
+		value: 'GUT',
+		code: 'BAT_GUT'	
+	},
+	{
+		name: 'Bat Rinse',
+		value: 'RINSE',
+		code: 'RINSE'
+	},
+	{
+		name: 'Cave Water',
 		value: 'CAVE WATER',
 		code: 'CAVE_WATER'
 	},
 	{
-		name: 'FRESH GUANO',
+		name: 'Fresh Guano',
 		value: 'FRESH GUANO',
 		code: 'FRESH_GUANO'
 	},
 	{
-		name: 'GUANO',
+		name: 'Guano',
 		value: 'GUANO',
 		code: 'GUANO'
 	},
-	{
-		name: 'GUT',
-		value: 'GUT',
-		code: 'GUT'	
-	}
+	
 ];
 
 export const provinces_4A = [

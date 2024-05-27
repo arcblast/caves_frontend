@@ -20,16 +20,18 @@ import { Switch } from '@/components/ui/switch'
 import { muncities, provinces } from '@/constants/municity_province'
 import { Check, ChevronsUpDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { generateFullAccessionCode } from '@/lib/strainUtils'
 
 const StrainSchema = z.object({
   custom_code: z.string(),
   isolate_id: z.string(),
-  collection_name: z.string(),
-  institution: z.string(),
-  project_name: z.string(),
-  project_code: z.string(),
+  collection_name: z.string({ required_error: 'This field is required.' }),
+  institution: z.string({ required_error: 'This field is required.' }),
+  project_name: z.string({ required_error: 'This field is required.' }),
+  project_code: z.string({ required_error: 'This field is required.' }),
 
-  scientific_name: z.string({ required_error: 'This field is required.' }),
+  strain_name: z.string({ required_error: 'This field is required.' }),
+  scientific_name: z.string(),
 	domain: z.string(),
 	phylum: z.string(),
 	class_name: z.string(),
@@ -44,9 +46,11 @@ const StrainSchema = z.object({
 	host_species: z.string(),
 	sampling_site: z.string(),
 	sampling_point: z.string(),
+  sampling_site_abbr: z.string(),
   // city_province: z.string(),
   municity: z.string(),
   province: z.string(),
+  location_abbr: z.string(),
   location_latitude: z.coerce.number(),
 	location_longitude: z.coerce.number(),
   sampling_date: z.coerce.date(),
@@ -74,10 +78,12 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
 	}
 
   function onSubmit(data) {
+    console.log(data)
     try {
       const strainData = {
         ...data,
-        miso_categories: miso_categories
+        miso_categories: miso_categories,
+        full_accession_code: generateFullAccessionCode(data)
       }
       console.log(strainData)
       handleAction(strainData)
@@ -105,7 +111,7 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
               <FormItem>
                 <FormLabel>Isolate ID</FormLabel>
                 <FormControl>
-                  <Input placeholder="" {...field} />
+                  <Input placeholder="e.g. B1|001" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -119,7 +125,7 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
             name="custom_code"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Custom code/ID</FormLabel>
+                <FormLabel>Custom ID</FormLabel>
                 <FormControl>
                   <Input placeholder="" {...field} />
                 </FormControl>
@@ -137,7 +143,7 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
               <FormItem>
                 <FormLabel>Collection</FormLabel>
                 <FormControl>
-                  <Input placeholder="" {...field} />
+                  <Input placeholder="e.g. MCC-UPLB" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -153,7 +159,7 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
               <FormItem>
                 <FormLabel>Institution</FormLabel>
                 <FormControl>
-                  <Input placeholder="" {...field} />
+                  <Input placeholder="e.g. MNH" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -169,7 +175,7 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
               <FormItem>
                 <FormLabel>Project name</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder="e.g. NICER CAVES" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -185,7 +191,7 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
               <FormItem>
                 <FormLabel>Project code</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder="e.g. CAVES" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -200,12 +206,12 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
         <div className='col-span-full'>
           <FormField
             control={form.control}
-            name="scientific_name"
+            name="strain_name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Full Scientific name/Strain name</FormLabel>
+                <FormLabel>Strain name</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder="e.g. Abditibacterium utsteinense Tahon et al. 2018" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -317,7 +323,7 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
               <FormItem>
                 <FormLabel>Species</FormLabel>
                 <FormControl>
-                  <Input placeholder="" {...field} />
+                  <Input placeholder="e.g. Abditibacterium utsteinense" className='italic' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -337,7 +343,7 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
               <FormItem>
                 <FormLabel>Type description</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder='e.g. Bacteria | Yeasts | Molds' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -380,7 +386,7 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
               <FormItem>
                 <FormLabel>Host type</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder='e.g. Bat' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -396,7 +402,7 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
               <FormItem>
                 <FormLabel>Host species</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder='e.g. Rhinolophus arcuatus' className='italic' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -412,7 +418,7 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
               <FormItem>
                 <FormLabel>Sampling site/Cave name</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder='e.g. Cavinti Underground River and Cave Complex' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -420,7 +426,23 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
           />
         </div>
 
-        <div className='col-span-3'>
+        <div className='col-span-2'>
+          <FormField
+            control={form.control}
+            name="sampling_site_abbr"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Sampling site abbreviation</FormLabel>
+                <FormControl>
+                  <Input placeholder='e.g. CURCC' {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className='col-span-1'>
           <FormField
             control={form.control}
             name="sampling_point"
@@ -428,7 +450,7 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
               <FormItem>
                 <FormLabel>Sampling point</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder='e.g. 1' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -436,7 +458,7 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
           />
         </div>
 
-        <div className='col-span-3'>
+        <div className='col-span-2'>
           <FormField
             control={form.control}
             name="province"
@@ -490,21 +512,37 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
           />
         </div> */}
 
-        <div className='col-span-3'>
-            <FormField
-              control={form.control}
-              name="municity"
-              render={({ field }) => (
-                <FormItem>
-                <FormLabel>Municity</FormLabel>
+        <div className='col-span-2'>
+          <FormField
+            control={form.control}
+            name="municity"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Municipality/City</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder='e.g. Cavinti' {...field} />
                 </FormControl>
                 <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className='col-span-2'>
+          <FormField
+            control={form.control}
+            name="location_abbr"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Location abbreviation/code</FormLabel>
+                <FormControl>
+                  <Input placeholder='e.g. CL' {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
 
           {/* <div className='col-span-3'>
             <FormField
