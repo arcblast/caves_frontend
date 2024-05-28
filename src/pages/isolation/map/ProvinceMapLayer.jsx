@@ -48,7 +48,7 @@ export default function ProvinceMapLayer({strains, handleSetFilter, setSelectedL
 						},
 						click: (e) => {
 							handleSetFilter({
-								id: 'city_province',
+								id: 'province',
 								value: province.properties.ADM2_EN.toLowerCase()
 							})
 						}

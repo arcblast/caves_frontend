@@ -48,8 +48,8 @@ export default function MunicitiesMapLayer({strains, handleSetFilter, setSelecte
 						},
 						click: (e) => {
 							handleSetFilter({
-								id: 'city_province',
-								value: province.properties.ADM3_EN.toLowerCase()
+								id: 'municity',
+								value: muncity.properties.ADM3_EN.toLowerCase()
 							})
 						}
 					}}
