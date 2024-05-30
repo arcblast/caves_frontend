@@ -49,12 +49,12 @@ const IsolationMap = ({data, handleSetFilter}) => {
 									</Popup>
 								</Marker>
 							</LayersControl.Overlay>
-							<LayersControl.Overlay checked name='Province Heat Map'>
+							<LayersControl.Overlay name='Province Heat Map'>
 								<LayerGroup>
 									<ProvinceMapLayer strains={data} handleSetFilter={handleSetFilter} setSelectedLocation={setSelectedLocation} setSelectedLocStrainCount={setSelectedLocStrainCount} />
 								</LayerGroup>	
 							</LayersControl.Overlay>
-							<LayersControl.Overlay name='Muncities Heat Map'>
+							<LayersControl.Overlay checked name='Muncities Heat Map'>
 								<LayerGroup>
 									<MunicitiesMapLayer strains={data} handleSetFilter={handleSetFilter} setSelectedLocation={setSelectedLocation} setSelectedLocStrainCount={setSelectedLocStrainCount} />
 								</LayerGroup>	

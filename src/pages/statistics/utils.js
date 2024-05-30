@@ -60,3 +60,33 @@ export function getTypeDescriptionData(data) {
   const result = objectFormat(dataCount)
   return result
 }
+
+export function getSamplingSiteData(data) {
+  const dataArray = []
+  data?.map( item => dataArray.push(item.sampling_site))
+  const dataCount = dataArray.reduce(
+		function (occ, curr) {
+			return occ[curr] ?
+				++occ[curr] :
+				occ[curr] = 1,
+			occ
+		}, {}
+  )
+  const result = objectFormat(dataCount)
+  return result
+}
+
+export function getProvinceData(data) {
+  const dataArray = []
+  data?.map( item => dataArray.push(item.province))
+  const dataCount = dataArray.reduce(
+		function (occ, curr) {
+			return occ[curr] ?
+				++occ[curr] :
+				occ[curr] = 1,
+			occ
+		}, {}
+  )
+  const result = objectFormat(dataCount)
+  return result
+}

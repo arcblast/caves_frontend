@@ -49,6 +49,7 @@ export const isolation_columns = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           Full Accession Code
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -383,21 +384,6 @@ export const isolation_columns = [
       )
     }
   },
-  // {
-  //   accessorKey: "miso_categories_string",
-  //   header: ({ column }) => {
-  //     return (
-  //       <Button
-  //         variant="ghost"
-  //         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-  //       >
-  //         MISO Abbr
-  //         <ArrowUpDown className="ml-2 h-4 w-4" />
-  //       </Button>
-  //     )
-  //   },
-  //   cell: ({ row }) => <div className="">{row.getValue("miso_categories_string")}</div>
-  // },
   // {
   //   id: "actions",
   //   name: "Actions",

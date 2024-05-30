@@ -1,7 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { MapPinned, Network, Orbit, Users2 } from "lucide-react"
 
-const Statistics = () => {
+const StatCards = ({data}) => {
+  const total_strains = data?.length
+
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 font-inter">
       <Card className='bg-primary text-background'>
@@ -12,7 +14,7 @@ const Statistics = () => {
           <Orbit className="h-5 w-5" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">5,231</div>
+          <div className="text-2xl font-bold">{total_strains}</div>
           {/* <p className="text-xs text-muted-foreground">
             +20.1% from last month
           </p> */}
@@ -26,7 +28,7 @@ const Statistics = () => {
           <Network className="h-5 w-5" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">+2350</div>
+          <div className="text-2xl font-bold">NA</div>
           {/* <p className="text-xs text-muted-foreground">
             +20.1% from last month
           </p> */}
@@ -40,7 +42,7 @@ const Statistics = () => {
           <MapPinned className="h-5 w-5" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">21</div>
+          <div className="text-2xl font-bold">2</div>
           {/* <p className="text-xs text-muted-foreground">
             +20.1% from last month
           </p> */}
@@ -54,7 +56,7 @@ const Statistics = () => {
           <Users2 className="h-5 w-5" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">1021</div>
+          <div className="text-2xl font-bold">NA</div>
           {/* <p className="text-xs text-muted-foreground">
             +20.1% from last month
           </p> */}
@@ -64,4 +66,4 @@ const Statistics = () => {
   )
 }
 
-export default Statistics
+export default StatCards

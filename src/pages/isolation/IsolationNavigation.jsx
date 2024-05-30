@@ -12,9 +12,9 @@ const IsolationNavigation = ({toggleOpenTable, toggleOpenMap, toggleOpenMetrics}
           <ToggleGroupItem value='map' onClick={toggleOpenMap} className='h-8 pr-4 pl-3 data-[state=on]:bg-primary data-[state=on]:text-background data-[state=on]:font-semibold'>
             <Map className='h-4 mr-1'/>Map
           </ToggleGroupItem>
-          <ToggleGroupItem value='metrics' onClick={toggleOpenMetrics} className='h-8 pr-4 pl-3 data-[state=on]:bg-primary data-[state=on]:text-background data-[state=on]:font-semibold'>
+          {/* <ToggleGroupItem value='metrics' onClick={toggleOpenMetrics} className='h-8 pr-4 pl-3 data-[state=on]:bg-primary data-[state=on]:text-background data-[state=on]:font-semibold'>
             <BarChartBig className='h-4 mr-1'/>Metrics
-          </ToggleGroupItem>
+          </ToggleGroupItem> */}
         </ToggleGroup>
       </div>
     </>
