@@ -29,6 +29,7 @@ export const isolation_columns = [
         }
         onCheckedChange={value => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
+        className='-ml-1'
       />
     ),
     cell: ({ row }) => (
@@ -42,12 +43,31 @@ export const isolation_columns = [
     enableHiding: false
   },
   {
+    accessorKey: "full_accession_code",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Full Accession Code
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    meta: {
+      name: 'Full accession code',
+    },
+    cell: ({ row }) => <div className="">{row.getValue("full_accession_code")}</div>,
+  },
+  {
     accessorKey: "isolate_id",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           Isolate ID
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -66,6 +86,7 @@ export const isolation_columns = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           Strain name
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -84,6 +105,7 @@ export const isolation_columns = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           Species
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -102,6 +124,7 @@ export const isolation_columns = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           Type description
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -120,6 +143,7 @@ export const isolation_columns = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           Sampling type
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -138,6 +162,7 @@ export const isolation_columns = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           Host
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -160,11 +185,15 @@ export const isolation_columns = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           Sampling site
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
+    },
+    meta: {
+      name: 'Sampling site',
     },
     cell: ({ row }) => <div className="">{row.getValue("sampling_site")}</div>
   },
@@ -175,6 +204,7 @@ export const isolation_columns = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           Sampling point
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -193,6 +223,7 @@ export const isolation_columns = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           Sampling point
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -211,6 +242,7 @@ export const isolation_columns = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           Municipality/City
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -229,6 +261,7 @@ export const isolation_columns = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           Location
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -251,6 +284,7 @@ export const isolation_columns = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           Storage information
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -269,6 +303,7 @@ export const isolation_columns = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           Location information
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -281,14 +316,15 @@ export const isolation_columns = [
     cell: ({ row }) => <div className="">{row.getValue("location_information")}</div>
   },
   {
-    accessorKey: "miso_categories",
+    accessorKey: "miso_categories_string",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           // onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          // className='-ml-5'
         >
-          MISO
+          MISO Categories
         </Button>
       )
     },
@@ -297,9 +333,10 @@ export const isolation_columns = [
     },
     cell: ({ row }) => {
       // const array = []
-      // const miso = row.getValue('miso_categories').map( item => array.push(Object.values(item)) )
+      const miso = row.getValue('miso_categories_string')
       // const miso2 = Object.values(row.getValue('miso_categories'))
-      const miso3 = row.getValue('miso_categories')
+      // const miso3 = row.getValue('miso_categories')
+      const miso3 = row.original.miso_categories
 
       const displayMISO = (data) => {
         const color = category_1.find( item => { return item.name === data[0] })?.color_code
@@ -341,10 +378,26 @@ export const isolation_columns = [
               )
             ) : null
           }
+          <p></p>
         </div>
       )
     }
   },
+  // {
+  //   accessorKey: "miso_categories_string",
+  //   header: ({ column }) => {
+  //     return (
+  //       <Button
+  //         variant="ghost"
+  //         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+  //       >
+  //         MISO Abbr
+  //         <ArrowUpDown className="ml-2 h-4 w-4" />
+  //       </Button>
+  //     )
+  //   },
+  //   cell: ({ row }) => <div className="">{row.getValue("miso_categories_string")}</div>
+  // },
   // {
   //   id: "actions",
   //   name: "Actions",
@@ -378,10 +431,11 @@ export const isolation_columns = [
 ]
 
 export const visible_isolation_columns = {
+  full_accession_code: true,
   isolate_id: false,
   scientific_name : true,
   species: false,
-  type_description: true,
+  type_description: false,
   sample_type: true,
   host_type: false,
   host_species: false,

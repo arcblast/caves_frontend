@@ -45,10 +45,10 @@ const AddStrain = () => {
     isolate_id: '',
     collection_name: 'MCC',
     institution: 'UPLB MNH',
-    project_name: 'NICER CAVES',
-    project_code: 'CAVES',
+    project_name: 'NICER CAVES Project 4',
+    project_code: 'NICER CAVES P4',
 
-    // strain_name: '', // commented; does not work if required field
+    strain_name: '', // commented; does not work if required field
     scientific_name: '',
 		domain: '',
 		phylum: '',
@@ -66,6 +66,7 @@ const AddStrain = () => {
 		host_species: '',
     sampling_site: '',
 		sampling_point: '',
+    sampling_site_abbr: '',
 		sampling_date: new Date().toISOString().substring(0, 10),
     municity: '',
     province: '',

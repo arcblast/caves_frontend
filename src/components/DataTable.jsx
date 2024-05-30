@@ -28,6 +28,8 @@ import {
 } from "@/components/ui/table"
 import { useEffect, useState } from "react"
 import { ScrollArea, ScrollBar } from "./ui/scroll-area"
+import TableToolbar from "./table/TableToolbar"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
 
 export function DataTable({data, columns, visible_columns, column_filter}) {
 
@@ -59,29 +61,40 @@ export function DataTable({data, columns, visible_columns, column_filter}) {
     }
   })
 
-  useEffect(() => {
-    setColumnFilters(column_filter)
+  // useEffect(() => {
+  //   setColumnFilters(column_filter)
   
-  }, [columnFilters, column_filter])
+  // }, [columnFilters, column_filter])
   
  
   return (
     <>
-      <div className="flex items-center py-4 font-inter">
+      <div>
+        
+      </div>
+      <div className="flex items-center pt-4 pb-2 font-inter justify-between">
         <Input
           placeholder="Search strains..."
-          // value={table.getColumn("strain_name")?.getFilterValue() ?? ""}
           value={globalFilter ?? ''}
-          onChange={event =>
-            // table.getColumn("strain_name")?.setFilterValue(event.target.value)
+          onChange={event => {
             setGlobalFilter(event.target.value)
+            }
+          }
+          className="max-w-sm mr-2"
+        />
+        {/* <Input
+          placeholder="Search strains..."
+          value={table.getColumn("miso_categories")?.getFilterValue() ?? ""}
+          onChange={event =>
+            table.getColumn("miso_categories")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
-        />
+        /> */}
+        
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              View Columns <ChevronDown className="ml-2 h-4 w-4 bg-background/50" />
+            <Button variant="outline" className="ml-auto bg-background/50">
+              View Columns <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className='font-inter'>
@@ -107,6 +120,11 @@ export function DataTable({data, columns, visible_columns, column_filter}) {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
+
+      <div className="mb-4">
+        <TableToolbar table={table}/>
+      </div>
+
       <ScrollArea className=" w-auto">
         <div className="rounded-md border">
           <Table className='bg-background/50 font-inter'>
@@ -161,10 +179,31 @@ export function DataTable({data, columns, visible_columns, column_filter}) {
         </div>
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
-      <div className="flex items-center justify-end space-x-2 py-4">
+      <div className="flex items-center justify-end space-x-2 py-4 font-inter">
         <div className="flex-1 text-sm text-muted-foreground">
           {table.getFilteredSelectedRowModel().rows.length} of{" "}
           {table.getFilteredRowModel().rows.length} row(s) selected.
+        </div>
+        <div className="flex items-center space-x-6 lg:space-x-8">
+        <div className="flex items-center space-x-2">
+          <p className="text-sm font-medium text-muted-foreground">Rows per page</p>
+          <Select
+            value={`${table.getState().pagination.pageSize}`}
+            onValueChange={(value) => {
+              table.setPageSize(Number(value))
+            }}
+          >
+            <SelectTrigger className="h-8 w-[70px] bg-background.50 ">
+              <SelectValue placeholder={table.getState().pagination.pageSize}/>
+            </SelectTrigger>
+            <SelectContent side="top">
+              {[5, 10, 20, 30, 40, 50].map((pageSize) => (
+                <SelectItem key={pageSize} value={`${pageSize}`} className='font-inter'>
+                  {pageSize}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
         <div className="space-x-2 flex items-center">
           <div className="text-sm text-muted-foreground">
@@ -187,6 +226,7 @@ export function DataTable({data, columns, visible_columns, column_filter}) {
           >
             Next
           </Button>
+        </div>
         </div>
       </div>
     </>

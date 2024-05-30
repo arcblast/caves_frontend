@@ -50,7 +50,17 @@ export const strain_columns = [
     meta: {
       name: 'Status',
     },
-    cell: ({ row }) => <div className="">{row.getValue("status")}</div>,
+    cell: ({ row }) => {
+      const status = row.getValue("status")
+
+      return (
+        <div className='flex items-center justify-center'>
+          <Badge className={cn(status === 'Completed' ? 'bg-primary text-background' : 'bg-yellow-200 text-foreground' , 'hover:bg-disable justify-center font-inter font-normal text-center')}>
+            {status}
+          </Badge>
+        </div>
+      )
+    },
   },
   {
     accessorKey: "full_accession_code",
@@ -436,14 +446,14 @@ export const strain_columns = [
     cell: ({ row }) => <div className="">{row.getValue("location_information")}</div>
   },
   {
-    accessorKey: "miso_categories",
+    accessorKey: "miso_categories_string",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           // onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          MISO
+          MISO Categories
         </Button>
       )
     },
@@ -451,7 +461,8 @@ export const strain_columns = [
       name: "MISO categories",
     },
     cell: ({ row }) => {
-      const miso3 = row.getValue('miso_categories')
+      const miso = row.getValue('miso_categories_string')
+      const miso3 = row.original.miso_categories
       // console.log(miso3)
 
       const displayMISO = (data) => {
@@ -515,7 +526,8 @@ export const strain_columns = [
 
 export const visible_strain_columns = {
   status: true,
-  accession_number: false,
+  full_accession_code: true,
+  accession_number: true,
   custom_code: false,
   isolate_id: false,
   collection_name: false,
@@ -525,7 +537,7 @@ export const visible_strain_columns = {
   strain_name: true,
   scientific_name : false,
   species: false,
-  type_description: true,
+  type_description: false,
   sample_type: true,
   host_type: false,
   host_species: false,
@@ -535,5 +547,6 @@ export const visible_strain_columns = {
   municity: false,
   province: true,
   storage_information: false,
-  location_information: false
+  location_information: false,
+  miso_categories_string: false,
 }

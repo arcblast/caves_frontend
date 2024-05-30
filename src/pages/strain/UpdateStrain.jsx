@@ -69,6 +69,7 @@ const UpdateStrain = () => {
 		host_species: data.host_species ?? '',
     sampling_site: data.sampling_site ?? '',
 		sampling_point: data.sampling_point ?? '',
+    sampling_site_abbr: data.sampling_site_abbr ?? '',
 		sampling_date: data.sampling_date ?? new Date().toISOString().substring(0, 10),
     municity: data.municity ?? '',
     province: data.province ?? '',

@@ -43,7 +43,6 @@ export function getSampleTypeData(data) {
 		}, {}
   )
   const result = objectFormat(dataCount)
-  console.log(result)
   return result
 }
 
@@ -59,6 +58,5 @@ export function getTypeDescriptionData(data) {
 		}, {}
   )
   const result = objectFormat(dataCount)
-  console.log(result)
   return result
 }

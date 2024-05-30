@@ -40,7 +40,7 @@ export default function StrainsMapLayer({strains}) {
 						pathOptions={{ color: 'yellow', fillColor: 'yellow' }}
 					>
 						<Popup>
-							{strain?.scientific_name}
+							{strain?.strain_name}
 						</Popup>
 					</CircleMarker>
 				))

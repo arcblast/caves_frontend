@@ -13,7 +13,8 @@ export default function MunicitiesMapLayer({strains, handleSetFilter, setSelecte
 				// Multipolygon
 				else coordinates = muncity.geometry.coordinates.map( (coor) => coor[0].map((item) => [item[1], item[0]]))
 
-				const strainCount = strains?.filter( (item) => item.municity?.toLowerCase().includes(muncity.properties.ADM3_EN.toLowerCase()) && item.province?.toLowerCase().includes(muncity.properties.ADM2_EN.toLowerCase())).length
+				// const strainCount = strains?.filter( (item) => item.municity?.toLowerCase().includes(muncity.properties.ADM3_EN.toLowerCase()) && item.province?.toLowerCase().includes(muncity.properties.ADM2_EN.toLowerCase())).length
+				const strainCount = strains?.filter( (item) => muncity.properties.ADM3_EN.toLowerCase().includes(item.municity?.toLowerCase()) && muncity.properties.ADM2_EN.toLowerCase().includes(item.province?.toLowerCase())).length
 				
 				return (<Polygon
 					pathOptions={{

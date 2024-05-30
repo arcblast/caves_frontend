@@ -30,7 +30,7 @@ const StrainSchema = z.object({
   project_name: z.string({ required_error: 'This field is required.' }),
   project_code: z.string({ required_error: 'This field is required.' }),
 
-  strain_name: z.string({ required_error: 'This field is required.' }),
+  strain_name: z.string(),
   scientific_name: z.string(),
 	domain: z.string(),
 	phylum: z.string(),
@@ -83,6 +83,7 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
       const strainData = {
         ...data,
         miso_categories: miso_categories,
+        miso_categories_string: miso_categories.toString(),
         full_accession_code: generateFullAccessionCode(data)
       }
       console.log(strainData)
@@ -106,12 +107,12 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
         <div className='col-span-3'>
           <FormField
             control={form.control}
-            name="isolate_id"
+            name="custom_code"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Isolate ID</FormLabel>
+                <FormLabel>Isolation Custom ID</FormLabel>
                 <FormControl>
-                  <Input placeholder="e.g. B1|001" {...field} />
+                  <Input placeholder="" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -122,12 +123,12 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
         <div className='col-span-3'>
           <FormField
             control={form.control}
-            name="custom_code"
+            name="isolate_id"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Custom ID</FormLabel>
+                <FormLabel>Isolate ID</FormLabel>
                 <FormControl>
-                  <Input placeholder="" {...field} />
+                  <Input placeholder="e.g. B1|001" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -683,7 +684,7 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
                   <SelectContent className='font-inter'>
                     <SelectGroup>
                       <SelectItem key='completed-status' value='Completed'>Completed</SelectItem>
-                      <SelectItem key='inprogress-status' value='In progress'>In progress</SelectItem>
+                      <SelectItem key='inprogress-status' value='Data input in progress'>Data input in progress</SelectItem>
                     </SelectGroup>
                   </SelectContent>
                 </Select>

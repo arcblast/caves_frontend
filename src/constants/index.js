@@ -14,7 +14,7 @@ export const sample_type = [
 	{
 		name: 'Bat Gut',
 		value: 'GUT',
-		code: 'BAT_GUT'	
+		code: 'GUT'	
 	},
 	{
 		name: 'Bat Rinse',
