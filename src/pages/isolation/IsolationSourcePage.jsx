@@ -7,10 +7,9 @@ import { useQuery } from '@tanstack/react-query'
 import { useEffect, useMemo, useState } from 'react'
 import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible'
 import LoadingSkeleton from '@/components/LoadingSkeleton'
-import IsolationFilterSidebar from './IsolationFilterSidebar'
 import strainService from '@/features/strain/strainService'
 import IsolationNavigation from './IsolationNavigation'
-import { useBlocker } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 function getStrains() {
   const { toast } = useToast()
@@ -33,6 +32,7 @@ function getStrains() {
   }
 
   if( pending || fetching || isLoading ) {
+    console.log('Pending')
     return <LoadingSkeleton />
   }
 
@@ -41,16 +41,30 @@ function getStrains() {
       variant: "destructive",
       title: "Uh oh! Something went wrong.",
     })
-
-    // return []
   }
 
   return data
 }
 
 const IsolationSourcePage = () => {
-  const strains = getStrains() ?? []
+  const { user } = useSelector( (state) => state.auth )
+  
+  const strains = getStrains()
   const data = useMemo( () => strains ?? [], [strains])
+  const [ filteredData, setFilteredData ] = useState(data)
+
+  useEffect(() => {
+    try {
+      user?.user_level === 'ADMIN' ? setFilteredData(strains) : setFilteredData(strains?.filter(item => item.hide === false))
+    } catch (error) {
+      setFilteredData([])
+    }
+  }, [strains])
+  
+
+  
+  // console.log(filteredData)
+  // console.log(strains)
 
   const [openTable, setOpenTable] = useState(true)
   const toggleOpenTable = () => setOpenTable((cur) => !cur);
@@ -58,13 +72,12 @@ const IsolationSourcePage = () => {
   const [openMap, setOpenMap] = useState(false)
   const toggleOpenMap = () => setOpenMap((cur) => !cur);
 
-  const [openMetrics, setOpenMetrics] = useState(false)
-  const toggleOpenMetrics = () => setOpenMetrics((cur) => !cur);
+  // const [openMetrics, setOpenMetrics] = useState(false)
+  // const toggleOpenMetrics = () => setOpenMetrics((cur) => !cur);
 
   const [ filter, setFilter ] = useState([])
   const handleSetFilter = (f) => {
     setFilter([f])
-    console.log(f)
   }
 
   
@@ -73,7 +86,7 @@ const IsolationSourcePage = () => {
     <>
       <Header />
       
-      <div className='container relative'>
+      <div className='container'>
         <div className="rounded-[0.5rem] border bg-background/25 shadow mt-5">
           {/* <div className='grid lg:grid-cols-4'> */}
           {/* <div className='flex'> */}
@@ -83,14 +96,14 @@ const IsolationSourcePage = () => {
             
             <div className='col-span-3 lg:border-l flex flex-col space-y-1'>
              
-              <IsolationNavigation toggleOpenTable={toggleOpenTable} toggleOpenMap={toggleOpenMap} toggleOpenMetrics={toggleOpenMetrics} />
+              <IsolationNavigation toggleOpenTable={toggleOpenTable} toggleOpenMap={toggleOpenMap} />
 
               <Collapsible
                 open={openMap}
                 onOpenChange={setOpenMap}
               >
                 <CollapsibleContent>
-                  <IsolationMap data={data} handleSetFilter={handleSetFilter} />
+                  <IsolationMap data={strains} handleSetFilter={handleSetFilter} />
                 </CollapsibleContent>
               </Collapsible>
 
@@ -100,12 +113,12 @@ const IsolationSourcePage = () => {
               >
                 <CollapsibleContent>
                   <div className='mx-5'>
-                    <DataTable data={data} columns={isolation_columns} visible_columns={visible_isolation_columns} column_filter={filter} />
+                    <DataTable data={filteredData} columns={isolation_columns} visible_columns={visible_isolation_columns} column_filter={filter} />
                   </div>
                 </CollapsibleContent>
               </Collapsible>
              
-              <Collapsible
+              {/* <Collapsible
                 open={openMetrics}
                 onOpenChange={setOpenMetrics}
               >
@@ -113,7 +126,7 @@ const IsolationSourcePage = () => {
                   Hello
                   <div className='h-screen' />
                 </CollapsibleContent>
-              </Collapsible>
+              </Collapsible> */}
 
               {
                 (openTable || openMap || openMetrics) === false ?

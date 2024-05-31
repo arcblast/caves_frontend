@@ -7,7 +7,7 @@ import { CrossIcon, Filter, X } from 'lucide-react'
 
 const TableToolbar = ({table}) => {
   const [ open, setOpen ] = useState(false)
-  const filtered = table.getState().columnFilters.length > 0
+  const filtered = table?.getState().columnFilters?.length > 0
 
   const [category2List, setCategory2List] = useState(category_2)
   const [category3List, setCategory3List] = useState(category_3)
@@ -25,7 +25,7 @@ const TableToolbar = ({table}) => {
   const handleSetC2 = (c2) => {
     setC2(c2.name)
     table.getColumn('miso_categories_string')?.setFilterValue(c2.name)
-    // setCategory2List(category_2.filter((item) => { return item.cat1_code === c2.cat1_code }))
+    setCategory3List(category_3.filter((item) => { return item.cat2_code === c2.cat2_code && item.cat1_code === c2.cat1_code }))
   }
 
   const handleSetC3 = (c3) => {

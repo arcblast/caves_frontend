@@ -110,7 +110,7 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
             name="custom_code"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Isolation Custom ID</FormLabel>
+                <FormLabel>Source Custom ID</FormLabel>
                 <FormControl>
                   <Input placeholder="" {...field} />
                 </FormControl>

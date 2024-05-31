@@ -26,10 +26,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { ScrollArea, ScrollBar } from "./ui/scroll-area"
 import TableToolbar from "./table/TableToolbar"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
+import { useSelector } from "react-redux"
 
 export function DataTable({data, columns, visible_columns, column_filter}) {
 
@@ -61,10 +62,10 @@ export function DataTable({data, columns, visible_columns, column_filter}) {
     }
   })
 
-  // useEffect(() => {
-  //   setColumnFilters(column_filter)
+  useEffect(() => {
+    setColumnFilters(column_filter)
   
-  // }, [columnFilters, column_filter])
+  }, [column_filter])
   
  
   return (

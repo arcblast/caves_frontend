@@ -4,13 +4,15 @@ import 'leaflet/dist/leaflet.css'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
 import 'leaflet.markercluster/dist/MarkerCluster.css'
 import { divIcon, point } from "leaflet"
+import { useSelector } from "react-redux"
 
 // function printChild (cluster) {
 
 // }
 
 export default function StrainsMapLayer({strains}) {
-	console.log(strains)
+	// console.log(strains)
+	const { user } = useSelector( (state) => state.auth )
 
   const createClusterCustomIcon = (cluster) => {
 
@@ -39,9 +41,17 @@ export default function StrainsMapLayer({strains}) {
 						radius={1.5}
 						pathOptions={{ color: 'yellow', fillColor: 'yellow' }}
 					>
-						<Popup>
-							{strain?.strain_name}
-						</Popup>
+						{
+							user?.user_level === 'ADMIN' ?
+							(
+								<Popup className="font-inter italic">
+									{strain?.strain_name}
+								</Popup>
+							) : (
+								null
+							)
+						}
+						
 					</CircleMarker>
 				))
 			}

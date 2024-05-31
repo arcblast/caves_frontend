@@ -22,6 +22,7 @@ export const strain_columns = [
         }
         onCheckedChange={value => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
+        className='-ml-1'
       />
     ),
     cell: ({ row }) => (
@@ -41,6 +42,7 @@ export const strain_columns = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           Status
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -63,12 +65,32 @@ export const strain_columns = [
     },
   },
   {
+    accessorKey: "hide",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
+        >
+          Privacy
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    meta: {
+      name: 'Privacy',
+    },
+    cell: ({ row }) => <div className="">{row.getValue("hide").toString()}</div>,
+  },
+  {
     accessorKey: "full_accession_code",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           Full Accession Code
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -87,6 +109,7 @@ export const strain_columns = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           Accession ID
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -105,6 +128,7 @@ export const strain_columns = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           Custom ID
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -123,6 +147,7 @@ export const strain_columns = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           Isolate ID
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -141,6 +166,7 @@ export const strain_columns = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           Collection
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -159,6 +185,7 @@ export const strain_columns = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           Institution
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -177,6 +204,7 @@ export const strain_columns = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           Institution
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -195,6 +223,7 @@ export const strain_columns = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           Strain name
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -204,7 +233,7 @@ export const strain_columns = [
     meta: {
       name: 'Strain name',
     },
-    cell: ({ row }) => <div className="">{row.getValue("strain_name")}</div>,
+    cell: ({ row }) => <div className="italic">{row.getValue("strain_name")}</div>,
   },
   {
     accessorKey: "scientific_name",
@@ -213,6 +242,7 @@ export const strain_columns = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           Scientific name
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -231,6 +261,7 @@ export const strain_columns = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           Species
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -249,6 +280,7 @@ export const strain_columns = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           Type description
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -267,6 +299,7 @@ export const strain_columns = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           Sampling type
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -303,6 +336,7 @@ export const strain_columns = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           Host
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -313,10 +347,10 @@ export const strain_columns = [
       name: 'Host',
     },
     cell: ({ row }) =>
-    <div className="">
-      <span>{row.original.host_type}</span>
-      <span>{row.getValue("host_species")}</span>
-    </div>
+      <div className="flex flex-col">
+        <span className="capitalize">{row.original.host_type.toLowerCase()}</span>
+        <span className=" italic">{row.getValue("host_species")}</span>
+      </div>
   },
   {
     accessorKey: "sampling_site",
@@ -325,6 +359,7 @@ export const strain_columns = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           Sampling site
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -340,6 +375,7 @@ export const strain_columns = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           Sampling point
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -358,6 +394,7 @@ export const strain_columns = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           Sampling point
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -376,6 +413,7 @@ export const strain_columns = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           Municipality/City
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -394,6 +432,7 @@ export const strain_columns = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           Location
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -416,6 +455,7 @@ export const strain_columns = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           Storage information
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -434,6 +474,7 @@ export const strain_columns = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           Location information
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -452,6 +493,7 @@ export const strain_columns = [
         <Button
           variant="ghost"
           // onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
         >
           MISO Categories
         </Button>
@@ -538,7 +580,7 @@ export const visible_strain_columns = {
   scientific_name : false,
   species: false,
   type_description: false,
-  sample_type: true,
+  sample_type: false,
   host_type: false,
   host_species: false,
   sampling_site: true,

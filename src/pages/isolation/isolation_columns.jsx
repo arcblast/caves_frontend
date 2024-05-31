@@ -62,6 +62,25 @@ export const isolation_columns = [
     cell: ({ row }) => <div className="">{row.getValue("full_accession_code")}</div>,
   },
   {
+    accessorKey: "accession_number",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className='-ml-5'
+        >
+          Accession ID
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    meta: {
+      name: 'Accession ID',
+    },
+    cell: ({ row }) => <div className="">{row.getValue("accession_number")}</div>,
+  },
+  {
     accessorKey: "isolate_id",
     header: ({ column }) => {
       return (
@@ -97,7 +116,7 @@ export const isolation_columns = [
     meta: {
       name: 'Strain name',
     },
-    cell: ({ row }) => <div className="">{row.getValue("strain_name")}</div>,
+    cell: ({ row }) => <div className="italic">{row.getValue("strain_name")}</div>,
   },
   {
     accessorKey: "species",
@@ -226,7 +245,7 @@ export const isolation_columns = [
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           className='-ml-5'
         >
-          Sampling point
+          Sampling date
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
@@ -234,7 +253,7 @@ export const isolation_columns = [
     meta: {
       name: 'Sampling date',
     },
-    cell: ({ row }) => <div className=""></div>
+    cell: ({ row }) => <div className="">{row.getValue("sampling_date")}</div>
   },
   {
     accessorKey: "municity",
