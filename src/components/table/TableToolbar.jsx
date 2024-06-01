@@ -3,9 +3,11 @@ import TableFacetedFilter from './TableFacetedFilter'
 import { category_1, category_2, category_3 } from '@/constants/miso'
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '../ui/collapsible'
 import { Button } from '../ui/button'
-import { CrossIcon, Filter, X } from 'lucide-react'
+import { Filter, X } from 'lucide-react'
+import { getSamplingSiteData } from '@/pages/statistics/utils'
+import { caves } from '@/constants/caves'
 
-const TableToolbar = ({table}) => {
+const TableToolbar = ({table, data}) => {
   const [ open, setOpen ] = useState(false)
   const filtered = table?.getState().columnFilters?.length > 0
 
@@ -34,65 +36,87 @@ const TableToolbar = ({table}) => {
     // setCategory2List(category_2.filter((item) => { return item.cat1_code === c2.cat1_code }))
   }
 
+  const [ selectedCave, setSelectedCave ] = useState('')
+  const handleSetSelectedCave = (cave) => {
+    setSelectedCave(cave.name)
+    table.getColumn('sampling_site')?.setFilterValue(cave.name)
+  }
+
+  // const caves = getSamplingSiteData(data)
+
+  // console.log(caves)
+ 
   return (
     <>
       <div className='flex flex-row space-x-2 items-center'>
-      <Collapsible
-        open={open}
-        onOpenChange={setOpen}
-      >
-        <div className='flex flex-row space-x-2 items-center'>
-          <CollapsibleTrigger asChild>
-            <Button variant='outline' className='bg-background/50 pl-2'><Filter className='h-4 mr-1' /> MISO</Button>
-          </CollapsibleTrigger>
-          <CollapsibleContent>
-            <div className='flex flex-row space-x-2'>
-              { table.getColumn('miso_categories_string') &&
-                <TableFacetedFilter
-                  column={table.getColumn('miso_categories_string')}
-                  title='Category 1'
-                  options={category_1}
-                  selectedValue={selectedC1}
-                  setSelectedValue={handleSetC1}
-                />
-              }
-              { table.getColumn('miso_categories_string') &&
-                <TableFacetedFilter
-                  column={table.getColumn('miso_categories_string')}
-                  title='Category 2'
-                  options={category2List}
-                  selectedValue={selectedC2}
-                  setSelectedValue={handleSetC2}
-                />
-              }
-              { table.getColumn('miso_categories_string') &&
-                <TableFacetedFilter
-                  column={table.getColumn('miso_categories_string')}
-                  title='Category 3'
-                  options={category3List}
-                  selectedValue={selectedC3}
-                  setSelectedValue={handleSetC3}
-                />
-              }
-            </div>
-          </CollapsibleContent>
+        <div>
+          { table.getColumn('sampling_site') && 
+            <TableFacetedFilter
+              column={table.getColumn('sampling_site')}
+              title='Cave Sites'
+              options={caves}
+              selectedValue={selectedCave}
+              setSelectedValue={handleSetSelectedCave}
+            />
+          }
         </div>
-      </Collapsible>
-      {filtered && (
-        <Button
-          variant="ghost"
-          onClick={() => {
-            table.resetColumnFilters()
-            setC1('')
-            setC2('')
-            setC3('')
-          }}
-          className="h-8 px-2 lg:px-3"
+        <Collapsible
+          open={open}
+          onOpenChange={setOpen}
         >
-          Reset
-          <X className="ml-2 h-4 w-4" />
-        </Button>
-      )}
+          <div className='flex flex-row space-x-2 items-center'>
+            <CollapsibleTrigger asChild>
+              <Button variant='outline' className='bg-background/50 pl-2'><Filter className='h-4 mr-1' /> MISO</Button>
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <div className='flex flex-row space-x-2'>
+                { table.getColumn('miso_categories_string') &&
+                  <TableFacetedFilter
+                    column={table.getColumn('miso_categories_string')}
+                    title='Category 1'
+                    options={category_1}
+                    selectedValue={selectedC1}
+                    setSelectedValue={handleSetC1}
+                  />
+                }
+                { table.getColumn('miso_categories_string') &&
+                  <TableFacetedFilter
+                    column={table.getColumn('miso_categories_string')}
+                    title='Category 2'
+                    options={category2List}
+                    selectedValue={selectedC2}
+                    setSelectedValue={handleSetC2}
+                  />
+                }
+                { table.getColumn('miso_categories_string') &&
+                  <TableFacetedFilter
+                    column={table.getColumn('miso_categories_string')}
+                    title='Category 3'
+                    options={category3List}
+                    selectedValue={selectedC3}
+                    setSelectedValue={handleSetC3}
+                  />
+                }
+              </div>
+            </CollapsibleContent>
+          </div>
+        </Collapsible>
+        {filtered && (
+          <Button
+            variant="ghost"
+            onClick={() => {
+              table.resetColumnFilters()
+              setC1('')
+              setC2('')
+              setC3('')
+              setSelectedCave('')
+            }}
+            className="h-8 px-2 lg:px-3"
+          >
+            Reset
+            <X className="ml-2 h-4 w-4" />
+          </Button>
+        )}
       </div>
     </>
   )

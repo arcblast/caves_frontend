@@ -15,11 +15,6 @@ export const caves = [
 		'coordinates': [13.620724247390939, 121.29924055471592]
 	},
 	{
-		'name': 'Barracuda Cave',
-		'province': 'Batangas',
-		'coordinates': [14.272416980404188, 120.56123402699482]
-	},
-	{
 		'name': 'Kinabuhayan Cave',
 		'province': 'Quezon',
 		'coordinates': [14.0413604, 121.4477816]

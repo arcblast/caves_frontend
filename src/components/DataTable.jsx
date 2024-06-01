@@ -123,7 +123,7 @@ export function DataTable({data, columns, visible_columns, column_filter}) {
       </div>
 
       <div className="mb-4">
-        <TableToolbar table={table}/>
+        <TableToolbar table={table} />
       </div>
 
       <ScrollArea className=" w-auto">

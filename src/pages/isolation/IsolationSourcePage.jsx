@@ -33,7 +33,7 @@ function getStrains() {
   }
 
   if( pending || fetching || isLoading ) {
-    console.log('Pending')
+    // console.log('Pending')
     return <LoadingSkeleton />
   }
 
