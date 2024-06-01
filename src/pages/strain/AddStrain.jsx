@@ -41,14 +41,14 @@ const AddStrain = () => {
   }
 
   const defaultValue = { 
-		custom_code: '0',
+		custom_code: '4',
     isolate_id: '',
     collection_name: 'MCC',
     institution: 'UPLB MNH',
     project_name: 'NICER CAVES Project 4',
     project_code: 'NICER CAVES P4',
 
-    strain_name: 'Enterobacteriaceae', // commented; does not work if required field
+    strain_name: '', // commented; does not work if required field
     scientific_name: '',
 		domain: '',
 		phylum: '',
@@ -64,15 +64,15 @@ const AddStrain = () => {
     sample_type_code: '',
     host_type: 'BAT',
 		host_species: '',
-    sampling_site: 'Palale Cave',
-		sampling_point: '1',
-    sampling_site_abbr: 'PC',
+    sampling_site: 'Cavinti Underground River and Caves Complex',
+		sampling_point: '0',
+    sampling_site_abbr: 'CURCC',
 		sampling_date: new Date().toISOString().substring(0, 10),
-    municity: 'Tayabas',
-    province: 'Quezon',
-    location_abbr: 'TQ',
-		location_latitude: 14.03151,
-		location_longitude: 121.68561,
+    municity: 'Cavinti',
+    province: 'Laguna',
+    location_abbr: 'CL',
+		location_latitude: 14.2631119,
+		location_longitude: 14.2631119,
     storage_information: '',
 		location_information: '',
 

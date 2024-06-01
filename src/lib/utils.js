@@ -7,9 +7,9 @@ export function cn(...inputs) {
 
 // used in Isolation Map Layer
 export function getColor(c) {
-	return	c	> 10	?	'#006837' :
-				 	c > 5 	? '#31a354' :
-				 	c > 3 	? '#78c679' :
-				 	c > 1		? '#c2e699' :
+	return	c	> 90	?	'#006837' :
+				 	c > 60 	? '#31a354' :
+				 	c > 30 	? '#78c679' :
+				 	c > 10	? '#c2e699' :
 										'#ffffcc'	;
 }

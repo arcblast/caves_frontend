@@ -7,6 +7,7 @@ import MunicitiesMapLayer from './map/MunicitiesMapLayer';
 import ProvinceMapLayer from './map/ProvinceMapLayer';
 import StrainsMapLayer from './map/StrainsMapLayer';
 import { useState } from 'react';
+import CavePositionLayer from './map/CavePositionLayer';
 
 const IsolationMap = ({data, handleSetFilter}) => {
 
@@ -62,6 +63,11 @@ const IsolationMap = ({data, handleSetFilter}) => {
 							<LayersControl.Overlay checked name='Strains'>
 								<LayerGroup>
 									<StrainsMapLayer strains={data} />
+								</LayerGroup>
+							</LayersControl.Overlay>
+							<LayersControl.Overlay name='Cave Positions'>
+								<LayerGroup>
+									<CavePositionLayer />
 								</LayerGroup>
 							</LayersControl.Overlay>
 						</LayersControl>
