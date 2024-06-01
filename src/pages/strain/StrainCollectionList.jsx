@@ -57,7 +57,7 @@ const StrainCollectionList = () => {
         </Link>
       </div>
 
-      <DataTable data={data} columns={strain_columns} visible_columns={visible_strain_columns} />
+      <DataTable data={data} columns={strain_columns} visible_columns={visible_strain_columns} column_filter={[]} />
     </>
   )
 }
