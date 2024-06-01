@@ -10,6 +10,7 @@ import LoadingSkeleton from '@/components/LoadingSkeleton'
 import strainService from '@/features/strain/strainService'
 import IsolationNavigation from './IsolationNavigation'
 import { useSelector } from 'react-redux'
+import Footer from '@/components/Footer'
 
 function getStrains() {
   const { toast } = useToast()
@@ -129,14 +130,16 @@ const IsolationSourcePage = () => {
               </Collapsible> */}
 
               {
-                (openTable || openMap || openMetrics) === false ?
-                (<div className='flex items-center justify-center text-muted-foreground'>No selected tab</div>)
+                (openTable || openMap ) === false ?
+                (<div className='flex items-center justify-center text-muted-foreground h-screen'>No selected tab</div>)
                 : null
               }
             </div>
           {/* </div> */}
         </div>
       </div>
+
+      <Footer />
     </>
   )
 }
