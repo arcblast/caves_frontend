@@ -7,7 +7,7 @@ import { Filter, X } from 'lucide-react'
 import { getSamplingSiteData } from '@/pages/statistics/utils'
 import { caves } from '@/constants/caves'
 
-const TableToolbar = ({table, data}) => {
+const TableToolbar = ({table}) => {
   const [ open, setOpen ] = useState(false)
   const filtered = table?.getState().columnFilters?.length > 0
 
@@ -41,10 +41,6 @@ const TableToolbar = ({table, data}) => {
     setSelectedCave(cave.name)
     table.getColumn('sampling_site')?.setFilterValue(cave.name)
   }
-
-  // const caves = getSamplingSiteData(data)
-
-  // console.log(caves)
  
   return (
     <>

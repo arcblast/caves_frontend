@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { caves } from "@/constants/caves"
 import { MapPinned, Network, Orbit, Users2 } from "lucide-react"
 
 const StatCards = ({data}) => {
@@ -42,7 +43,7 @@ const StatCards = ({data}) => {
           <MapPinned className="h-5 w-5" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">2</div>
+          <div className="text-2xl font-bold">{caves.length}</div>
           {/* <p className="text-xs text-muted-foreground">
             +20.1% from last month
           </p> */}

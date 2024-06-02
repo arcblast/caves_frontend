@@ -1,17 +1,33 @@
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import BarGraph from './BarGraph'
 import { getProvinceData, getSampleTypeData, getSamplingSiteData, getTypeDescriptionData, useGetDataQuery } from './utils'
 import StatCards from './StatCards'
+import { useSelector } from 'react-redux'
 
 const StatisticsPage = () => {
+  const { user } = useSelector( (state) => state.auth )
   const strains = useGetDataQuery()  
+  // const data = useMemo( () => strains ?? [], [strains])
+  const [ filteredData, setFilteredData ] = useState(strains.data)
 
-  const sampletypeData = getSampleTypeData(strains.data)
-  const typedescriptionData = getTypeDescriptionData(strains.data)
-  const samplingsiteData = getSamplingSiteData(strains.data)
-  const provinceData = getProvinceData(strains.data)
+  useEffect(() => {
+    try {
+      user?.user_level === 'ADMIN' ? setFilteredData(strains.data) : setFilteredData(strains.data?.filter(item => item.hide === false))
+    } catch (error) {
+      setFilteredData([])
+    }
+  }, [strains])
+
+  // const sampletypeData = getSampleTypeData(strains.data)
+  // const typedescriptionData = getTypeDescriptionData(strains.data)
+  // const samplingsiteData = getSamplingSiteData(strains.data)
+  // const provinceData = getProvinceData(strains.data)
+  const sampletypeData = getSampleTypeData(filteredData)
+  const typedescriptionData = getTypeDescriptionData(filteredData)
+  const samplingsiteData = getSamplingSiteData(filteredData)
+  const provinceData = getProvinceData(filteredData)
 
   return (
     <>
@@ -22,7 +38,7 @@ const StatisticsPage = () => {
         </div>
         <div className='grid grid-cols-2 gap-4'>
           <div className='col-span-full'>
-            <StatCards data={strains.data} />
+            <StatCards data={filteredData} />
           </div>
           <div className='col-span-1'>
             <BarGraph data={typedescriptionData} title={'Type Description'} />

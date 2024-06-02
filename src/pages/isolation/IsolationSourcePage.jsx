@@ -11,6 +11,7 @@ import strainService from '@/features/strain/strainService'
 import IsolationNavigation from './IsolationNavigation'
 import { useSelector } from 'react-redux'
 import Footer from '@/components/Footer'
+import { columns_guest } from './columns_guest'
 
 function getStrains() {
   const { toast } = useToast()
@@ -114,7 +115,11 @@ const IsolationSourcePage = () => {
               >
                 <CollapsibleContent>
                   <div className='mx-5'>
-                    <DataTable data={filteredData} columns={isolation_columns} visible_columns={visible_isolation_columns} column_filter={filter} />
+                    { user?.user_level === 'ADMIN' ?
+                      <DataTable data={filteredData} columns={isolation_columns} visible_columns={visible_isolation_columns} column_filter={filter} />
+                      :
+                      <DataTable data={filteredData} columns={columns_guest} visible_columns={visible_isolation_columns} column_filter={filter} />
+                    }
                   </div>
                 </CollapsibleContent>
               </Collapsible>
