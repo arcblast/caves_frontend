@@ -13,6 +13,12 @@ const Hero = () => {
       <div className='lg:h-screen lg:grid lg:grid-cols-3 w-3/4 items-center gap-x-5 sm:flex sm:flex-col-reverse'>
         <div className='lg:col-span-2 items-center sm:col-span-full'>
           <>
+          <a href='https://drive.google.com/file/d/1ghzpkuJ5sojYfkmFcwv9ApcI2GvcR5VT/view' target='_blank'>
+            <Button variant='outline' className='rounded-full bg-transparent font-poppins mt-2'>
+              Click here for User Guide
+              <ArrowRight className="ml-2 h-4" />
+            </Button>
+          </a>
           <img src={Logo} alt='CAVES' className='h-20 z-50'/>
           <h1 className="-mt-3 text-4xl font-bold font-poppins text-transparent bg-clip-text bg-gradient-to-r from-primary to-yellow-300 leading-normal">
             Microbial Culture Collection Information System
