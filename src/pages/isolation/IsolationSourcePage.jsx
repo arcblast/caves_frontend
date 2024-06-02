@@ -105,7 +105,7 @@ const IsolationSourcePage = () => {
                 onOpenChange={setOpenMap}
               >
                 <CollapsibleContent>
-                  <IsolationMap data={strains} handleSetFilter={handleSetFilter} />
+                  <IsolationMap data={filteredData} handleSetFilter={handleSetFilter} />
                 </CollapsibleContent>
               </Collapsible>
 
