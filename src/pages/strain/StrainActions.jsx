@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { MoreHorizontal } from 'lucide-react'
 import LoadingSkeleton from '@/components/LoadingSkeleton'
 import { useToast } from '@/components/ui/use-toast'
-import strainService from '@/features/strain/strainService'
+import strainService from '@/services/strain/strainService'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useSelector } from 'react-redux'
 

@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
-import authReducer from '../features/auth/authSlice'
-import strainReducer from '../features/strain/strainSlice'
+import authReducer from '../services/auth/authSlice'
+import strainReducer from '../services/strain/strainSlice'
 import { setupListeners } from '@reduxjs/toolkit/query/react'
 
 

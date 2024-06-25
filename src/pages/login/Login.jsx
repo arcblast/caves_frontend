@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { useToast } from '@/components/ui/use-toast'
 import { useDispatch, useSelector } from 'react-redux'
-import { login, reset } from '@/features/auth/authSlice'
+import { login, reset } from '@/services/auth/authSlice'
 import LoadingSkeleton from '@/components/LoadingSkeleton'
 
 const Login = () => {

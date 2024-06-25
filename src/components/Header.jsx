@@ -5,7 +5,7 @@ import { Button } from './ui/button';
 import { Separator } from './ui/separator';
 import { ArrowRight, MenuIcon, X } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '@/features/auth/authSlice';
+import { logout } from '@/services/auth/authSlice';
 import { useToast } from './ui/use-toast';
 import { navigation } from '@/constants';
 

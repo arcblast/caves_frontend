@@ -1,5 +1,5 @@
 import { useToast } from "@/components/ui/use-toast";
-import strainService from "@/features/strain/strainService";
+import strainService from "@/services/strain/strainService";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 export function useGetDataQuery() {

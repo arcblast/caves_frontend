@@ -6,7 +6,7 @@ import { useToast } from '@/components/ui/use-toast'
 import { useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import LoadingSkeleton from '@/components/LoadingSkeleton'
-import strainService from '@/features/strain/strainService'
+import strainService from '@/services/strain/strainService'
 import { useSelector } from 'react-redux'
 import { strain_columns, visible_strain_columns } from './strain_columns'
 

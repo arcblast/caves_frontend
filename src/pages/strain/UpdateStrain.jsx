@@ -4,7 +4,7 @@ import { ArrowLeftCircle } from "lucide-react"
 import { useNavigate, useParams } from "react-router-dom"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { useSelector } from "react-redux"
-import strainService from "@/features/strain/strainService"
+import strainService from "@/services/strain/strainService"
 import { useToast } from "@/components/ui/use-toast"
 import LoadingSkeleton from "@/components/LoadingSkeleton"
 import StrainForm from "./StrainForm"
