@@ -112,7 +112,7 @@ const StrainForm = ({ title, defaultValue, handleAction, misocategories }) => {
               <FormItem>
                 <FormLabel>Source Custom ID</FormLabel>
                 <FormControl>
-                  <Input placeholder="" {...field} />
+                  <Input placeholder="FULL-ACCESSION-CODE-[SOURCE_ID]-00X" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
