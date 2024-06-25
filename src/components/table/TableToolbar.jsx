@@ -4,7 +4,7 @@ import { category_1, category_2, category_3 } from '@/constants/miso'
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '../ui/collapsible'
 import { Button } from '../ui/button'
 import { Filter, X } from 'lucide-react'
-import { getSamplingSiteData } from '@/pages/statistics/utils'
+import { getSamplingSiteData } from '@/lib/statUtils'
 import { caves } from '@/constants/caves'
 
 const TableToolbar = ({table}) => {

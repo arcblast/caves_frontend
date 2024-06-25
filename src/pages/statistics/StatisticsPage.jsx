@@ -2,7 +2,7 @@ import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 import React, { useEffect, useState } from 'react'
 import BarGraph from './BarGraph'
-import { getProvinceData, getSampleTypeData, getSamplingSiteData, getTypeDescriptionData, useGetDataQuery } from './utils'
+import { getProvinceData, getSampleTypeData, getSamplingSiteData, getTypeDescriptionData, useGetDataQuery } from '../../lib/statUtils'
 import StatCards from './StatCards'
 import { useSelector } from 'react-redux'
 
