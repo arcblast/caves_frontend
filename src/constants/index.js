@@ -3,7 +3,7 @@ export const navigation = [
   // { id: 2, name: 'Taxonomy', href: '/', value: 'taxonomy' },
   { id: 3, name: 'Isolation source', href: '/isolation-source', value: 'isolation' },
   { id: 4, name: 'Statistics', href: '/statistics', value: 'statistics' },
-	{ id: 5, name: 'About', href: '/', value: 'about' }
+	// { id: 5, name: 'About', href: '/', value: 'about' }
 ];
 
 export const sample_type = [

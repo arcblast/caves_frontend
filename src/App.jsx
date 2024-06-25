@@ -9,7 +9,6 @@ import UpdateStrain from './pages/strain/UpdateStrain';
 import AddStrain from './pages/strain/AddStrain';
 import StrainCollectionList from './pages/strain/StrainCollectionList';
 import StatisticsPage from './pages/statistics/StatisticsPage';
-import SUS from './components/SUS';
 
 const router = createBrowserRouter([
   {
@@ -49,10 +48,6 @@ const router = createBrowserRouter([
   {
     path: '/statistics',
     element: <StatisticsPage />,
-  },
-  {
-    path: '/sus',
-    element: <SUS />,
   },
 ]);
 
