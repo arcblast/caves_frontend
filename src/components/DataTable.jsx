@@ -7,7 +7,16 @@ import {
   useReactTable,
 } from "@tanstack/react-table"
 import { ChevronDown } from "lucide-react"
-
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -39,8 +48,8 @@ export function DataTable({data, columns, visible_columns, column_filter}) {
   const [columnVisibility, setColumnVisibility] = useState(visible_columns)
   const [rowSelection, setRowSelection] = useState({})
   const [globalFilter, setGlobalFilter] = useState('')
-
-
+  const [dialogOpen,setDialogOpen] = useState(false)
+  const [selectedIsolate,setSelectedIsolate] =useState({}||null);
   const table = useReactTable({
     data,
     columns,
@@ -67,6 +76,15 @@ export function DataTable({data, columns, visible_columns, column_filter}) {
   
   }, [column_filter])
   
+  const HandleIsolateDialog = (value) => {
+    console.log(value.original)
+    // console.log("tyype", typeof(value.original))
+    setSelectedIsolate(value.original)
+    // console.log("id"+value)
+    console.log("Meow")
+    console.log(dialogOpen)
+    setDialogOpen(true);
+  }
  
   return (
     <>
@@ -153,7 +171,8 @@ export function DataTable({data, columns, visible_columns, column_filter}) {
                   <TableRow
                     key={row.id}
                     data-state={row.getIsSelected() && "selected"}
-                    className='hover:bg-white'
+                    className='hover:bg-white cursor-pointer bg-pink-100'
+                    onClick={()=>HandleIsolateDialog(row)}
                   >
                     {row.getVisibleCells().map(cell => (
                       <TableCell className='p-3' key={cell.id}>
@@ -230,6 +249,53 @@ export function DataTable({data, columns, visible_columns, column_filter}) {
         </div>
         </div>
       </div>
+      {dialogOpen && selectedIsolate && 
+        <>        
+       <div class="flex justify-center ">      
+       <Dialog open={dialogOpen}  onOpenChange={setDialogOpen} class=''>
+      {/* <DialogTrigger asChild>
+        <Button variant="outline">Edit Profile</Button>
+      </DialogTrigger> */}
+      <DialogContent className="sm:max-w-[425px] bg-green-100">
+        <DialogHeader>
+          <DialogTitle class="align-center">Detailed Information</DialogTitle>
+          <DialogDescription>
+            Click anywhere or the x button to return. Click save when you're done.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-4 py-4">
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="name" className="text-right">
+              Strain
+            </Label>
+            <Input
+              id="name"
+              defaultValue={selectedIsolate.strain_name}
+              className="col-span-3"
+            />
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="username" className="text-right">
+              Accession number
+            </Label>
+            <Input
+              id="username"
+              defaultValue={selectedIsolate.accession_number}
+              className="col-span-3"
+            />
+          </div>
+        </div>
+        <DialogFooter>
+          <Button type="submit" onClick={()=>setDialogOpen(false)}>Save changes</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+            </div> 
+            
+        </>
+      }   
+
+
     </>
   )
 }
