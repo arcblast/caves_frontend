@@ -1,14 +1,8 @@
 import { useEffect } from 'react';
 import L from 'leaflet';
-
+import { getColor } from '@/lib/utils';
 function Legend({ map }) {
-function getColor(d) {
-	return	d	> 90	?	'#006837' :
-				 	d > 60 	? '#31a354' :
-				 	d > 30 	? '#78c679' :
-				 	d > 10	? '#c2e699' :
-										'#ffffcc'	;
-}
+
 
     console.log(map);
     useEffect(() => {
@@ -29,7 +23,7 @@ function getColor(d) {
             var div = L.DomUtil.create('div', 'info legend'),
                 grades = [10,30,60,90],
                 labels = [];
-        
+                div.innerHTML += '<b>'+'Strain Count'+'</b><br>'
             // loop through our density intervals and generate a label with a colored square for each interval
             for (var i = 0; i < grades.length; i++) {
                 div.innerHTML +=

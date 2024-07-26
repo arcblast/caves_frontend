@@ -1,9 +1,16 @@
 import { provinces } from '@/constants/4AProvincesGeoJSON';
-import { Polygon } from 'react-leaflet';
+import { Polygon,Tooltip,useMapEvent } from 'react-leaflet';
+import {L} from 'leaflet';
 import { getColor } from '@/lib/utils';
 import { useState } from 'react';
+function ZoomComponent(){
+	const map = useMapEvent('click', (e) => {
+		map.fitBounds(e.target.getBounds());
+	})
+	return null
+  }
 
-export default function ProvinceMapLayer({strains, handleSetFilter, setSelectedLocation, setSelectedLocStrainCount}) {
+export default function ProvinceMapLayer({map1,strains, handleSetFilter, setSelectedLocation, setSelectedLocStrainCount}) {
   return (
 		<>
 		{
@@ -26,7 +33,9 @@ export default function ProvinceMapLayer({strains, handleSetFilter, setSelectedL
 						dashArray: 3,
 						color: 'white'
 					}}
+
 					positions={coordinates}
+					
 					eventHandlers={{
 						mouseover: (e) => {
 							const layer = e.target;
@@ -34,16 +43,12 @@ export default function ProvinceMapLayer({strains, handleSetFilter, setSelectedL
 								dashArray: '',
 								weight: 3,
 								opacity: 1,
-								color: 'black',
+								color: '#666',
 							})
-							console.log("province" + province.properties.ADM2_EN)
-							console.log("strain count" + strainCount)
-							// layer.BringToFront()
 							
-							setSelectedLocation(province.properties.ADM2_EN)
-							
-							setSelectedLocStrainCount(strainCount)
-					
+							// setSelectedLocation(province.properties.ADM2_EN)
+							// setSelectedLocStrainCount(strainCount)
+							layer.bringtoFront()
 					
 						},
 						mouseout: (e) => {
@@ -53,7 +58,7 @@ export default function ProvinceMapLayer({strains, handleSetFilter, setSelectedL
 								weight: 2,
 								dashArray: '3',
 								opacity: 0.4,
-								color: 'black',
+								color: '#666',
 							});
 						},
 						click: (e) => {
@@ -66,11 +71,21 @@ export default function ProvinceMapLayer({strains, handleSetFilter, setSelectedL
 							setSelectedLocation(province.properties.ADM2_EN)
 							
 							setSelectedLocStrainCount(strainCount)
+							// console.log("Max Zoom" +map1.getBoundsZoom(e.target.getBounds))
 							
+							const num = map1.getBoundsZoom(e.target.getBounds())				
+							map1.fitBounds(e.target.getBounds(),{maxZoom:10, padding:[5,5]});
+							console.log("ZOOM "+map1.getZoom(), "ZOOM NUM ",num)
+							// map1.setOptions({maxZoom:null})
+							// e.target.bringtoFront()
 						}
 					}}
 					key={province.properties.ADM2_EN}
-				/>)
+					
+				>
+					
+					<Tooltip  sticky direction='left'>{province.properties.ADM2_EN}</Tooltip>
+				</Polygon>)
 			})
 		}
 		</>

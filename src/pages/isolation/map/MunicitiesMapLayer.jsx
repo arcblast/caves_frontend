@@ -1,8 +1,8 @@
 import { municities } from '@/constants/4AMunicitiesGeoJSON';
-import { Polygon } from 'react-leaflet';
+import { Polygon,Tooltip} from 'react-leaflet';
 import { getColor } from '@/lib/utils';
 
-export default function MunicitiesMapLayer({strains, handleSetFilter, setSelectedLocation, setSelectedLocStrainCount}) {
+export default function MunicitiesMapLayer({map1,strains, handleSetFilter, setSelectedLocation, setSelectedLocStrainCount}) {
   return (
 		<>
 		{
@@ -32,12 +32,13 @@ export default function MunicitiesMapLayer({strains, handleSetFilter, setSelecte
 							const layer = e.target;
 							layer.setStyle({
 								dashArray: '',
-								weight: 2,
+								weight: 5,
 								opacity: 1,
-								color: 'black',
+								color: '#666',
 							})
-							setSelectedLocation(muncity.properties.ADM3_EN)
-							setSelectedLocStrainCount(strainCount)
+							// setSelectedLocation(muncity.properties.ADM3_EN)
+							// setSelectedLocStrainCount(strainCount)
+
 						},
 						mouseout: (e) => {
 							const layer = e.target;
@@ -52,10 +53,22 @@ export default function MunicitiesMapLayer({strains, handleSetFilter, setSelecte
 								id: 'municity',
 								value: muncity.properties.ADM3_EN.toLowerCase()
 							})
+							// const num = map1.getBoundsZoom(e.target.getBounds())				
+							// map1.fitBounds(e.target.getBounds(),{maxZoom:num, padding:[10,10]});
+
+							setSelectedLocation(muncity.properties.ADM3_EN)
+							setSelectedLocStrainCount(strainCount)
+
+
+							const num = map1.getBoundsZoom(e.target.getBounds())-1.5				
+							map1.fitBounds(e.target.getBounds(),{maxZoom:num, padding:[7,7]});
+							console.log("ZOOM "+map1.getZoom(), "ZOOM NUM ",num)
 						}
 					}}
 					key={muncity.properties.ADM2_EN + muncity.properties.ADM3_EN}
-				/>)
+				>
+					<Tooltip  sticky direction='left'>{muncity.properties.ADM3_EN}</Tooltip>
+					</Polygon>)
 			})
 		}
 		</>

@@ -18,6 +18,12 @@ import {
 } from "@/components/ui/dialog"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
+import React from 'react';
+import classNames from 'classnames';
+import * as Accordion from '@radix-ui/react-accordion';
+
+
+// import { AccordionDemo } from "@/components/ui/accordion"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -27,6 +33,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
+// import * as Accordion from '@radix-ui/react-accordion';
 import {
   Table,
   TableBody,
@@ -41,7 +48,9 @@ import TableToolbar from "./table/TableToolbar"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
 import { useSelector } from "react-redux"
 
-export function DataTable({data, columns, visible_columns, column_filter}) {
+
+
+export function DataTable({data, columns, visible_columns, column_filter,user_level}) {
 
   const [sorting, setSorting] = useState([])
   const [columnFilters, setColumnFilters] = useState([])
@@ -77,15 +86,60 @@ export function DataTable({data, columns, visible_columns, column_filter}) {
   }, [column_filter])
   
   const HandleIsolateDialog = (value) => {
-    console.log(value.original)
-    // console.log("tyype", typeof(value.original))
-    setSelectedIsolate(value.original)
-    // console.log("id"+value)
-    console.log("Meow")
-    console.log(dialogOpen)
-    setDialogOpen(true);
+   
+    if(user_level!='ADMIN'){
+      setSelectedIsolate(value.original)
+    
+      setDialogOpen(true);
+      // console.log("USER LEVEL ",user_level)
+      console.log("Isolate ",value.original)
+    }
+
   }
  
+const AccordionItem = React.forwardRef(({ children, className, ...props }, forwardedRef) => (
+  <Accordion.Item
+    className={classNames(
+      'focus-within:shadow-mauve12 mt-px overflow-hidden first:mt-0 first:rounded-t last:rounded-b focus-within:relative focus-within:z-10 focus-within:shadow-[0_0_0_0px]',
+      className
+    )}
+    {...props}
+    ref={forwardedRef}
+  >
+    {children}
+  </Accordion.Item>
+));
+
+const AccordionTrigger = React.forwardRef(({ children, className, ...props }, forwardedRef) => (
+  <Accordion.Header className="flex">
+    <Accordion.Trigger
+      className={classNames(
+        'text-violet11 shadow-mauve6  hover:bg-gray-100 group flex h-[45px] flex-1 cursor-default items-center justify-between bg-white px-5 text-[15px] leading-none shadow-[0_1px_0] outline-none',
+        className
+      )}
+      {...props}
+      ref={forwardedRef}
+    >
+      {children}
+      <ChevronDown className="ml-2 h-4 w-4" />
+    </Accordion.Trigger>
+  </Accordion.Header>
+));
+
+const AccordionContent = React.forwardRef(({ children, className, ...props }, forwardedRef) => (
+  <Accordion.Content
+    className={classNames(
+      'text-mauve11 bg-mauve2 data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp overflow-hidden text-[15px]',
+      className
+    )}
+    {...props}
+    ref={forwardedRef}
+  >
+    <div className="py-[15px] px-5">{children}</div>
+  </Accordion.Content>
+));
+
+
   return (
     <>
       <div>
@@ -171,7 +225,7 @@ export function DataTable({data, columns, visible_columns, column_filter}) {
                   <TableRow
                     key={row.id}
                     data-state={row.getIsSelected() && "selected"}
-                    className='hover:bg-white cursor-pointer bg-pink-100'
+                    className='hover:bg-white cursor-pointer'
                     onClick={()=>HandleIsolateDialog(row)}
                   >
                     {row.getVisibleCells().map(cell => (
@@ -249,44 +303,353 @@ export function DataTable({data, columns, visible_columns, column_filter}) {
         </div>
         </div>
       </div>
+       {/* POPUP WINDOW START */}
       {dialogOpen && selectedIsolate && 
         <>        
-       <div class="flex justify-center ">      
+       <div class="flex justify-center overflow-scroll ">      
        <Dialog open={dialogOpen}  onOpenChange={setDialogOpen} class=''>
       {/* <DialogTrigger asChild>
         <Button variant="outline">Edit Profile</Button>
       </DialogTrigger> */}
-      <DialogContent className="sm:max-w-[425px] bg-green-100">
+      <DialogContent className="sm:max-w-[425px] overflow-y-scroll md:h-4/6  scrollbar-width: none;">
         <DialogHeader>
           <DialogTitle class="align-center">Detailed Information</DialogTitle>
           <DialogDescription>
-            Click anywhere or the x button to return. Click save when you're done.
+            
           </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              Strain
+
+        <div className="grid ">
+          
+        {selectedIsolate.status == "Data input in progress" &&
+        <div className="flex justify-left items-center mb-2">
+          
+          <p className='font-medium text-green-1000'>Status: </p>
+          <h4 className="col-span-2  text-green-400 font-semibold"> &nbsp; Data input in progress</h4>
+        </div>
+          
+        }
+
+          <div className="grid grid-cols-4   items-center gap-x-4 gap-y-1">
+
+
+       
+           {/* ACCORDION*/}
+        <Accordion.Root
+          className=" w-full rounded-sm col-span-4"
+          type="multiple"
+          defaultValue={["item-1","item-2","item-3","item-4","item-5"]}
+          collapsible
+        >
+          <AccordionItem value="item-1">
+            <AccordionTrigger>
+              <h3 className="col-span-4 text-left text-green-950 font-semibold">Taxonomic Information</h3>
+            </AccordionTrigger>
+            <AccordionContent className>
+            <div className="w-full col-span-4 display:inline-block">
+              <div>
+              <p className='col-span-1 text-left'>Accession Number</p>
+                </div>
+              <Input
+                id="name"
+                disabled
+                defaultValue={selectedIsolate.accession_number}
+                className="col-span-3"
+              />
+            </div>
+              <Label htmlFor="name" className="col-span-1 text-right">
+                Scientific Name
+              </Label>
+              <Input
+                id="name"
+                disabled
+                defaultValue={selectedIsolate.scientific_name}
+                className="col-span-3"
+              />
+              <Label htmlFor="name" className="col-span-1 text-right">
+                Species
+              </Label>
+              <Input
+                id="name"
+                disabled
+                defaultValue={selectedIsolate.species}
+                className="col-span-3"
+                />
+              <Label htmlFor="name" className="col-span-1 text-right">
+                Domain
+              </Label>
+              <Input
+                id="name"
+                disabled
+                defaultValue={selectedIsolate.domain}
+                className="col-span-3"
+                />
+                       <Label htmlFor="name" className="col-span-1 text-right">
+                Phylum
+              </Label>
+              <Input
+                id="name"
+                disabled
+                defaultValue={selectedIsolate.phylum}
+                className="col-span-3"
+                />
+                           <Label htmlFor="name" className="col-span-1 text-right">
+                Class
+              </Label>
+              <Input
+                id="name"
+                disabled
+                defaultValue={selectedIsolate.class}
+                className="col-span-3"
+                />
+              <Label htmlFor="name" className="col-span-1 text-right">
+                Order
+              </Label>
+              <Input
+                id="name"
+                disabled
+                defaultValue={selectedIsolate.order}
+                className="col-span-3"
+              />
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="item-2">
+            <AccordionTrigger>
+
+            <h3 className="col-span-4 text-left text-green-950 font-semibold">Source</h3>
+            </AccordionTrigger>
+            <AccordionContent>
+      
+            <Label htmlFor="name" className="col-span-1 text-right">
+              Sampling Site
             </Label>
             <Input
               id="name"
-              defaultValue={selectedIsolate.strain_name}
+              disabled
+              defaultValue={selectedIsolate.sampling_site+' , '+selectedIsolate.municity+' , '+selectedIsolate.province}
               className="col-span-3"
-            />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
-              Accession number
+              />
+            <Label htmlFor="name" className="col-span-1 text-right ">
+              Sample Type
             </Label>
             <Input
-              id="username"
-              defaultValue={selectedIsolate.accession_number}
+              id="name"
+              disabled
+              defaultValue={selectedIsolate.sample_type}
               className="col-span-3"
-            />
+              />
+            <Label htmlFor="name" className="col-span-1 text-right">
+              Type
+            </Label>
+            <Input
+              id="name"
+              disabled
+              defaultValue={selectedIsolate.type_description}
+              className="col-span-3"
+              />
+
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="item-3">
+            <AccordionTrigger>
+            <h3 className="col-span-4 text-left text-green-950 font-semibold">Morphology</h3>
+            </AccordionTrigger>
+            <AccordionContent>
+            <Label htmlFor="name" className="col-span-1 text-right">
+              Cell Shape
+            </Label>
+              <Input
+                id="name"
+                disabled
+                defaultValue={selectedIsolate.cell_shape}
+                className="col-span-3"
+                />
+                        <Label htmlFor="name" className="col-span-1 text-right">
+                Gram Stain
+              </Label>
+              <Input
+                id="name"
+                disabled
+                defaultValue={selectedIsolate.cell_shape}
+                className="col-span-3"
+                />
+              <Label htmlFor="name" className="col-span-1 text-right">
+                Motility
+              </Label>
+              <Input
+                id="name"
+                disabled
+                defaultValue={selectedIsolate.cell_shape}
+                className="col-span-3"
+                />
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-4">
+            <AccordionTrigger>
+            <h3 className="col-span-4 text-left text-green-950 font-semibold">Physiology and Metabolism</h3>
+            </AccordionTrigger>
+            <AccordionContent>
+              <Label htmlFor="name" className="col-span-1 text-right">
+                Antibiotic Resistance Profile
+              </Label>
+              <Input
+                id="name"
+                disabled
+                defaultValue={''}
+                className="col-span-3"
+                />
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-5">
+            <AccordionTrigger>
+            <h3 className="col-span-4 text-left text-green-950 font-semibold">Safety Information</h3>
+            </AccordionTrigger>
+            <AccordionContent>
+              <Label htmlFor="name" className="col-span-1 text-right">
+                Pathogenicity (Human)
+              </Label>
+              <Input
+                id="name"
+                disabled
+                defaultValue={''}
+                className="col-span-3"
+                />
+              
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion.Root>
+
+     {/*Accordion END */}
+       
+
+            {/* <div className='col-span-4'>
+              <h3 className="col-span-4 text-left text-green-950 font-semibold">Taxonomic Information</h3>
+  
+
+              <Label htmlFor="name" className="col-span-1 text-left">
+                Strain Name
+              </Label>
+              <Input
+                id="name"
+                disabled
+                defaultValue={selectedIsolate.strain_name}
+                className="col-span-"
+              />
+
+       
+              </div> */}
+              
           </div>
+           {/* <Label htmlFor="name" className="col-span-1 text-right">
+                Scientific Name
+              </Label>
+              <Input
+                id="name"
+                disabled
+                defaultValue={selectedIsolate.scientific_name}
+                className="col-span-3"
+              />
+              <Label htmlFor="name" className="col-span-1 text-right">
+                Species
+              </Label>
+              <Input
+                id="name"
+                disabled
+                defaultValue={selectedIsolate.scientific_name}
+                className="col-span-3"
+                /> */}
+          <div className="grid grid-cols-4 items-center gap-x-4 gap-y-1">
+            {/* <h3 className="col-span-4 text-left text-green-950 font-semibold pt-2">Sample Source</h3>
+            <Label htmlFor="name" className="col-span-1 text-right">
+              Sampling Site
+            </Label>
+            <Input
+              id="name"
+              disabled
+              defaultValue={selectedIsolate.sampling_site+' , '+selectedIsolate.municity+' , '+selectedIsolate.province}
+              className="col-span-3"
+              />
+            <Label htmlFor="name" className="col-span-1 text-right ">
+              Sample Type
+            </Label>
+            <Input
+              id="name"
+              disabled
+              defaultValue={selectedIsolate.sample_type}
+              className="col-span-3"
+              />
+            <Label htmlFor="name" className="col-span-1 text-right">
+              Type
+            </Label>
+            <Input
+              id="name"
+              disabled
+              defaultValue={selectedIsolate.type_description}
+              className="col-span-3"
+              />
+    
+          </div>
+          <div className="grid grid-cols-4 items-center gap-2">
+            <h3 className="col-span-4 text-left text-green-950 font-semibold pt-2">Morphology</h3>
+            <Label htmlFor="name" className="col-span-1 text-right">
+              Cell Shape
+            </Label>
+            <Input
+              id="name"
+              disabled
+              defaultValue={selectedIsolate.cell_shape}
+              className="col-span-3"
+              />
+                       <Label htmlFor="name" className="col-span-1 text-right">
+              Gram Stain
+            </Label>
+            <Input
+              id="name"
+              disabled
+              defaultValue={selectedIsolate.cell_shape}
+              className="col-span-3"
+              />
+            <Label htmlFor="name" className="col-span-1 text-right">
+              Motility
+            </Label>
+            <Input
+              id="name"
+              disabled
+              defaultValue={selectedIsolate.cell_shape}
+              className="col-span-3"
+              />
+          </div>     
+          <div className="grid grid-cols-4 items-center gap-2">
+            <h3 className="col-span-4 text-left text-green-950 font-semibold pt-2">Physiology and Metabolism</h3>
+            <Label htmlFor="name" className="col-span-1 text-right">
+              Antibiotic Resistance Profile
+            </Label>
+            <Input
+              id="name"
+              disabled
+              defaultValue={''}
+              className="col-span-3"
+              />
+    
+          </div>   
+          <div className="grid grid-cols-4 items-center gap-2">
+            <h3 className="col-span-4 text-left text-green-950 font-semibold pt-2">Safety Information</h3>
+            <Label htmlFor="name" className="col-span-1 text-right">
+              Pathogenicity (Human)
+            </Label>
+            <Input
+              id="name"
+              disabled
+              defaultValue={''}
+              className="col-span-3"
+              /> */}
+              
+          </div>   
         </div>
         <DialogFooter>
-          <Button type="submit" onClick={()=>setDialogOpen(false)}>Save changes</Button>
+          <Button className="bg-green-800"  type="submit" onClick={()=>setDialogOpen(false)}>Return to table</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -294,7 +657,6 @@ export function DataTable({data, columns, visible_columns, column_filter}) {
             
         </>
       }   
-
 
     </>
   )

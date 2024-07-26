@@ -89,7 +89,7 @@ const IsolationSourcePage = () => {
       <Header />
       
       <div className='container'>
-        <div className="rounded-[0.5rem] border bg-background/25 shadow mt-5">
+        <div className="rounded-[0.5rem] border bg-background-25 shadow mt-5">
           {/* <div className='grid lg:grid-cols-4'> */}
           {/* <div className='flex'> */}
             {/* <div className=' col-span-1 hidden'>
@@ -116,9 +116,9 @@ const IsolationSourcePage = () => {
                 <CollapsibleContent>
                   <div className='mx-5'>
                     { user?.user_level === 'ADMIN' ?
-                      <DataTable data={filteredData} columns={isolation_columns} visible_columns={visible_isolation_columns} column_filter={filter} />
+                      <DataTable userlevel={user?.user_level} data={filteredData} columns={isolation_columns} visible_columns={visible_isolation_columns} column_filter={filter} />
                       :
-                      <DataTable data={filteredData} columns={columns_guest} visible_columns={visible_isolation_columns} column_filter={filter} />
+                      <DataTable userlevel={user?.user_level} data={filteredData} columns={columns_guest} visible_columns={visible_isolation_columns} column_filter={filter} />
                     }
                   </div>
                 </CollapsibleContent>

@@ -31,6 +31,7 @@ export default function StrainsMapLayer({strains}) {
 				iconCreateFunction={createClusterCustomIcon}
 				className='text-semibold'
         onDblClick={() => console.log('Hello')}
+		
 			>
 			{
 				// strains?.strains.map( (strain) => (
