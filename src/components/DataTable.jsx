@@ -366,6 +366,7 @@ const AccordionContent = React.forwardRef(({ children, className, ...props }, fo
                 defaultValue={selectedIsolate.scientific_name}
                 className="col-span-3"
               />
+
               <Label htmlFor="name" className="col-span-1 text-right">
                 Species
               </Label>
@@ -375,6 +376,25 @@ const AccordionContent = React.forwardRef(({ children, className, ...props }, fo
                 defaultValue={selectedIsolate.species}
                 className="col-span-3"
                 />
+              <Label htmlFor="name" className="col-span-1 text-right">
+                Host Type
+              </Label>
+              <Input
+                id="name"
+                disabled
+                defaultValue={selectedIsolate.host_type}
+                className="col-span-3"
+              />
+              <Label htmlFor="name" className="col-span-1 text-right">
+                Host Species
+              </Label>
+              <Input
+                id="name"
+                disabled
+                defaultValue={selectedIsolate.host_species
+                }
+                className="col-span-3"
+              />
               <Label htmlFor="name" className="col-span-1 text-right">
                 Domain
               </Label>
@@ -406,11 +426,24 @@ const AccordionContent = React.forwardRef(({ children, className, ...props }, fo
                 Order
               </Label>
               <Input
-                id="name"
-                disabled
-                defaultValue={selectedIsolate.order}
+                id="name" disabled defaultValue={selectedIsolate.order}
                 className="col-span-3"
               />
+              <Label htmlFor="Family" className="col-span-1 text-right">
+                Family
+              </Label>
+              <Input
+                id="name" disabled defaultValue={selectedIsolate.family}
+                className="col-span-3"
+              />
+              <Label htmlFor="name" className="col-span-1 text-right">
+                Genus
+              </Label>
+              <Input
+                id="name" disabled defaultValue={selectedIsolate.genus}
+                className="col-span-3"
+              />
+              
             </AccordionContent>
           </AccordionItem>
 
@@ -498,6 +531,24 @@ const AccordionContent = React.forwardRef(({ children, className, ...props }, fo
                 id="name"
                 disabled
                 defaultValue={''}
+                className="col-span-3"
+                />
+                <Label htmlFor="name" className="col-span-1 text-right">
+                Oxygen Tolerance
+              </Label>
+              <Input
+                id="name"
+                disabled
+                defaultValue={selectedIsolate.oxygen_tolerance}
+                className="col-span-3"
+                />
+                       <Label htmlFor="name" className="col-span-1 text-right">
+                Endospore-forming Capability
+              </Label>
+              <Input
+                id="name"
+                disabled
+                defaultValue={'Non-endospore-forming'}
                 className="col-span-3"
                 />
             </AccordionContent>
