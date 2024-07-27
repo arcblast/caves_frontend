@@ -505,7 +505,7 @@ const AccordionContent = React.forwardRef(({ children, className, ...props }, fo
               <Input
                 id="name"
                 disabled
-                defaultValue={selectedIsolate.cell_shape}
+                defaultValue={selectedIsolate.gram_stain}
                 className="col-span-3"
                 />
               <Label htmlFor="name" className="col-span-1 text-right">
@@ -514,7 +514,7 @@ const AccordionContent = React.forwardRef(({ children, className, ...props }, fo
               <Input
                 id="name"
                 disabled
-                defaultValue={selectedIsolate.cell_shape}
+                defaultValue={selectedIsolate.motility}
                 className="col-span-3"
                 />
             </AccordionContent>
@@ -530,7 +530,7 @@ const AccordionContent = React.forwardRef(({ children, className, ...props }, fo
               <Input
                 id="name"
                 disabled
-                defaultValue={''}
+                defaultValue={selectedIsolate.antibiotic_resistance_profile}
                 className="col-span-3"
                 />
                 <Label htmlFor="name" className="col-span-1 text-right">
@@ -548,7 +548,7 @@ const AccordionContent = React.forwardRef(({ children, className, ...props }, fo
               <Input
                 id="name"
                 disabled
-                defaultValue={'Non-endospore-forming'}
+                defaultValue={selectedIsolate.endospore_forming_capability}
                 className="col-span-3"
                 />
                 <Label htmlFor="name" className="col-span-1 text-right">
