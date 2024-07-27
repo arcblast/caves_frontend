@@ -325,7 +325,7 @@ const AccordionContent = React.forwardRef(({ children, className, ...props }, fo
         <div className="flex justify-left items-center mb-2">
           
           <p className='font-medium text-green-1000'>Status: </p>
-          <h4 className="col-span-2  text-green-400 font-semibold"> &nbsp; Data input in progress</h4>
+          <h4 className="col-span-2  text-green-500 font-semibold"> &nbsp; Data input in progress</h4>
         </div>
           
         }
@@ -401,7 +401,7 @@ const AccordionContent = React.forwardRef(({ children, className, ...props }, fo
               <Input
                 id="name"
                 disabled
-                defaultValue={selectedIsolate.domain}
+                defaultValue={selectedIsolate.type_description}
                 className="col-span-3"
                 />
                        <Label htmlFor="name" className="col-span-1 text-right">
@@ -542,7 +542,7 @@ const AccordionContent = React.forwardRef(({ children, className, ...props }, fo
                 defaultValue={selectedIsolate.oxygen_tolerance}
                 className="col-span-3"
                 />
-                       <Label htmlFor="name" className="col-span-1 text-right">
+              <Label htmlFor="name" className="col-span-1 text-right">
                 Endospore-forming Capability
               </Label>
               <Input
@@ -551,6 +551,15 @@ const AccordionContent = React.forwardRef(({ children, className, ...props }, fo
                 defaultValue={'Non-endospore-forming'}
                 className="col-span-3"
                 />
+                <Label htmlFor="name" className="col-span-1 text-right">
+                Presence of Cytochrome c Oxidase
+              </Label>
+              <Input
+                id="name"
+                disabled
+                defaultValue={'Oxidase Negative'}
+                className="col-span-3"
+              />
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-5">
