@@ -505,7 +505,7 @@ const AccordionContent = React.forwardRef(({ children, className, ...props }, fo
               <Input
                 id="name"
                 disabled
-                defaultValue={selectedIsolate.cell_shape}
+                defaultValue={selectedIsolate.gram_stain}
                 className="col-span-3"
                 />
               <Label htmlFor="name" className="col-span-1 text-right">
